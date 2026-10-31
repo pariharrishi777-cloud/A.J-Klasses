@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Faculty &amp; Staff Portal — AJ Klasses, Orai</title>
+  <meta name="description" content="Meet the experienced educators and academic mentors at AJ Klasses, Orai. Learn about our faculty qualifications, subject specializations, and teaching methodologies.">
+  <link rel="icon" type="image/png" href="assets/logo.png">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Staff Portal Custom Styles */
+    .staff-search-bar {
+      display: flex;
+      gap: 12px;
+      max-width: 600px;
+      margin: 0 auto var(--space-xl);
+      position: relative;
+    }
+    .staff-search-input {
+      width: 100%;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-full);
+      padding: 14px 24px 14px 48px;
+      color: var(--text-white);
+      font-size: var(--fs-base);
+      transition: var(--transition);
+      outline: none;
+    }
+    .staff-search-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 20px rgba(245, 158, 11, 0.2);
+    }
+    .search-icon-pos {
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.1rem;
+      pointer-events: none;
+      opacity: 0.6;
+    }
+    .staff-filter-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: var(--space-2xl);
+    }
+    .staff-filter-btn {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      padding: 8px 18px;
+      border-radius: var(--radius-full);
+      font-size: var(--fs-sm);
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .staff-filter-btn:hover,
+    .staff-filter-btn.active {
+      background: var(--primary);
+      color: #070B14;
+      border-color: var(--primary);
+      font-weight: 700;
+      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+    }
+    .staff-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: var(--space-xl);
+    }
+    .staff-card {
+      background: var(--bg-glass-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: var(--transition);
+      position: relative;
+    }
+    .staff-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(245, 158, 11, 0.4);
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.6), 0 0 20px -5px rgba(245, 158, 11, 0.2);
+    }
+    .staff-card-header {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.12), rgba(245, 158, 11, 0.08));
+      padding: var(--space-xl) var(--space-lg) var(--space-md);
+      text-align: center;
+      position: relative;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .staff-avatar-wrap {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      margin: 0 auto var(--space-md);
+      border: 3px solid var(--primary);
+      box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+      background: linear-gradient(135deg, #1E293B, #0F172A);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--ff-heading);
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--primary);
+      overflow: hidden;
+    }
+    .staff-avatar-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .staff-name {
+      font-family: var(--ff-heading);
+      font-size: var(--fs-lg);
+      font-weight: 800;
+      color: var(--text-white);
+      margin-bottom: 4px;
+    }
+    .staff-role {
+      font-size: var(--fs-xs);
+      font-weight: 700;
+      color: var(--primary-light);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .staff-card-body {
+      padding: var(--space-lg);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .staff-tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 4px;
+    }
+    .staff-tag {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: var(--radius-full);
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-muted);
+      border: 1px solid var(--border-subtle);
+    }
+    .staff-tag--accent {
+      background: rgba(59, 130, 246, 0.15);
+      color: var(--accent-blue-light);
+      border-color: rgba(59, 130, 246, 0.3);
+    }
+    .staff-meta-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: var(--fs-sm);
+      color: var(--text-muted);
+    }
+    .staff-meta-row strong {
+      color: var(--text-white);
+    }
+    .staff-bio {
+      font-size: var(--fs-sm);
+      color: var(--text-body);
+      line-height: 1.6;
+      margin-top: 4px;
+    }
+    .staff-card-footer {
+      padding: var(--space-md) var(--space-lg);
+      background: rgba(255, 255, 255, 0.02);
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .stat-pill {
+      font-size: var(--fs-xs);
+      font-weight: 700;
+      color: var(--accent-emerald);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .notice-card {
+      background: rgba(245, 158, 11, 0.05);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      margin-bottom: var(--space-2xl);
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+    }
+    .staff-photo-placeholder {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(245, 158, 11, 0.08);
+      border: 1px dashed rgba(245, 158, 11, 0.4);
+      color: var(--primary-light);
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: var(--radius-sm);
+      margin-top: 6px;
+    }
+    .staff-contact-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      color: #34D399;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .staff-contact-badge:hover {
+      background: rgba(16, 185, 129, 0.25);
+      box-shadow: 0 0 10px rgba(16, 185, 129, 0.25);
+    }
+    .staff-contact-space {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px dashed var(--border-subtle);
+      color: var(--text-dim);
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ════════════════════════════════════════════════════════
+       HEADER & NAVIGATION
+       ════════════════════════════════════════════════════════ -->
+  <header class="site-header" role="banner">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="AJ Klasses Home">
+        <div class="brand-logo-wrap" aria-hidden="true">
+          <img src="assets/logo.png" alt="AJ Klasses Logo" class="brand-logo-img">
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">AJ Klasses</span>
+          <span class="brand-sub">Orai • Jalaun District</span>
+        </div>
+      </a>
+
+      <nav aria-label="Primary Navigation">
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="courses.html">Courses</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li class="nav-dropdown">
+            <button type="button" class="kebab-btn" id="kebab-menu-btn" aria-haspopup="true" aria-expanded="false" aria-label="Student Portals & Services" title="Student Portals & Services" style="border-color: rgba(59, 130, 246, 0.4); color: var(--accent-blue-light);">
+              <span class="kebab-dots" aria-hidden="true">
+                <span></span>
+                <span></span>
+                <span></span>
+              </span>
+              <span class="kebab-label">Staff Portal ▾</span>
+            </button>
+            <div class="nav-dropdown-menu" id="portals-menu" role="menu">
+              <div class="dropdown-section-title">Student &amp; Faculty Services</div>
+              <div class="dropdown-list">
+                <a href="admission.html" class="dropdown-item" role="menuitem">
+                  <span class="dropdown-item-icon" style="background: rgba(245, 158, 11, 0.15); color: #F59E0B;">⚡</span>
+                  <div class="dropdown-item-text">
+                    <span class="dropdown-item-title">Admissions Portal</span>
+                    <span class="dropdown-item-desc">Apply online &amp; track status</span>
+                  </div>
+                </a>
+                <a href="results.html" class="dropdown-item" role="menuitem">
+                  <span class="dropdown-item-icon" style="background: rgba(59, 130, 246, 0.15); color: #60A5FA;">📊</span>
+                  <div class="dropdown-item-text">
+                    <span class="dropdown-item-title">Results Portal</span>
+                    <span class="dropdown-item-desc">Marksheet &amp; PDF download</span>
+                  </div>
+                </a>
+                <a href="attendance.html" class="dropdown-item" role="menuitem">
+                  <span class="dropdown-item-icon" style="background: rgba(16, 185, 129, 0.15); color: #34D399;">📅</span>
+                  <div class="dropdown-item-text">
+                    <span class="dropdown-item-title">Attendance Portal</span>
+                    <span class="dropdown-item-desc">Live records &amp; attendance rate</span>
+                  </div>
+                </a>
+                <a href="student-history.html" class="dropdown-item" role="menuitem">
+                  <span class="dropdown-item-icon" style="background: rgba(168, 85, 247, 0.15); color: #C084FC;">📜</span>
+                  <div class="dropdown-item-text">
+                    <span class="dropdown-item-title">Academic History</span>
+                    <span class="dropdown-item-desc">Cumulative student progression</span>
+                  </div>
+                </a>
+                <a href="about-staff.html" class="dropdown-item active-item" role="menuitem" aria-current="page">
+                  <span class="dropdown-item-icon" style="background: rgba(59, 130, 246, 0.25); color: #60A5FA;">👨‍🏫</span>
+                  <div class="dropdown-item-text">
+                    <span class="dropdown-item-title">About Staff Portal</span>
+                    <span class="dropdown-item-desc">Faculty directory &amp; mentor profiles (Active)</span>
+                  </div>
+                </a>
+                <a href="gallery.html" class="dropdown-item" role="menuitem">
+                  <span class="dropdown-item-icon" style="background: rgba(245, 158, 11, 0.15); color: #F59E0B;">🖼️</span>
+                  <div class="dropdown-item-text">
+                    <span class="dropdown-item-title">Events Gallery</span>
+                    <span class="dropdown-item-desc">Campus events, functions &amp; 5GB vault</span>
+                  </div>
+                </a>
+              </div>
+              <div class="dropdown-divider"></div>
+              <div class="dropdown-section-title">Administration</div>
+              <a href="admin/login.html" class="dropdown-item dropdown-item--admin" role="menuitem">
+                <span class="dropdown-item-icon" style="background: rgba(239, 68, 68, 0.15); color: #F87171;">🔐</span>
+                <div class="dropdown-item-text">
+                  <span class="dropdown-item-title">Admin &amp; Staff Login</span>
+                  <span class="dropdown-item-desc">Control panel for institute staff</span>
+                </div>
+              </a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <a href="tel:+916394043659" class="btn btn--outline btn--sm" aria-label="Call AJ Klasses">
+          📞 +91 63940 43659
+        </a>
+        <a href="results.html" class="btn btn--secondary btn--sm" style="border: 1px solid var(--border-glow); color: var(--primary-light);">
+          Check Result 📊
+        </a>
+        <a href="admission.html" class="btn btn--primary btn--sm">
+          Apply Now ⚡
+        </a>
+        <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="Toggle navigation menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile Navigation">
+      <ul>
+        <li><a href="index.html">🏠 Home</a></li>
+        <li><a href="courses.html">📚 Courses &amp; Batches</a></li>
+        <li><a href="about.html">🎓 About Institute</a></li>
+        <li><a href="contact.html">📍 Contact &amp; Centre</a></li>
+        <li style="border-top: 1px solid var(--border-subtle); margin-block: 6px; padding-top: 6px;">
+          <span style="font-size: 0.7rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.08em; padding-left: 12px; display: block; margin-bottom: 6px;">Portals &amp; Directory</span>
+        </li>
+        <li><a href="about-staff.html" aria-current="page" style="color: var(--primary);">👨‍🏫 Faculty &amp; Staff Portal</a></li>
+        <li><a href="admission.html">⚡ Apply for Admission</a></li>
+        <li><a href="results.html">📊 Student Results</a></li>
+        <li><a href="attendance.html">📅 Student Attendance</a></li>
+        <li><a href="student-history.html">📜 Academic History</a></li>
+        <li><a href="gallery.html">🖼️ Events Gallery (5 GB)</a></li>
+        <li><a href="admin/login.html" style="color: #F87171;">🔐 Staff Login</a></li>
+      </ul>
+      <div class="mobile-nav-cta">
+        <a href="https://wa.me/916394043659?text=Hello%20AJ%20Klasses%2C%20I%20want%20to%20connect%20with%20faculty." class="btn btn--whatsapp" target="_blank" rel="noopener">
+          💬 Chat on WhatsApp
+        </a>
+        <a href="tel:+916394043659" class="btn btn--primary">
+          📞 Call Now: +91 63940 43659
+        </a>
+      </div>
+    </nav>
+  </header>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       PAGE BANNER
+       ════════════════════════════════════════════════════════ -->
+  <section class="page-banner" aria-labelledby="staff-page-title">
+    <div class="container reveal-on-scroll">
+      <span class="section-pill">Academic Mentors &amp; Faculty</span>
+      <h1 id="staff-page-title">About Our <span class="text-gradient-gold">Staff &amp; Faculty</span></h1>
+      <p>Meet the dedicated subject experts, master teachers, and academic administrators driving exceptional student results at AJ Klasses, Orai.</p>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════
+       MAIN CONTENT: FACULTY DIRECTORY
+       ════════════════════════════════════════════════════════ -->
+  <main class="section">
+    <div class="container">
+
+      <!-- Dynamic Info Notice -->
+      <div class="notice-card reveal-on-scroll">
+        <span style="font-size: 2rem;">💡</span>
+        <div>
+          <strong style="color: var(--text-white); font-size: var(--fs-base); display: block; margin-bottom: 4px;">Staff Information Portal</strong>
+          <p style="font-size: var(--fs-sm); color: var(--text-muted); margin: 0;">
+            This directory showcases our teaching faculty and administrative team. Real-time details, subject specializations, and contact information can be updated through the administration console.
+          </p>
+        </div>
+      </div>
+
+      <!-- Live Search & Department Filter Tabs -->
+      <div class="staff-search-bar reveal-on-scroll">
+        <span class="search-icon-pos" aria-hidden="true">🔍</span>
+        <input 
+          type="text" 
+          id="staff-search" 
+          class="staff-search-input" 
+          placeholder="Search by teacher name, subject, or qualification..."
+          aria-label="Search faculty members"
+        >
+      </div>
+
+      <div class="staff-filter-tabs reveal-on-scroll" role="tablist">
+        <button type="button" class="staff-filter-btn active" data-filter="all">All Staff &amp; Faculty (8)</button>
+        <button type="button" class="staff-filter-btn" data-filter="Mathematics">Mathematics</button>
+        <button type="button" class="staff-filter-btn" data-filter="Science">Science</button>
+        <button type="button" class="staff-filter-btn" data-filter="English">English &amp; Economics</button>
+        <button type="button" class="staff-filter-btn" data-filter="Psychology">Psychology &amp; Guidance</button>
+        <button type="button" class="staff-filter-btn" data-filter="Foundation">Foundation Wing</button>
+        <button type="button" class="staff-filter-btn" data-filter="Computer">Computer Science</button>
+      </div>
+
+      <!-- Staff Grid (Rendered Dynamically via JS) -->
+      <div class="staff-grid" id="staff-grid">
+        <!-- Rendered by JavaScript -->
+      </div>
+
+      <!-- Empty State (Hidden by default) -->
+      <div id="no-staff-found" style="display: none; text-align: center; padding: var(--space-3xl) var(--space-md);">
+        <div style="font-size: 3rem; margin-bottom: var(--space-sm);">🔍</div>
+        <h3 style="color: var(--text-white); margin-bottom: 8px;">No Faculty Found</h3>
+        <p style="color: var(--text-muted);">Try searching with a different name or subject keyword.</p>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ════════════════════════════════════════════════════════
+       INSTITUTE LEADERSHIP & TEACHING STANDARDS
+       ════════════════════════════════════════════════════════ -->
+  <section class="section section--alt">
+    <div class="container">
+      <div class="section-header reveal-on-scroll">
+        <span class="section-pill">Our Commitment</span>
+        <h2>The AJ Klasses <span class="text-gradient-gold">Teaching Philosophy</span></h2>
+        <p>Every educator at AJ Klasses is committed to personal mentorship, concept mastery, and individual student progress.</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-lg);" class="reveal-on-scroll">
+        <div class="card card--interactive" style="padding: var(--space-xl);">
+          <div style="font-size: 2.2rem; margin-bottom: var(--space-sm);">🎯</div>
+          <h3 style="font-family: var(--ff-heading); font-size: var(--fs-md); color: var(--text-white); margin-bottom: 8px;">Zero Rote Learning</h3>
+          <p style="font-size: var(--fs-sm); color: var(--text-muted);">Concepts are explained from first principles with real-life analogies, ensuring deep retention over mechanical memorization.</p>
+        </div>
+        <div class="card card--interactive" style="padding: var(--space-xl);">
+          <div style="font-size: 2.2rem; margin-bottom: var(--space-sm);">🤝</div>
+          <h3 style="font-family: var(--ff-heading); font-size: var(--fs-md); color: var(--text-white); margin-bottom: 8px;">Dedicated Doubt Solving</h3>
+          <p style="font-size: var(--fs-sm); color: var(--text-muted);">Teachers hold daily 1-on-1 doubt clearing clinics after every regular lecture so no student falls behind.</p>
+        </div>
+        <div class="card card--interactive" style="padding: var(--space-xl);">
+          <div style="font-size: 2.2rem; margin-bottom: var(--space-sm);">📈</div>
+          <h3 style="font-family: var(--ff-heading); font-size: var(--fs-md); color: var(--text-white); margin-bottom: 8px;">Parent-Teacher Synergy</h3>
+          <p style="font-size: var(--fs-sm); color: var(--text-muted);">Regular performance updates, attendance notifications, and monthly review sessions keep parents fully informed.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════
+       FOOTER
+       ════════════════════════════════════════════════════════ -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="index.html" class="brand" style="margin-bottom: var(--space-sm);">
+            <div class="brand-logo-wrap">
+              <img src="assets/logo.png" alt="AJ Klasses Logo" class="brand-logo-img">
+            </div>
+            <div class="brand-text">
+              <span class="brand-name">AJ Klasses</span>
+              <span class="brand-sub">Orai, Jalaun District</span>
+            </div>
+          </a>
+          <p>
+            Orai's premier academic coaching institute, dedicated to fostering concept clarity, discipline, and top ranks for students from LKG to Class 12.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="courses.html">Our Courses</a></li>
+            <li><a href="about.html">About Institute</a></li>
+            <li><a href="about-staff.html">Faculty &amp; Staff</a></li>
+            <li><a href="admission.html">Admissions Portal</a></li>
+            <li><a href="results.html">Student Results</a></li>
+            <li><a href="attendance.html">Attendance Portal</a></li>
+            <li><a href="student-history.html">Academic History</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Key Batches</h4>
+          <ul class="footer-links">
+            <li><a href="courses.html">Class 10 Board Prep</a></li>
+            <li><a href="courses.html">Class 12 PCM / PCB</a></li>
+            <li><a href="courses.html">Foundation 6–8</a></li>
+            <li><a href="courses.html">Competitive Entrance</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Get in Touch</h4>
+          <div class="footer-contact-item">
+            <span>📍</span>
+            <a href="https://maps.google.com/?q=XFP4%2B4F7,+Teli+Vali+Street,+Tulsi+Nagar,+New+Ram+Nagar,+Niyamatpur,+Orai,+Uttar+Pradesh+285001" target="_blank" rel="noopener" style="color: var(--text-body); transition: var(--transition);" title="Open in Google Maps">
+              Teli Vali Street, Tulsi Nagar, Orai (Plus Code: <strong style="color: var(--primary-light);">XFP4+4F7</strong>)
+            </a>
+          </div>
+          <div class="footer-contact-item">
+            <span>📞</span>
+            <a href="tel:+916394043659" style="color: var(--primary-light);">+91 63940 43659</a>
+          </div>
+          <div class="footer-contact-item">
+            <span>✉️</span>
+            <a href="mailto:pariharrishi777@gmail.com" style="color: var(--primary-light);">pariharrishi777@gmail.com</a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2024–2026 AJ Klasses. All rights reserved. &nbsp;|&nbsp; <a href="privacy-policy.html" style="color:inherit;opacity:.75;text-decoration:underline;">Privacy Policy</a></div>
+        <div>Fostering future leaders in Orai, Uttar Pradesh.</div>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       FLOATING ACTION HUB
+       ════════════════════════════════════════════════════════ -->
+  <div class="floating-action-hub">
+    <a href="https://wa.me/916394043659?text=Hello%20AJ%20Klasses%2C%20I%20have%20an%20enquiry%20regarding%20faculty%20and%20admissions." target="_blank" rel="noopener" class="float-btn float-btn--whatsapp" aria-label="Chat on WhatsApp">
+      <span class="float-pulse" aria-hidden="true"></span>
+      <span style="font-size: 1.25rem;">💬</span>
+      <span>Chat on WhatsApp</span>
+    </a>
+  </div>
+
+  <script>
+    /**
+     * AJ KLASSES — VERIFIED FACULTY DATA STORE
+     * Initialized with 7 faculty members.
+     * Synchronized with SQLite backend /api/teachers
+     */
+    let staffDirectory = [
+      {
+        id: "aj-staff-1",
+        name: "Dr. Ajay Sir",
+        role: "Founder & Academic Director",
+        department: "Mathematics",
+        qualification: "B.Sc, D.El.Ed, M.Sc (Math), M.A. with Psychology, B.Ed, Ph.D. with Psychology",
+        experience: "15+ Years (Academic Leadership & Advanced Pedagogy)",
+        phone: null, // Space reserved as requested
+        specialization: "Advanced Mathematics, Educational Psychology & Board Merit Preparation",
+        bio: "Founder and Director at AJ Klasses. Holds doctoral credentials (Ph.D.) in Psychology along with dual Master degrees in Mathematics and Psychology. Pioneered personalized mentoring frameworks that drive top board ranks across the Bundelkhand region.",
+        initials: "AR",
+        photo_url: "assets/teachers/dr_ajay_sir.jpg",
+        tags: ["Leadership", "Mathematics", "Ph.D. Psychology", "Director"]
+      },
+      {
+        id: "aj-staff-2",
+        name: "Komal Ma'am",
+        role: "Senior Faculty — Science & Elementary Pedagogy",
+        department: "Science",
+        qualification: "B.Sc, D.El.Ed",
+        experience: "More than 7 Years Experience",
+        phone: "7007805655", // Provided Mobile
+        specialization: "General Science, Concept Building & Experiential Learning",
+        bio: "B.Sc and D.El.Ed with more than 7 years of specialized classroom experience nurturing strong fundamental concepts in middle and foundation wings with patient, concept-first teaching methodologies.",
+        initials: "KM",
+        photo_url: "assets/teachers/komal_maam.jpg",
+        tags: ["Science", "Foundation", "7+ Yrs Exp", "Senior Faculty", "Verified Mobile"]
+      },
+      {
+        id: "aj-staff-3",
+        name: "Arvind Sir",
+        role: "Senior Faculty — English & Economics",
+        department: "English",
+        qualification: "M.A. English & Economics",
+        experience: "More than 10 Years Experience",
+        phone: null, // Space reserved as requested
+        specialization: "Advanced English Grammar, Literature, Macro & Micro Economics",
+        bio: "Veteran educator with more than a decade of rich academic experience preparing secondary and senior secondary students for board examinations, language fluency, and economic theories.",
+        initials: "AS",
+        photo_url: null,
+        tags: ["English", "Economics", "10+ Yrs Exp", "Board Specialist"]
+      },
+      {
+        id: "aj-staff-4",
+        name: "Simran Ma'am",
+        role: "Faculty — Computer Applications & Mathematics",
+        department: "Computer",
+        qualification: "BCA",
+        experience: "More than 3 Years Experience",
+        phone: "8545958647", // Provided Mobile
+        specialization: "Information Technology, Coding Fundamentals & Logical Reasoning",
+        bio: "BCA graduate with over 3 years of hands-on teaching experience empowering students with computational thinking, digital literacy, and applied mathematics.",
+        initials: "SM",
+        photo_url: "assets/teachers/simran_maam.jpg",
+        tags: ["Computer Science", "BCA", "Coding", "Mathematics", "Verified Mobile"]
+      },
+      {
+        id: "aj-staff-5",
+        name: "Sapna Ma'am",
+        role: "Faculty — Foundation Wing & Humanities",
+        department: "Foundation",
+        qualification: "B.A.",
+        experience: "More than 2 Years Experience",
+        phone: "9236605530", // Provided Mobile
+        specialization: "Language Arts, Social Sciences & Foundational Reading",
+        bio: "B.A. graduate with over 2 years of active mentoring experience specializing in foundational literacy, joyful learning, and interactive social studies.",
+        initials: "SP",
+        photo_url: "assets/teachers/sapna_maam.jpg",
+        tags: ["Foundation", "B.A.", "Social Sciences", "Literacy", "Verified Mobile"]
+      },
+      {
+        id: "aj-staff-6",
+        name: "Shivank Sir",
+        role: "Faculty — Science & Practical Physics",
+        department: "Science",
+        qualification: "B.Sc",
+        experience: "More than 2 Years Experience",
+        phone: "7398217481", // Provided Mobile
+        specialization: "Physical Sciences, Experimental Demonstrations & Numericals",
+        bio: "B.Sc graduate with over 2 years of proven teaching expertise simplifying scientific laws, numerical mechanics, and interactive science experiments for junior and high school students.",
+        initials: "SS",
+        photo_url: "assets/teachers/shivank_sir.jpg",
+        tags: ["Science", "B.Sc", "Physics", "Verified Mobile"]
+      },
+      {
+        id: "aj-staff-7",
+        name: "Sona Ma'am",
+        role: "Senior Counselor & Behavioral Mentor",
+        department: "Psychology",
+        qualification: "B.A. with Psychology, M.A. with Psychology",
+        experience: "More than 5 Years Experience",
+        phone: "6394043659", // Provided Mobile
+        specialization: "Cognitive Psychology, Exam Stress Management & Child Guidance",
+        bio: "Specialized psychological mentor holding both Bachelor's and Master's degrees in Psychology with over 5 years of counseling experience assisting students with focus, academic motivation, and mental wellness.",
+        initials: "SN",
+        photo_url: null,
+        tags: ["Psychology", "M.A. Psychology", "Counseling", "Verified Mobile"]
+      },
+      {
+        id: "aj-staff-8",
+        name: "V. K. Yadav Sir (Braj Kishor Yadav)",
+        role: "Senior Faculty & Board Mentor",
+        department: "Faculty Wing",
+        qualification: "Senior Faculty & Academic Mentor",
+        experience: "Rich Teaching & Mentorship Experience",
+        phone: "7570025729", // Provided Mobile: 75700 25729
+        specialization: "Academic Mentorship, Board Examination Drills & Concept Mastery",
+        bio: "Senior faculty mentor at AJ Klasses, Orai. Guides students with concept-oriented teaching, patient problem solving, and board examination merit coaching.",
+        initials: "VK",
+        photo_url: "assets/teachers/vk_yadav_sir.jpg",
+        tags: ["Faculty", "Mentorship", "Verified Mobile", "VK Sir"]
+      },
+      {
+        id: "aj-staff-9",
+        name: "Rishi Parihar",
+        role: "Lead Web Developer & Technical Operations Head",
+        department: "IT & Digital",
+        qualification: "Full-Stack Developer & Software Engineer",
+        experience: "Full-Stack Web Architecture & Security",
+        phone: "9044892605", // Provided Mobile
+        specialization: "Full-Stack Architecture, IT Security, Student Portals & Database Systems",
+        bio: "Lead Full-Stack Web Developer and Technical Architect for AJ Klasses. Designed and engineered the institute web portals, automated results system, and security architecture.",
+        initials: "RP",
+        photo_url: "assets/teachers/rishi_parihar.jpg",
+        tags: ["Web Developer", "Full Stack", "IT Lead", "Security", "Verified Mobile"]
+      }
+    ];
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const grid = document.getElementById('staff-grid');
+      const searchInput = document.getElementById('staff-search');
+      const filterBtns = document.querySelectorAll('.staff-filter-btn');
+      const emptyState = document.getElementById('no-staff-found');
+
+      let currentFilter = 'all';
+      let currentQuery = '';
+
+      function getApiEndpoint(path) {
+        if (window.location.protocol === 'file:') return 'http://localhost:3000' + path;
+        if (window.location.port && window.location.port !== '3000' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
+          return `http://${window.location.hostname}:3000` + path;
+        }
+        return path;
+      }
+
+      // Try fetching live teachers list from server API if active
+      fetch(getApiEndpoint('/api/teachers'))
+        .then(res => res.json())
+        .then(resData => {
+          if (resData.success && Array.isArray(resData.data) && resData.data.length > 0) {
+            staffDirectory = resData.data.map(item => ({
+              ...item,
+              tags: item.tags || [item.department, item.qualification, item.experience]
+            }));
+            renderStaff();
+          }
+        })
+        .catch(() => {
+          // Graceful fallback to embedded verified staffDirectory
+        });
+
+      function renderStaff() {
+        const allFilterBtn = document.querySelector('.staff-filter-btn[data-filter="all"]');
+        if (allFilterBtn) {
+          allFilterBtn.textContent = `All Staff & Faculty (${staffDirectory.length})`;
+        }
+
+        const filtered = staffDirectory.filter(member => {
+          const dept = (member.department || '').toLowerCase();
+          const memberTags = Array.isArray(member.tags) ? member.tags : [];
+          const matchesFilter = (currentFilter === 'all') || 
+                                dept.includes(currentFilter.toLowerCase()) ||
+                                (memberTags.some(t => t.toLowerCase().includes(currentFilter.toLowerCase())));
+
+          const q = currentQuery.toLowerCase().trim();
+          const matchesQuery = !q || 
+                               (member.name || '').toLowerCase().includes(q) ||
+                               (member.role || '').toLowerCase().includes(q) ||
+                               (member.specialization || '').toLowerCase().includes(q) ||
+                               (member.qualification || '').toLowerCase().includes(q) ||
+                               dept.includes(q);
+
+          return matchesFilter && matchesQuery;
+        });
+
+        grid.innerHTML = '';
+
+        if (filtered.length === 0) {
+          emptyState.style.display = 'block';
+        } else {
+          emptyState.style.display = 'none';
+
+          filtered.forEach(member => {
+            const card = document.createElement('div');
+            card.className = 'staff-card reveal-on-scroll is-visible';
+            
+            // Format phone / space reserved
+            let contactMarkup = '';
+            if (member.phone && member.phone.trim().length >= 10) {
+              const cleanPhone = member.phone.replace(/\D/g, '');
+              const formattedPhone = cleanPhone.length === 10 ? `${cleanPhone.slice(0, 5)} ${cleanPhone.slice(5)}` : cleanPhone;
+              contactMarkup = `
+                <a href="tel:+91${cleanPhone}" class="staff-contact-badge" title="Call Faculty Direct">
+                  📞 +91 ${formattedPhone}
+                </a>
+              `;
+            } else {
+              contactMarkup = `
+                <span class="staff-contact-space" title="Direct number space reserved — connect via office desk">
+                  📞 Contact: [ Space Reserved / Desk ]
+                </span>
+              `;
+            }
+
+            // Photo avatar and badge markup
+            const avatarContent = member.photo_url
+              ? `<img src="${member.photo_url}" alt="${member.name}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">`
+              : `<span>${member.initials || 'AJ'}</span>`;
+
+            const photoStatusMarkup = member.photo_url
+              ? `<div style="display: inline-flex; align-items: center; gap: 4px; font-size: 0.72rem; color: #10B981; font-weight: 700; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); padding: 2px 8px; border-radius: 12px; margin-top: 4px;"><span>✓</span> Verified Profile Photo</div>`
+              : `<div class="staff-photo-placeholder" title="Photo space reserved"><span>📷 Photo: Space Reserved</span></div>`;
+
+            const memberTags = Array.isArray(member.tags) ? member.tags : [member.department, member.qualification];
+
+            card.innerHTML = `
+              <div class="staff-card-header" style="text-align: center; display: flex; flex-direction: column; align-items: center;">
+                <div class="staff-avatar-wrap" aria-hidden="true" style="margin: 0 auto 10px auto;">
+                  ${avatarContent}
+                </div>
+                ${photoStatusMarkup}
+                <h3 class="staff-name" style="margin-top: 10px;">${member.name}</h3>
+                <span class="staff-role">${member.role}</span>
+              </div>
+              <div class="staff-card-body">
+                <div class="staff-tag-list">
+                  <span class="staff-tag staff-tag--accent">${member.department}</span>
+                  ${memberTags.map(t => `<span class="staff-tag">${t}</span>`).join('')}
+                </div>
+                <div class="staff-meta-row">
+                  <span>🎓</span>
+                  <span><strong>Qualification:</strong> ${member.qualification}</span>
+                </div>
+                <div class="staff-meta-row">
+                  <span>⏳</span>
+                  <span><strong>Experience:</strong> ${member.experience}</span>
+                </div>
+                <div class="staff-meta-row">
+                  <span>🎯</span>
+                  <span><strong>Specialization:</strong> ${member.specialization || 'Comprehensive Mentorship'}</span>
+                </div>
+                <p class="staff-bio">${member.bio || ''}</p>
+              </div>
+              <div class="staff-card-footer" style="flex-wrap: wrap; gap: 8px;">
+                ${contactMarkup}
+                <a href="contact.html" class="btn btn--outline btn--sm" style="padding: 4px 10px; font-size: 0.72rem; margin-left: auto;">
+                  Office Desk 💬
+                </a>
+              </div>
+            `;
+            grid.appendChild(card);
+          });
+        }
+      }
+
+      // Initial Render
+      renderStaff();
+
+      // Filter clicks
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentFilter = btn.getAttribute('data-filter');
+          renderStaff();
+        });
+      });
+
+      // Search input
+      searchInput.addEventListener('input', (e) => {
+        currentQuery = e.target.value;
+        renderStaff();
+      });
+    });
+  </script>
+  <script src="script.js"></script>
+</body>
+</html>

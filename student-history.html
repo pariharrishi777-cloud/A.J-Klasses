@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Academic History Portal — AJ Klasses, Orai</title>
+  <meta name="description" content="View verified longitudinal academic track records, past examination marksheets, attendance consistency, and enrollment history at AJ Klasses, Orai.">
+  <link rel="icon" type="image/png" href="assets/logo.png">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Specific Academic History Portal Enhancements */
+    .history-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      margin-bottom: var(--space-xl);
+      position: relative;
+    }
+    .history-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 14px;
+      margin-bottom: 18px;
+    }
+    .history-timeline-item {
+      position: relative;
+      padding-left: 28px;
+      margin-bottom: 24px;
+      border-left: 2px solid var(--border-subtle);
+    }
+    .history-timeline-item:last-child {
+      margin-bottom: 0;
+      border-left-color: transparent;
+    }
+    .history-timeline-dot {
+      position: absolute;
+      left: -9px;
+      top: 0;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--primary);
+      box-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
+    }
+    .badge-status {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      font-size: var(--fs-xs);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .badge-active {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34D399;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+    }
+    .badge-pass {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34D399;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+    }
+    .badge-fail {
+      background: rgba(239, 68, 68, 0.15);
+      color: #F87171;
+      border: 1px solid rgba(239, 68, 68, 0.4);
+    }
+    @media print {
+      body {
+        background: #FFFFFF !important;
+        color: #000000 !important;
+      }
+      .site-header, .site-footer, .result-instruction-banner, .no-print, #search-box-wrap, .page-banner {
+        display: none !important;
+      }
+      #history-display-wrap {
+        display: block !important;
+        max-width: 100% !important;
+        box-shadow: none !important;
+        background: #FFFFFF !important;
+        color: #000000 !important;
+      }
+      .history-card {
+        border: 1px solid #CCCCCC !important;
+        background: #FFFFFF !important;
+        color: #000000 !important;
+        box-shadow: none !important;
+      }
+      .marksheet-table th, .marksheet-table td {
+        color: #000000 !important;
+        border-color: #E5E7EB !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ════════════════════════════════════════════════════════
+       HEADER & NAVIGATION
+       ════════════════════════════════════════════════════════ -->
+  <header class="site-header" role="banner">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="AJ Klasses Home">
+        <div class="brand-logo-wrap" aria-hidden="true">
+          <img src="assets/logo.png" alt="AJ Klasses Logo" class="brand-logo-img">
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">AJ Klasses</span>
+          <span class="brand-sub">Orai • Jalaun District</span>
+        </div>
+      </a>
+
+      <nav aria-label="Primary Navigation">
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="courses.html">Courses</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li class="nav-dropdown">
+            <button type="button" class="kebab-btn" id="kebab-menu-btn" aria-haspopup="true" aria-expanded="false" aria-label="Student Portals & Services" title="Student Portals & Services" style="border-color: rgba(168, 85, 247, 0.4); color: #C084FC;">
+              <span class="kebab-dots" aria-hidden="true">
+                <span></span>
+                <span></span>
+                <span></span>
+              </span>
+              <span class="kebab-label">History ▾</span>
+            </button>
+            <div class="nav-dropdown-menu" id="portals-menu" role="menu">
+              <div class="dropdown-section-title">Student Portals</div>
+              <div class="dropdown-list">
+                <a href="admission.html" class="dropdown-item" role="menuitem">
+                  <span class="dropdown-item-icon" style="background: rgba(245, 158, 11, 0.15); color: #F59E0B;">⚡</span>
+                  <div class="dropdown-item-text">
+                    <span class="dropdown-item-title">Admissions Portal</span>
+                    <span class="dropdown-item-desc">Apply online &amp; track status</span>
+                  </div>
+                </a>
+                <a href="results.html" class="dropdown-item" role="menuitem">
+                  <span class="dropdown-item-icon" style="background: rgba(59, 130, 246, 0.15); color: #60A5FA;">📊</span>
+                  <div class="dropdown-item-text">
+                    <span class="dropdown-item-title">Results Portal</span>
+                    <span class="dropdown-item-desc">Marksheet &amp; PDF download</span>
+                  </div>
+                </a>
+                <a href="attendance.html" class="dropdown-item" role="menuitem">
+                  <span class="dropdown-item-icon" style="background: rgba(16, 185, 129, 0.15); color: #34D399;">📅</span>
+                  <div class="dropdown-item-text">
+                    <span class="dropdown-item-title">Attendance Portal</span>
+                    <span class="dropdown-item-desc">Live records &amp; attendance rate</span>
+                  </div>
+                </a>
+                <a href="student-history.html" class="dropdown-item active-item" role="menuitem" aria-current="page">
+                  <span class="dropdown-item-icon" style="background: rgba(168, 85, 247, 0.25); color: #C084FC;">📜</span>
+                  <div class="dropdown-item-text">
+                    <span class="dropdown-item-title">Academic History</span>
+                    <span class="dropdown-item-desc">Cumulative student progression (Active)</span>
+                  </div>
+                </a>
+                <a href="about-staff.html" class="dropdown-item" role="menuitem">
+                  <span class="dropdown-item-icon" style="background: rgba(59, 130, 246, 0.15); color: #60A5FA;">👨‍🏫</span>
+                  <div class="dropdown-item-text">
+                    <span class="dropdown-item-title">About Staff Portal</span>
+                    <span class="dropdown-item-desc">Faculty directory &amp; mentor profiles</span>
+                  </div>
+                </a>
+                <a href="gallery.html" class="dropdown-item" role="menuitem">
+                  <span class="dropdown-item-icon" style="background: rgba(245, 158, 11, 0.15); color: #F59E0B;">🖼️</span>
+                  <div class="dropdown-item-text">
+                    <span class="dropdown-item-title">Events Gallery</span>
+                    <span class="dropdown-item-desc">Campus events, functions &amp; 5GB vault</span>
+                  </div>
+                </a>
+              </div>
+              <div class="dropdown-divider"></div>
+              <div class="dropdown-section-title">Administration</div>
+              <a href="admin/login.html" class="dropdown-item dropdown-item--admin" role="menuitem">
+                <span class="dropdown-item-icon" style="background: rgba(239, 68, 68, 0.15); color: #F87171;">🔐</span>
+                <div class="dropdown-item-text">
+                  <span class="dropdown-item-title">Admin &amp; Staff Login</span>
+                  <span class="dropdown-item-desc">Control panel for institute staff</span>
+                </div>
+              </a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <a href="tel:+916394043659" class="btn btn--outline btn--sm" aria-label="Call AJ Klasses">
+          📞 +91 63940 43659
+        </a>
+        <a href="results.html" class="btn btn--secondary btn--sm" style="border: 1px solid var(--border-glow); color: var(--primary-light);">
+          Check Result 📊
+        </a>
+        <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="Toggle navigation menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile Navigation">
+      <ul>
+        <li><a href="index.html">🏠 Home</a></li>
+        <li><a href="courses.html">📚 Courses &amp; Batches</a></li>
+        <li><a href="about.html">🎓 About Institute</a></li>
+        <li><a href="contact.html">📍 Contact &amp; Centre</a></li>
+        <li style="border-top: 1px solid var(--border-subtle); margin-block: 6px; padding-top: 6px;">
+          <span style="font-size: 0.7rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.08em; padding-left: 12px; display: block; margin-bottom: 6px;">Student Portals &amp; Staff</span>
+        </li>
+        <li><a href="about-staff.html">👨‍🏫 About Staff Portal</a></li>
+        <li><a href="admission.html">⚡ Apply for Admission</a></li>
+        <li><a href="results.html">📊 Student Results</a></li>
+        <li><a href="attendance.html">📅 Student Attendance</a></li>
+        <li><a href="student-history.html" aria-current="page">📜 Academic History</a></li>
+        <li><a href="gallery.html">🖼️ Events Gallery (5 GB)</a></li>
+        <li><a href="admin/login.html" style="color: #F87171;">🔐 Staff Login</a></li>
+      </ul>
+      <div class="mobile-nav-cta">
+        <a href="https://wa.me/916394043659?text=Hello%20AJ%20Klasses%2C%20I%20want%20to%20enquire%20about%20my%20academic%20history." class="btn btn--whatsapp" target="_blank" rel="noopener">
+          💬 Chat on WhatsApp
+        </a>
+        <a href="tel:+916394043659" class="btn btn--primary">
+          📞 Call Now: +91 63940 43659
+        </a>
+      </div>
+    </nav>
+  </header>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       PAGE BANNER
+       ════════════════════════════════════════════════════════ -->
+  <section class="page-banner" aria-labelledby="page-title">
+    <div class="container reveal-on-scroll">
+      <span class="section-pill">Cumulative Academic Record</span>
+      <h1 id="page-title">Student <span class="text-gradient-gold">Academic History</span></h1>
+      <p>View your complete longitudinal track record: admission details, published examination performance, and verified attendance consistency.</p>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       STUDENT HISTORY LOOKUP SECTION
+       ════════════════════════════════════════════════════════ -->
+  <section class="result-portal-section" aria-labelledby="portal-heading">
+    <div class="container">
+      <h2 id="portal-heading" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0);">Academic History Lookup</h2>
+
+      <!-- SEARCH FORM CONTAINER -->
+      <div id="search-box-wrap" class="result-search-box reveal-on-scroll is-visible" style="max-width: 640px; margin-inline: auto;">
+        <div class="result-instruction-banner">
+          <span style="font-size: 1.25rem;">ℹ️</span>
+          <div>
+            <strong>How to view student history:</strong> Enter your institute <strong>Roll Number</strong> and <strong>Student Name</strong> exactly as registered during admission.
+          </div>
+        </div>
+
+        <!-- Accessible Alert Box -->
+        <div id="history-alert" class="alert-message alert-message--error" style="display: none;" role="alert">
+          <span id="alert-icon">⚠️</span>
+          <span id="alert-text">Error message will appear here.</span>
+        </div>
+
+        <form id="history-lookup-form" novalidate>
+          <div class="form-group" style="margin-bottom: var(--space-md);">
+            <label for="student-roll">Institute Roll Number *</label>
+            <input 
+              type="text" 
+              id="student-roll" 
+              name="rollNumber" 
+              placeholder="e.g. AJ-2025-101" 
+              required 
+              maxlength="50"
+              autocomplete="off"
+              style="text-transform: uppercase;"
+            >
+            <span style="font-size: var(--fs-xs); color: var(--text-dim); margin-top: 4px; display: block;">
+              Assigned during admission approval (e.g. AJ-2025-101).
+            </span>
+          </div>
+
+          <div class="form-group" style="margin-bottom: var(--space-xl);">
+            <label for="student-name">Student Full Name *</label>
+            <input 
+              type="text" 
+              id="student-name" 
+              name="studentName" 
+              placeholder="e.g. Rahul Sharma" 
+              required 
+              maxlength="150"
+              autocomplete="name"
+            >
+            <span style="font-size: var(--fs-xs); color: var(--text-dim); margin-top: 4px; display: block;">
+              Enter your name as spelled in institute enrollment records.
+            </span>
+          </div>
+
+          <button type="submit" id="check-history-btn" class="btn btn--primary" style="width: 100%; justify-content: center; font-size: var(--fs-base);">
+            <span id="btn-text">View Academic History 📜</span>
+          </button>
+        </form>
+
+        <!-- Loading Spinner -->
+        <div id="loading-spinner" class="loading-spinner-wrap" aria-live="polite">
+          <div class="loading-spinner"></div>
+          <div style="font-size: var(--fs-sm); color: var(--text-muted); font-weight: 600;">
+            Retrieving verified academic and attendance history...
+          </div>
+        </div>
+
+        <div style="margin-top: var(--space-lg); text-align: center; font-size: var(--fs-xs); color: var(--text-dim);">
+          🔒 Only verified enrolled students can access longitudinal academic dossiers.
+        </div>
+      </div>
+
+      <!-- HISTORY DISPLAY CONTAINER (Initially hidden) -->
+      <div id="history-display-wrap" style="display: none; max-width: 920px; margin-inline: auto; margin-top: var(--space-xl);">
+        
+        <!-- Action Toolbar (Back / Print) -->
+        <div class="no-print" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-md); flex-wrap: wrap; gap: 10px;">
+          <button id="lookup-another-btn" class="btn btn--outline btn--sm" style="display: inline-flex; align-items: center; gap: 6px;">
+            ← Search Another Student
+          </button>
+          <div style="display: flex; gap: 8px;">
+            <a href="results.html" class="btn btn--secondary btn--sm" style="font-size: var(--fs-xs);">
+              Results Portal 📊
+            </a>
+            <a href="attendance.html" class="btn btn--secondary btn--sm" style="font-size: var(--fs-xs);">
+              Attendance Portal 📅
+            </a>
+            <button onclick="window.print()" class="btn btn--primary btn--sm" style="display: inline-flex; align-items: center; gap: 6px;">
+              🖨️ Print Dossier
+            </button>
+          </div>
+        </div>
+
+        <!-- 1. STUDENT PROFILE CARD -->
+        <div class="history-card" style="border-color: rgba(245, 158, 11, 0.4);">
+          <div class="history-card-header">
+            <div>
+              <span class="badge-status badge-active" style="margin-bottom: 6px;">Enrolled Student Record</span>
+              <h2 id="disp-student-name" style="font-family: var(--ff-heading); font-size: var(--fs-2xl); color: #FFFFFF; font-weight: 800; margin-bottom: 4px;">
+                Rahul Sharma
+              </h2>
+              <div style="font-size: var(--fs-sm); color: var(--text-muted); display: flex; flex-wrap: wrap; gap: 10px;">
+                <span>Roll No: <strong id="disp-roll" style="color: var(--primary-light);">AJ-2025-101</strong></span>
+                <span>•</span>
+                <span>Class: <strong id="disp-class" style="color: #FFFFFF;">Class 10 (A)</strong></span>
+                <span>•</span>
+                <span>Session: <strong id="disp-session" style="color: #FFFFFF;">2024–25</strong></span>
+              </div>
+            </div>
+
+            <div style="text-align: right;">
+              <span id="disp-enrollment-badge" class="badge-status badge-active">
+                Active Enrolled
+              </span>
+              <div id="disp-parent-info" style="font-size: var(--fs-xs); color: var(--text-dim); margin-top: 6px;">
+                Guardian: Vinod Sharma
+              </div>
+            </div>
+          </div>
+
+          <!-- Admission Journey Brief -->
+          <div id="admission-journey-row" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; background: rgba(255, 255, 255, 0.02); padding: 14px; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); font-size: var(--fs-xs);">
+            <div>
+              <span style="color: var(--text-dim); display: block;">Admission Reference:</span>
+              <strong id="disp-adm-ref" style="color: var(--primary-light); font-size: var(--fs-sm);">AJ-ADM-2025-1001</strong>
+            </div>
+            <div>
+              <span style="color: var(--text-dim); display: block;">Board &amp; Medium:</span>
+              <strong id="disp-adm-board" style="color: #FFFFFF;">CBSE / English</strong>
+            </div>
+            <div>
+              <span style="color: var(--text-dim); display: block;">Registered Course:</span>
+              <strong id="disp-adm-course" style="color: #FFFFFF;">Class 10 Board Mastery</strong>
+            </div>
+            <div>
+              <span style="color: var(--text-dim); display: block;">Enrolled Date:</span>
+              <strong id="disp-adm-date" style="color: #FFFFFF;">2024-04-15</strong>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- 2. ATTENDANCE SUMMARY CARD -->
+        <div class="history-card" style="border-color: rgba(59, 130, 246, 0.3);">
+          <div class="history-card-header">
+            <div>
+              <h3 style="font-family: var(--ff-heading); font-size: var(--fs-lg); color: #FFFFFF; font-weight: 700; margin: 0;">
+                Attendance Consistency Summary
+              </h3>
+              <p style="font-size: var(--fs-xs); color: var(--text-muted); margin-top: 2px;">
+                Verified presence across all recorded class lectures and assessments.
+              </p>
+            </div>
+            <div>
+              <a href="attendance.html" id="view-full-attendance-link" class="btn btn--outline btn--sm no-print" style="font-size: var(--fs-xs);">
+                Open Detailed Attendance Portal ➔
+              </a>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: var(--space-md); text-align: center;">
+            <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-subtle); padding: 14px; border-radius: var(--radius-md);">
+              <div id="disp-att-percentage" style="font-family: var(--ff-heading); font-size: var(--fs-2xl); font-weight: 800; color: #10B981;">0%</div>
+              <div style="font-size: var(--fs-xs); color: var(--text-muted); margin-top: 2px; text-transform: uppercase;">Attendance %</div>
+            </div>
+            <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-subtle); padding: 14px; border-radius: var(--radius-md);">
+              <div id="disp-att-total" style="font-family: var(--ff-heading); font-size: var(--fs-2xl); font-weight: 800; color: #FFFFFF;">0</div>
+              <div style="font-size: var(--fs-xs); color: var(--text-muted); margin-top: 2px; text-transform: uppercase;">Total Sessions</div>
+            </div>
+            <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-subtle); padding: 14px; border-radius: var(--radius-md);">
+              <div id="disp-att-present" style="font-family: var(--ff-heading); font-size: var(--fs-2xl); font-weight: 800; color: #34D399;">0</div>
+              <div style="font-size: var(--fs-xs); color: var(--text-muted); margin-top: 2px; text-transform: uppercase;">Present</div>
+            </div>
+            <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-subtle); padding: 14px; border-radius: var(--radius-md);">
+              <div id="disp-att-absent" style="font-family: var(--ff-heading); font-size: var(--fs-2xl); font-weight: 800; color: #F87171;">0</div>
+              <div style="font-size: var(--fs-xs); color: var(--text-muted); margin-top: 2px; text-transform: uppercase;">Absent</div>
+            </div>
+            <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-subtle); padding: 14px; border-radius: var(--radius-md);">
+              <div id="disp-att-late-leave" style="font-family: var(--ff-heading); font-size: var(--fs-2xl); font-weight: 800; color: #FBBF24;">0</div>
+              <div style="font-size: var(--fs-xs); color: var(--text-muted); margin-top: 2px; text-transform: uppercase;">Late / Leave</div>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- 3. ACADEMIC EXAMINATION HISTORY -->
+        <div class="history-card" style="border-color: rgba(16, 185, 129, 0.3);">
+          <div class="history-card-header">
+            <div>
+              <h3 style="font-family: var(--ff-heading); font-size: var(--fs-lg); color: #FFFFFF; font-weight: 700; margin: 0;">
+                Published Examination History
+              </h3>
+              <p style="font-size: var(--fs-xs); color: var(--text-muted); margin-top: 2px;">
+                Chronological list of institute assessments and official marksheet records.
+              </p>
+            </div>
+          </div>
+
+          <!-- Exams Container -->
+          <div id="exams-container">
+            <!-- Dynamically injected exam cards -->
+          </div>
+
+          <!-- Empty State when no results exist -->
+          <div id="exams-empty-state" style="display: none; padding: 36px 20px; text-align: center; background: rgba(255, 255, 255, 0.02); border-radius: var(--radius-md); border: 1px dashed var(--border-subtle);">
+            <div style="font-size: 2.2rem; margin-bottom: 10px;">📊</div>
+            <h4 style="color: #FFFFFF; font-weight: 700; margin-bottom: 6px;">No Published Results Available</h4>
+            <p style="color: var(--text-muted); font-size: var(--fs-sm); max-width: 480px; margin-inline: auto;">
+              No examination marks have been officially published yet for this student record. Once faculty completes assessment verification, marks will appear here.
+            </p>
+          </div>
+        </div>
+
+        <!-- 4. INSTITUTE CERTIFICATION FOOTER -->
+        <div style="margin-top: 28px; padding-top: 18px; border-top: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: flex-end; font-size: var(--fs-xs); color: var(--text-dim); flex-wrap: wrap; gap: 14px;">
+          <div>
+            <strong>AJ Klasses Coaching Institute</strong><br>
+            Tulsi Nagar, Behind Diamond Hotel, Orai, Uttar Pradesh — 285001<br>
+            Director: Dr. Ajay Rathour | Head Faculty: Abhishek Rathour
+          </div>
+          <div style="text-align: right;">
+            Verified Student Academic History Record<br>
+            Official Helpline: +91 63940 43659
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ════════════════════════════════════════════════════════
+           PORTAL CROSS-LINKING & ASSISTANCE
+           ════════════════════════════════════════════════════════ -->
+      <div style="max-width: 920px; margin-inline: auto; margin-top: var(--space-3xl);" class="no-print">
+        <h3 style="font-family: var(--ff-heading); font-size: var(--fs-lg); color: #FFFFFF; font-weight: 700; text-align: center; margin-bottom: var(--space-lg);">
+          Integrated Student Services
+        </h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-md);">
+          
+          <a href="admission.html" class="result-search-box" style="text-decoration: none; padding: 18px; border-color: rgba(245, 158, 11, 0.2); transition: all 0.2s ease;">
+            <div style="font-size: 1.5rem; margin-bottom: 6px;">⚡</div>
+            <h4 style="color: #FFFFFF; font-size: var(--fs-base); font-weight: 700; margin-bottom: 4px;">Admissions 2024–25</h4>
+            <p style="font-size: var(--fs-xs); color: var(--text-muted); margin: 0;">New student application form &amp; enrollment tracking.</p>
+          </a>
+
+          <a href="results.html" class="result-search-box" style="text-decoration: none; padding: 18px; border-color: rgba(59, 130, 246, 0.2); transition: all 0.2s ease;">
+            <div style="font-size: 1.5rem; margin-bottom: 6px;">📊</div>
+            <h4 style="color: #FFFFFF; font-size: var(--fs-base); font-weight: 700; margin-bottom: 4px;">Student Results</h4>
+            <p style="font-size: var(--fs-xs); color: var(--text-muted); margin: 0;">Individual term assessments &amp; printable marksheets.</p>
+          </a>
+
+          <a href="attendance.html" class="result-search-box" style="text-decoration: none; padding: 18px; border-color: rgba(16, 185, 129, 0.2); transition: all 0.2s ease;">
+            <div style="font-size: 1.5rem; margin-bottom: 6px;">📅</div>
+            <h4 style="color: #FFFFFF; font-size: var(--fs-base); font-weight: 700; margin-bottom: 4px;">Attendance Portal</h4>
+            <p style="font-size: var(--fs-xs); color: var(--text-muted); margin: 0;">Daily lecture attendance and monthly percentage tracking.</p>
+          </a>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       SITE FOOTER
+       ════════════════════════════════════════════════════════ -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <div class="brand-text" style="margin-bottom: var(--space-sm);">
+          <span class="brand-name" style="font-size: 1.4rem;">AJ Klasses</span>
+          <span class="brand-sub">Coaching Institute • Orai</span>
+        </div>
+        <p style="font-size: var(--fs-sm); color: var(--text-muted); line-height: 1.6; margin-bottom: var(--space-md);">
+          <a href="https://maps.google.com/?q=XFP4%2B4F7,+Teli+Vali+Street,+Tulsi+Nagar,+New+Ram+Nagar,+Niyamatpur,+Orai,+Uttar+Pradesh+285001" target="_blank" rel="noopener" style="color: var(--text-body);" title="Open in Google Maps">
+            📍 Teli Vali Street, Tulsi Nagar, Behind Diamond Hotel, Orai, U.P. — 285001 (Plus Code: <strong style="color: var(--primary-light);">XFP4+4F7</strong>)
+          </a>. Mentoring students from LKG to Class 12 (CBSE &amp; UP Board).
+        </p>
+        <div style="font-size: var(--fs-sm); color: var(--text-muted);">
+          📞 <a href="tel:+916394043659" style="color: var(--primary-light);">+91 63940 43659</a><br>
+          ✉️ <a href="mailto:pariharrishi777@gmail.com" style="color: var(--text-muted);">pariharrishi777@gmail.com</a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-title">Quick Portals</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="courses.html">Courses &amp; Batches</a></li>
+          <li><a href="admission.html">Admission Portal</a></li>
+          <li><a href="results.html">Result Portal</a></li>
+          <li><a href="attendance.html">Attendance Portal</a></li>
+          <li><a href="student-history.html">Student Academic History</a></li>
+          <li><a href="about-staff.html">Faculty &amp; Staff</a></li>
+          <li><a href="gallery.html">Events Gallery (5 GB)</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-title">Academic Programs</h4>
+        <ul class="footer-links">
+          <li><a href="courses.html">Class 10 Board Excellence</a></li>
+          <li><a href="courses.html">Class 12 Board &amp; Entrance</a></li>
+          <li><a href="courses.html">Junior Foundation (6–8)</a></li>
+          <li><a href="courses.html">Secondary Foundation (9–10)</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-title">Administration</h4>
+        <ul class="footer-links">
+          <li><a href="admin/dashboard.html">Admin Login 🔒</a></li>
+          <li><a href="contact.html">Campus Location</a></li>
+          <li><a href="https://wa.me/916394043659" target="_blank" rel="noopener">WhatsApp Support</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <div>&copy; 2025 AJ Klasses, Orai. All rights reserved. &nbsp;|&nbsp; <a href="privacy-policy.html" style="color:inherit;opacity:.75;text-decoration:underline;">Privacy Policy</a></div>
+        <div>Designed for Academic Excellence &amp; Transparent Student Tracking.</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ════════════════════════════════════════════════════════
+       CLIENT LOGIC SCRIPT
+       ════════════════════════════════════════════════════════ -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Mobile Navigation Toggle
+      const menuToggle = document.getElementById('menu-toggle');
+      const mobileNav = document.getElementById('mobile-nav');
+      if (menuToggle && mobileNav) {
+        menuToggle.addEventListener('click', () => {
+          const isOpen = mobileNav.classList.toggle('is-open');
+          menuToggle.setAttribute('aria-expanded', isOpen);
+          menuToggle.classList.toggle('active', isOpen);
+        });
+      }
+
+      // History Lookup Elements
+      const lookupForm = document.getElementById('history-lookup-form');
+      const rollInput = document.getElementById('student-roll');
+      const nameInput = document.getElementById('student-name');
+      const checkBtn = document.getElementById('check-history-btn');
+      const spinner = document.getElementById('loading-spinner');
+      const alertBox = document.getElementById('history-alert');
+      const alertText = document.getElementById('alert-text');
+      const searchBoxWrap = document.getElementById('search-box-wrap');
+      const displayWrap = document.getElementById('history-display-wrap');
+      const lookupAnotherBtn = document.getElementById('lookup-another-btn');
+      const examsContainer = document.getElementById('exams-container');
+      const examsEmptyState = document.getElementById('exams-empty-state');
+      const viewFullAttLink = document.getElementById('view-full-attendance-link');
+
+      function showAlert(msg) {
+        alertText.textContent = msg;
+        alertBox.style.display = 'flex';
+        alertBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+
+      function hideAlert() {
+        alertBox.style.display = 'none';
+      }
+
+      function setLoading(isLoading) {
+        if (isLoading) {
+          checkBtn.disabled = true;
+          spinner.classList.add('is-active');
+          hideAlert();
+        } else {
+          checkBtn.disabled = false;
+          spinner.classList.remove('is-active');
+        }
+      }
+
+      // Check URL parameters for pre-filling
+      const urlParams = new URLSearchParams(window.location.search);
+      const paramRoll = urlParams.get('roll');
+      const paramName = urlParams.get('name');
+      if (paramRoll && paramName) {
+        rollInput.value = paramRoll;
+        nameInput.value = paramName;
+        executeLookup(paramRoll, paramName);
+      }
+
+      lookupForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        hideAlert();
+
+        const rollNumber = rollInput.value.trim().toUpperCase();
+        const studentName = nameInput.value.trim();
+
+        if (!rollNumber) {
+          showAlert('Please enter your Institute Roll Number.');
+          rollInput.focus();
+          return;
+        }
+
+        if (!studentName) {
+          showAlert('Please enter your Student Full Name.');
+          nameInput.focus();
+          return;
+        }
+
+        executeLookup(rollNumber, studentName);
+      });
+
+      async function executeLookup(rollNumber, studentName) {
+        function getApiEndpoint(path) {
+          if (window.location.protocol === 'file:') return 'http://localhost:3000' + path;
+          if (window.location.port && window.location.port !== '3000' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
+            return `http://${window.location.hostname}:3000` + path;
+          }
+          return path;
+        }
+
+        try {
+          const endpoint = getApiEndpoint('/api/history/lookup');
+          const res = await fetch(endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ rollNumber, studentName })
+          });
+
+          const data = await res.json();
+
+          if (!res.ok || !data.success) {
+            showAlert(data.message || "We couldn't verify these details or student history is not available. Please check the information or contact the institute.");
+            setLoading(false);
+            return;
+          }
+
+          renderHistory(data.data);
+          setLoading(false);
+        } catch (err) {
+          showAlert('Network or connection error. Please ensure the backend is running (port 3000) or try again shortly.');
+          setLoading(false);
+        }
+      }
+
+      function renderHistory(data) {
+        const { student, admission, results, attendance } = data;
+
+        // 1. Profile Fill
+        document.getElementById('disp-student-name').textContent = student.student_name;
+        document.getElementById('disp-roll').textContent = student.roll_number;
+        document.getElementById('disp-class').textContent = `${student.class_name} (${student.section || 'A'})`;
+        document.getElementById('disp-session').textContent = student.academic_year;
+
+        const enrollmentBadge = document.getElementById('disp-enrollment-badge');
+        enrollmentBadge.textContent = `${student.enrollment_status || 'Active'} Enrolled`;
+
+        const parentInfo = document.getElementById('disp-parent-info');
+        if (student.parent_name) {
+          parentInfo.textContent = `Guardian: ${student.parent_name}`;
+          parentInfo.style.display = 'block';
+        } else {
+          parentInfo.style.display = 'none';
+        }
+
+        // Admission Journey
+        const admRow = document.getElementById('admission-journey-row');
+        if (admission) {
+          admRow.style.display = 'grid';
+          document.getElementById('disp-adm-ref').textContent = admission.refNumber || 'Registered';
+          document.getElementById('disp-adm-board').textContent = `${admission.board || 'CBSE'} / ${admission.medium || 'English'}`;
+          document.getElementById('disp-adm-course').textContent = admission.course || 'Enrolled Course';
+          document.getElementById('disp-adm-date').textContent = admission.enrolledDate ? admission.enrolledDate.split(' ')[0] : 'Enrolled';
+        } else {
+          admRow.style.display = 'none';
+        }
+
+        // 2. Attendance Summary
+        if (attendance) {
+          document.getElementById('disp-att-percentage').textContent = `${attendance.attendance_percentage}%`;
+          document.getElementById('disp-att-total').textContent = attendance.total_sessions;
+          document.getElementById('disp-att-present').textContent = attendance.present_count;
+          document.getElementById('disp-att-absent').textContent = attendance.absent_count;
+          document.getElementById('disp-att-late-leave').textContent = (attendance.late_count || 0) + (attendance.leave_count || 0);
+
+          // Update link with pre-fill
+          viewFullAttLink.href = `attendance.html?roll=${encodeURIComponent(student.roll_number)}&name=${encodeURIComponent(student.student_name)}`;
+        }
+
+        // 3. Exams List
+        examsContainer.innerHTML = '';
+        if (!results || results.length === 0) {
+          examsEmptyState.style.display = 'block';
+        } else {
+          examsEmptyState.style.display = 'none';
+
+          results.forEach((exam, idx) => {
+            const isPass = exam.subjects.every(s => s.status === 'PASS');
+            const examCard = document.createElement('div');
+            examCard.className = 'history-timeline-item';
+            
+            let subjectsHtml = '';
+            exam.subjects.forEach(sub => {
+              subjectsHtml += `
+                <tr style="border-bottom: 1px solid var(--border-subtle);">
+                  <td style="padding: 10px 14px; font-weight: 600; color: #FFFFFF;">${sub.subject_name}</td>
+                  <td style="padding: 10px 14px; text-align: center; color: var(--text-muted);">${sub.max_marks}</td>
+                  <td style="padding: 10px 14px; text-align: center; color: var(--text-muted);">${sub.passing_marks}</td>
+                  <td style="padding: 10px 14px; text-align: center; font-weight: 700; color: ${sub.status === 'PASS' ? '#34D399' : '#F87171'};">
+                    ${sub.marks_obtained}
+                  </td>
+                  <td style="padding: 10px 14px; text-align: center;">
+                    <span class="badge-status ${sub.status === 'PASS' ? 'badge-pass' : 'badge-fail'}">
+                      ${sub.status}
+                    </span>
+                  </td>
+                </tr>
+              `;
+            });
+
+            examCard.innerHTML = `
+              <div class="history-timeline-dot"></div>
+              <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 18px; margin-bottom: 16px;">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px; margin-bottom: 12px;">
+                  <div>
+                    <h4 style="font-family: var(--ff-heading); font-size: var(--fs-base); font-weight: 800; color: #FFFFFF; margin: 0;">
+                      ${exam.exam_name}
+                    </h4>
+                    <span style="font-size: var(--fs-xs); color: var(--text-dim);">
+                      Academic Session: ${exam.academic_year} ${exam.publication_date ? '• Published: ' + exam.publication_date : ''}
+                    </span>
+                  </div>
+                  <div style="text-align: right;">
+                    <div style="font-family: var(--ff-heading); font-size: var(--fs-lg); font-weight: 900; color: ${isPass ? '#34D399' : '#F87171'};">
+                      ${exam.percentage}% (${exam.total_obtained}/${exam.total_max})
+                    </div>
+                    <span class="badge-status ${isPass ? 'badge-pass' : 'badge-fail'}">
+                      ${isPass ? 'PASSED' : 'NEEDS IMPROVEMENT'}
+                    </span>
+                  </div>
+                </div>
+
+                ${exam.teacher_remarks ? `
+                  <div style="background: rgba(245, 158, 11, 0.08); border-left: 3px solid var(--primary); padding: 8px 12px; font-size: var(--fs-xs); color: var(--primary-light); margin-bottom: 12px; border-radius: 0 var(--radius-sm) var(--radius-sm) 0;">
+                    <strong>Mentor Remarks:</strong> ${exam.teacher_remarks}
+                  </div>
+                ` : ''}
+
+                <!-- Subject Table -->
+                <div class="table-responsive" style="overflow-x: auto; border: 1px solid var(--border-subtle); border-radius: var(--radius-sm);">
+                  <table class="marksheet-table" style="width: 100%; border-collapse: collapse; font-size: var(--fs-xs); text-align: left;">
+                    <thead>
+                      <tr style="background: rgba(255, 255, 255, 0.04);">
+                        <th style="padding: 8px 14px; color: var(--text-muted);">Subject</th>
+                        <th style="padding: 8px 14px; text-align: center; color: var(--text-muted);">Max</th>
+                        <th style="padding: 8px 14px; text-align: center; color: var(--text-muted);">Pass</th>
+                        <th style="padding: 8px 14px; text-align: center; color: var(--text-muted);">Obtained</th>
+                        <th style="padding: 8px 14px; text-align: center; color: var(--text-muted);">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      ${subjectsHtml}
+                    </tbody>
+                  </table>
+                </div>
+
+              </div>
+            `;
+
+            examsContainer.appendChild(examCard);
+          });
+        }
+
+        // Switch Views
+        searchBoxWrap.style.display = 'none';
+        displayWrap.style.display = 'block';
+        displayWrap.scrollIntoView({ behavior: 'smooth' });
+      }
+
+      lookupAnotherBtn.addEventListener('click', () => {
+        displayWrap.style.display = 'none';
+        searchBoxWrap.style.display = 'block';
+        searchBoxWrap.scrollIntoView({ behavior: 'smooth' });
+        rollInput.focus();
+      });
+
+    });
+  </script>
+  <script src="script.js"></script>
+</body>
+</html>
+

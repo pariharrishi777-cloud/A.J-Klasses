@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admission Portal — AJ Klasses, Orai</title>
+  <meta name="description" content="Apply for admission at AJ Klasses, Orai's leading coaching institute for LKG to Class 12 (CBSE & UP Board), Foundational wings, Board preparation, and Olympiads.">
+  <link rel="icon" type="image/png" href="assets/logo.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ════════════════════════════════════════════════════════
+       HEADER & NAVIGATION
+       ════════════════════════════════════════════════════════ -->
+  <header class="site-header" role="banner">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="AJ Klasses Home">
+        <div class="brand-logo-wrap" aria-hidden="true">
+          <img src="assets/logo.png" alt="AJ Klasses Logo" class="brand-logo-img">
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">AJ Klasses</span>
+          <span class="brand-sub">Orai • Jalaun District</span>
+        </div>
+      </a>
+
+      <nav aria-label="Primary Navigation">
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="courses.html">Courses</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li class="nav-dropdown">
+            <button type="button" class="kebab-btn" id="kebab-menu-btn" aria-haspopup="true" aria-expanded="false" aria-label="Student Portals & Services" title="Student Portals & Services" style="border-color: rgba(245, 158, 11, 0.4); color: var(--primary-light);">
+              <span class="kebab-dots" aria-hidden="true">
+                <span></span>
+                <span></span>
+                <span></span>
+              </span>
+              <span class="kebab-label">Admissions ▾</span>
+            </button>
+            <div class="nav-dropdown-menu" id="portals-menu" role="menu">
+              <div class="dropdown-section-title">Student Portals</div>
+              <div class="dropdown-list">
+                <a href="admission.html" class="dropdown-item active-item" role="menuitem" aria-current="page">
+                  <span class="dropdown-item-icon" style="background: rgba(245, 158, 11, 0.25); color: #F59E0B;">⚡</span>
+                  <div class="dropdown-item-text">
+                    <span class="dropdown-item-title">Admissions Portal</span>
+                    <span class="dropdown-item-desc">Apply online &amp; track status (Active)</span>
+                  </div>
+                </a>
+                <a href="results.html" class="dropdown-item" role="menuitem">
+                  <span class="dropdown-item-icon" style="background: rgba(59, 130, 246, 0.15); color: #60A5FA;">📊</span>
+                  <div class="dropdown-item-text">
+                    <span class="dropdown-item-title">Results Portal</span>
+                    <span class="dropdown-item-desc">Marksheet &amp; PDF download</span>
+                  </div>
+                </a>
+                <a href="attendance.html" class="dropdown-item" role="menuitem">
+                  <span class="dropdown-item-icon" style="background: rgba(16, 185, 129, 0.15); color: #34D399;">📅</span>
+                  <div class="dropdown-item-text">
+                    <span class="dropdown-item-title">Attendance Portal</span>
+                    <span class="dropdown-item-desc">Live records &amp; attendance rate</span>
+                  </div>
+                </a>
+                <a href="student-history.html" class="dropdown-item" role="menuitem">
+                  <span class="dropdown-item-icon" style="background: rgba(168, 85, 247, 0.15); color: #C084FC;">📜</span>
+                  <div class="dropdown-item-text">
+                    <span class="dropdown-item-title">Academic History</span>
+                    <span class="dropdown-item-desc">Cumulative student progression</span>
+                  </div>
+                </a>
+                <a href="about-staff.html" class="dropdown-item" role="menuitem">
+                  <span class="dropdown-item-icon" style="background: rgba(59, 130, 246, 0.15); color: #60A5FA;">👨‍🏫</span>
+                  <div class="dropdown-item-text">
+                    <span class="dropdown-item-title">About Staff Portal</span>
+                    <span class="dropdown-item-desc">Faculty directory &amp; mentor profiles</span>
+                  </div>
+                </a>
+                <a href="gallery.html" class="dropdown-item" role="menuitem">
+                  <span class="dropdown-item-icon" style="background: rgba(245, 158, 11, 0.15); color: #F59E0B;">🖼️</span>
+                  <div class="dropdown-item-text">
+                    <span class="dropdown-item-title">Events Gallery</span>
+                    <span class="dropdown-item-desc">Campus events, functions &amp; 5GB vault</span>
+                  </div>
+                </a>
+              </div>
+              <div class="dropdown-divider"></div>
+              <div class="dropdown-section-title">Administration</div>
+              <a href="admin/login.html" class="dropdown-item dropdown-item--admin" role="menuitem">
+                <span class="dropdown-item-icon" style="background: rgba(239, 68, 68, 0.15); color: #F87171;">🔐</span>
+                <div class="dropdown-item-text">
+                  <span class="dropdown-item-title">Admin &amp; Staff Login</span>
+                  <span class="dropdown-item-desc">Control panel for institute staff</span>
+                </div>
+              </a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <a href="tel:+916394043659" class="btn btn--outline btn--sm" aria-label="Call AJ Klasses">
+          📞 +91 63940 43659
+        </a>
+        <a href="results.html" class="btn btn--secondary btn--sm" style="border: 1px solid var(--border-glow); color: var(--primary-light);">
+          Check Result 📊
+        </a>
+        <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="Toggle navigation menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile Navigation">
+      <ul>
+        <li><a href="index.html">🏠 Home</a></li>
+        <li><a href="courses.html">📚 Courses &amp; Batches</a></li>
+        <li><a href="about.html">🎓 About Institute</a></li>
+        <li><a href="contact.html">📍 Contact &amp; Centre</a></li>
+        <li style="border-top: 1px solid var(--border-subtle); margin-block: 6px; padding-top: 6px;">
+          <span style="font-size: 0.7rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.08em; padding-left: 12px; display: block; margin-bottom: 6px;">Student Portals &amp; Staff</span>
+        </li>
+        <li><a href="about-staff.html">👨‍🏫 About Staff Portal</a></li>
+        <li><a href="admission.html" aria-current="page">⚡ Apply for Admission</a></li>
+        <li><a href="results.html">📊 Student Results</a></li>
+        <li><a href="attendance.html">📅 Student Attendance</a></li>
+        <li><a href="student-history.html">📜 Academic History</a></li>
+        <li><a href="gallery.html">🖼️ Events Gallery (5 GB)</a></li>
+        <li><a href="admin/login.html" style="color: #F87171;">🔐 Staff Login</a></li>
+      </ul>
+      <div class="mobile-nav-cta">
+        <a href="https://wa.me/916394043659?text=Hello%20AJ%20Klasses%2C%20I%20want%20to%20enquire%20about%20admission." class="btn btn--whatsapp" target="_blank" rel="noopener">
+          💬 Chat on WhatsApp
+        </a>
+        <a href="tel:+916394043659" class="btn btn--primary">
+          📞 Call Now: +91 63940 43659
+        </a>
+      </div>
+    </nav>
+  </header>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       PAGE BANNER
+       ════════════════════════════════════════════════════════ -->
+  <section class="page-banner" aria-labelledby="page-title">
+    <div class="container reveal-on-scroll">
+      <span class="section-pill">Academic Admissions 2024–25</span>
+      <h1 id="page-title">Apply for <span class="text-gradient-gold">Admission</span></h1>
+      <p>Enroll for LKG to Class 12 (CBSE &amp; UP Board). Complete the online application below to reserve your batch seat and schedule a diagnostic counselling session.</p>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       ADMISSION APPLICATION SECTION
+       ════════════════════════════════════════════════════════ -->
+  <section class="result-portal-section" aria-labelledby="form-heading">
+    <div class="container">
+      <h2 id="form-heading" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0);">Admission Form</h2>
+
+      <div style="max-width: 820px; margin-inline: auto;">
+        
+        <!-- Instruction Banner -->
+        <div class="result-instruction-banner reveal-on-scroll is-visible">
+          <span style="font-size: 1.35rem;">📝</span>
+          <div>
+            <strong>Notice to Applicants:</strong> Submitting this online application registers your candidature for batch admission. After submission, you will receive an <strong>Application Reference Number</strong>. Admissions are confirmed following mentor verification.
+          </div>
+        </div>
+
+        <!-- Alert Notification Box -->
+        <div id="admission-alert" class="alert-message alert-message--error" style="display: none;" role="alert">
+          <span id="alert-icon">⚠️</span>
+          <span id="alert-text">Error message will appear here.</span>
+        </div>
+
+        <!-- SUCCESS CONFIRMATION CARD (Shown on successful submission) -->
+        <div id="admission-success-card" class="result-search-box" style="display: none; text-align: center; border-color: rgba(16, 185, 129, 0.4);">
+          <div style="font-size: 3rem; margin-bottom: 12px;">🎉</div>
+          <h2 style="font-family: var(--ff-heading); font-size: var(--fs-2xl); color: #FFFFFF; font-weight: 800; margin-bottom: 8px;">
+            Application Registered Successfully!
+          </h2>
+          <p style="font-size: var(--fs-base); color: var(--text-body); max-width: 580px; margin-inline: auto; margin-bottom: var(--space-xl);">
+            Thank you for choosing AJ Klasses. Your application has been logged into our admissions database.
+          </p>
+
+          <div style="background: rgba(245, 158, 11, 0.1); border: 2px dashed var(--primary); border-radius: var(--radius-lg); padding: 18px; max-width: 440px; margin-inline: auto; margin-bottom: var(--space-xl);">
+            <div style="font-size: var(--fs-xs); color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;">
+              Your Application Reference Number
+            </div>
+            <div id="success-ref-number" style="font-family: var(--ff-heading); font-size: var(--fs-2xl); font-weight: 900; color: var(--primary-light); margin-top: 4px;">
+              AJ-ADM-2025-0000
+            </div>
+          </div>
+
+          <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 14px 18px; max-width: 580px; margin-inline: auto; font-size: var(--fs-sm); color: var(--text-muted); text-align: left; margin-bottom: var(--space-xl);">
+            <strong>Next Steps:</strong>
+            <ul style="padding-left: 20px; margin-top: 6px; line-height: 1.6;">
+              <li>Our admission coordinator will call the registered contact number within 24 hours.</li>
+              <li>You may attend up to <strong>2 free trial/demo classes</strong> in your batch.</li>
+              <li>Upon administrative approval, your permanent <strong>Roll Number</strong> will be issued.</li>
+            </ul>
+          </div>
+
+          <div style="display: flex; justify-content: center; gap: var(--space-md); flex-wrap: wrap;">
+            <button type="button" id="apply-another-btn" class="btn btn--outline btn--md">
+              Submit Another Application
+            </button>
+            <a href="courses.html" class="btn btn--primary btn--md">
+              Explore Batch Timings 📖
+            </a>
+            <a href="https://wa.me/916394043659?text=Hello%20AJ%20Klasses%2C%20I%20have%20submitted%20my%20admission%20form." target="_blank" rel="noopener" class="btn btn--whatsapp btn--md">
+              Connect on WhatsApp
+            </a>
+          </div>
+        </div>
+
+        <!-- MAIN ADMISSION FORM CARD -->
+        <div id="admission-form-card" class="result-search-box reveal-on-scroll is-visible" style="max-width: 100%;">
+          <form id="admission-form" novalidate>
+            
+            <h3 style="font-family: var(--ff-heading); font-size: var(--fs-xl); color: #FFFFFF; font-weight: 800; margin-bottom: var(--space-lg); border-bottom: 1px solid var(--border-subtle); padding-bottom: 12px;">
+              1. Student &amp; Guardian Information
+            </h3>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="adm-student-name">Student Full Name *</label>
+                <input type="text" id="adm-student-name" name="student_name" required placeholder="e.g. Rahul Sharma" autocomplete="name">
+              </div>
+              <div class="form-group">
+                <label for="adm-parent-name">Parent / Guardian Full Name *</label>
+                <input type="text" id="adm-parent-name" name="parent_name" required placeholder="e.g. Vinod Sharma">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="adm-phone">Contact Mobile Number (WhatsApp) *</label>
+                <input type="tel" id="adm-phone" name="contact_number" required placeholder="e.g. 9876543210" maxlength="10">
+                <span style="font-size: var(--fs-xs); color: var(--text-dim); margin-top: 4px; display: block;">
+                  Enter 10-digit Indian mobile number for verification and admission updates.
+                </span>
+              </div>
+              <div class="form-group">
+                <label for="adm-email">Email Address (Optional)</label>
+                <input type="email" id="adm-email" name="email" placeholder="e.g. parent@example.com" autocomplete="email">
+              </div>
+            </div>
+
+            <h3 style="font-family: var(--ff-heading); font-size: var(--fs-xl); color: #FFFFFF; font-weight: 800; margin-top: var(--space-xl); margin-bottom: var(--space-lg); border-bottom: 1px solid var(--border-subtle); padding-bottom: 12px;">
+              2. Academic Track &amp; Program Selection
+            </h3>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="adm-class">Applying for Class *</label>
+                <select id="adm-class" name="desired_class" required>
+                  <option value="">-- Select Class (LKG to 12th) --</option>
+                  <optgroup label="Pre-Primary &amp; Primary Wing (LKG to 5th)">
+                    <option value="LKG">LKG (Lower Kindergarten)</option>
+                    <option value="UKG">UKG (Upper Kindergarten)</option>
+                    <option value="Class 1">Class 1</option>
+                    <option value="Class 2">Class 2</option>
+                    <option value="Class 3">Class 3</option>
+                    <option value="Class 4">Class 4</option>
+                    <option value="Class 5">Class 5</option>
+                  </optgroup>
+                  <optgroup label="Middle School Foundation (6th to 8th)">
+                    <option value="Class 6">Class 6 (Junior Foundation)</option>
+                    <option value="Class 7">Class 7 (Junior Foundation)</option>
+                    <option value="Class 8">Class 8 (Junior Foundation)</option>
+                  </optgroup>
+                  <optgroup label="Secondary Board Wing (9th &amp; 10th)">
+                    <option value="Class 9">Class 9 (Secondary Foundation)</option>
+                    <option value="Class 10">Class 10 (High School Board)</option>
+                  </optgroup>
+                  <optgroup label="Senior Secondary Wing (11th &amp; 12th)">
+                    <option value="Class 11 Science (PCM)">Class 11 Science (PCM)</option>
+                    <option value="Class 11 Science (PCB)">Class 11 Science (PCB)</option>
+                    <option value="Class 12 Science (PCM)">Class 12 Intermediate (PCM Track)</option>
+                    <option value="Class 12 Science (PCB)">Class 12 Intermediate (PCB / Medical)</option>
+                  </optgroup>
+                  <optgroup label="Competitive &amp; Other">
+                    <option value="Competitive & Olympiad Foundation">Competitive &amp; Olympiad Foundation</option>
+                  </optgroup>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="adm-course">Desired Academic Program *</label>
+                <select id="adm-course" name="desired_course" required>
+                  <option value="Early Sparks & Phonics Foundation (LKG & UKG)">Early Sparks &amp; Phonics Foundation (LKG &amp; UKG)</option>
+                  <option value="Junior Primary Numeracy & Reading (Class 1-3)">Junior Primary Numeracy &amp; Reading (Class 1–3)</option>
+                  <option value="Upper Primary Concept Builder (Class 4-5)">Upper Primary Concept Builder (Class 4–5)</option>
+                  <option value="Junior Champions Foundation (Class 6-8)">Junior Champions Foundation (Class 6–8)</option>
+                  <option value="Class 9 Secondary Foundation">Class 9 Secondary Foundation</option>
+                  <option value="Class 10 Board Accelerator">Class 10 Board Accelerator (Maths &amp; Science)</option>
+                  <option value="Senior Secondary Science (PCM)">Senior Secondary Science (PCM Comprehensive)</option>
+                  <option value="Senior Secondary Science (PCB)">Senior Secondary Science (PCB Medical Track)</option>
+                  <option value="NTSE & Olympiad Accelerator">NTSE &amp; Olympiad Accelerator</option>
+                  <option value="Special Mathematics Mastery">Special Mathematics Mastery</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="adm-board">School Board *</label>
+                <select id="adm-board" name="board" required>
+                  <option value="CBSE">CBSE (Central Board)</option>
+                  <option value="UP Board English Medium">UP Board (English Medium)</option>
+                  <option value="UP Board Hindi Medium">UP Board (Hindi Medium)</option>
+                  <option value="ICSE">ICSE Board</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="adm-medium">Medium of Instruction *</label>
+                <select id="adm-medium" name="medium" required>
+                  <option value="English">English Medium</option>
+                  <option value="Hindi">Hindi Medium</option>
+                  <option value="Bilingual">Bilingual (English + Hindi Explanation)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="adm-session">Academic Session *</label>
+                <select id="adm-session" name="academic_session" required>
+                  <option value="2024-25" selected>2024–25 (Ongoing)</option>
+                  <option value="2025-26">2025–26 (Upcoming New Batches)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-top: var(--space-md); margin-bottom: var(--space-md);">
+              <label for="adm-school">Previous / Current School (Optional)</label>
+              <input type="text" id="adm-school" name="previous_school" placeholder="e.g. St. Jude Convent, GIC Orai, Arya Kanya, etc.">
+            </div>
+
+            <div class="form-group" style="margin-bottom: var(--space-xl);">
+              <label for="adm-message">Specific Learning Needs or Batch Timing Preference (Optional)</label>
+              <textarea id="adm-message" name="message" placeholder="e.g. Interested in morning batch (6:30 AM), need special attention in trigonometry derivations..."></textarea>
+            </div>
+
+            <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 14px 18px; font-size: var(--fs-xs); color: var(--text-dim); margin-bottom: var(--space-xl);">
+              <div style="margin-bottom: 8px;">
+                <strong>🔒 DPDP Act 2023 &amp; IT Act 2000 Compliance:</strong> AJ Klasses collects student and parent contact details strictly for academic admission processing, batch scheduling, and student performance mentorship. Your data is protected by industry-standard encryption and will never be sold or shared with external advertising third parties.
+              </div>
+              <label style="display: flex; align-items: flex-start; gap: 8px; cursor: pointer; color: var(--text-light); font-size: 0.8rem; margin-top: 8px;">
+                <input type="checkbox" id="dpdp-consent" required checked style="accent-color: var(--primary); width: 16px; height: 16px; margin-top: 2px;">
+                <span>I consent to AJ Klasses processing my admission information in accordance with the <a href="privacy-policy.html" target="_blank" style="color: var(--primary); text-decoration: underline;">Privacy Policy</a>.</span>
+              </label>
+            </div>
+
+            <button type="submit" id="submit-admission-btn" class="btn btn--primary" style="width: 100%; justify-content: center; font-size: var(--fs-base);">
+              <span id="btn-text">Submit Admission Application ⚡</span>
+            </button>
+          </form>
+
+          <div id="adm-spinner" class="loading-spinner-wrap" aria-live="polite">
+            <div class="loading-spinner"></div>
+            <div style="font-size: var(--fs-sm); color: var(--text-muted); font-weight: 600;">
+              Registering application and allocating reference ID...
+            </div>
+          </div>
+        </div>
+
+        <!-- TRACK APPLICATION STATUS CARD -->
+        <div class="result-search-box" style="margin-top: var(--space-2xl); max-width: 100%;">
+          <h3 style="font-family: var(--ff-heading); font-size: var(--fs-md); color: var(--text-white); margin-bottom: 8px;">
+            Already Applied? Track Application Status
+          </h3>
+          <p style="font-size: var(--fs-xs); color: var(--text-muted); margin-bottom: var(--space-md);">
+            Enter your application reference number (e.g. AJ-ADM-2025-1001) to verify your current admission review status.
+          </p>
+
+          <form id="track-status-form" style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <input 
+              type="text" 
+              id="track-ref-input" 
+              placeholder="e.g. AJ-ADM-2025-1001" 
+              required 
+              style="flex: 1; min-width: 200px; padding: 10px 14px; background: var(--bg-surface); border: 1px solid var(--border-card); border-radius: var(--radius-md); color: var(--text-white); text-transform: uppercase;"
+            >
+            <button type="submit" class="btn btn--outline btn--sm">
+              Track Status 🔍
+            </button>
+          </form>
+
+          <div id="track-status-result" style="display: none; margin-top: var(--space-md); padding: 12px 16px; border-radius: var(--radius-md); font-size: var(--fs-sm);">
+            <!-- Status payload rendered dynamically -->
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       SITE FOOTER
+       ════════════════════════════════════════════════════════ -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-top">
+        
+        <div class="footer-brand-col">
+          <a href="index.html" class="brand">
+            <div class="brand-logo-wrap" aria-hidden="true">
+              <img src="assets/logo.png" alt="AJ Klasses Logo" class="brand-logo-img">
+            </div>
+            <div class="brand-text">
+              <span class="brand-name">AJ Klasses</span>
+              <span class="brand-sub">Orai, Jalaun District</span>
+            </div>
+          </a>
+          <p>
+            Orai's premier academic coaching institute, dedicated to fostering concept clarity, discipline, and top ranks for students from LKG to Class 12.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Integrated Portals</h4>
+          <ul class="footer-links">
+            <li><a href="admission.html" aria-current="page">Apply for Admission</a></li>
+            <li><a href="results.html">Student Result Portal</a></li>
+            <li><a href="attendance.html">Student Attendance</a></li>
+            <li><a href="student-history.html">Student Academic History</a></li>
+            <li><a href="about-staff.html">Faculty &amp; Staff</a></li>
+            <li><a href="gallery.html">Events Gallery (5 GB)</a></li>
+            <li><a href="courses.html">Our Courses &amp; Batches</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Key Batches</h4>
+          <ul class="footer-links">
+            <li><a href="courses.html">Class 10 Board Prep</a></li>
+            <li><a href="courses.html">Class 12 PCM / PCB</a></li>
+            <li><a href="courses.html">Foundation 6–8</a></li>
+            <li><a href="courses.html">Competitive Entrance</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Get in Touch</h4>
+          <div class="footer-contact-item">
+            <span>📍</span>
+            <a href="https://maps.google.com/?q=XFP4%2B4F7,+Teli+Vali+Street,+Tulsi+Nagar,+New+Ram+Nagar,+Niyamatpur,+Orai,+Uttar+Pradesh+285001" target="_blank" rel="noopener" style="color: var(--text-body); transition: var(--transition);" title="Open in Google Maps">
+              Teli Vali Street, Tulsi Nagar, Orai (Plus Code: <strong style="color: var(--primary-light);">XFP4+4F7</strong>)
+            </a>
+          </div>
+          <div class="footer-contact-item">
+            <span>📞</span>
+            <a href="tel:+916394043659" style="color: var(--primary-light);">+91 63940 43659</a>
+          </div>
+          <div class="footer-contact-item">
+            <span>✉️</span>
+            <a href="mailto:pariharrishi777@gmail.com" style="color: var(--primary-light);">pariharrishi777@gmail.com</a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2024–2026 AJ Klasses. All rights reserved. &nbsp;|&nbsp; <a href="privacy-policy.html" style="color:inherit;opacity:.75;text-decoration:underline;">Privacy Policy</a></div>
+        <div>
+          <a href="admin/login.html" style="color: var(--text-dim); text-decoration: none; font-size: 0.75rem;">Staff Admin Portal</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       FLOATING ACTION HUB
+       ════════════════════════════════════════════════════════ -->
+  <div class="floating-action-hub">
+    <a href="https://wa.me/916394043659?text=Hello%20AJ%20Klasses%2C%20I%20have%20an%20enquiry%20regarding%20admission." target="_blank" rel="noopener" class="float-btn float-btn--whatsapp" aria-label="Chat on WhatsApp">
+      <span class="float-pulse" aria-hidden="true"></span>
+      <span style="font-size: 1.25rem;">💬</span>
+      <span class="float-btn-text">Chat on WhatsApp</span>
+    </a>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const form = document.getElementById('admission-form');
+      const submitBtn = document.getElementById('submit-admission-btn');
+      const spinner = document.getElementById('adm-spinner');
+      const alertBox = document.getElementById('admission-alert');
+      const alertText = document.getElementById('alert-text');
+      const formCard = document.getElementById('admission-form-card');
+      const successCard = document.getElementById('admission-success-card');
+      const successRef = document.getElementById('success-ref-number');
+      const applyAnotherBtn = document.getElementById('apply-another-btn');
+
+      function getApiEndpoint(path) {
+        if (window.location.protocol === 'file:') {
+          return 'http://localhost:3000' + path;
+        }
+        if (window.location.port && window.location.port !== '3000' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
+          return `http://${window.location.hostname}:3000` + path;
+        }
+        return path;
+      }
+
+      function showAlert(msg, html = '') {
+        alertText.innerHTML = html ? `${msg}<br>${html}` : msg;
+        alertBox.style.display = 'flex';
+        window.scrollTo({ top: alertBox.offsetTop - 100, behavior: 'smooth' });
+      }
+
+      function hideAlert() {
+        alertBox.style.display = 'none';
+        alertText.textContent = '';
+      }
+
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        hideAlert();
+
+        const studentName = document.getElementById('adm-student-name').value.trim();
+        const parentName = document.getElementById('adm-parent-name').value.trim();
+        const phone = document.getElementById('adm-phone').value.trim();
+        const email = document.getElementById('adm-email').value.trim();
+        const desiredClass = document.getElementById('adm-class').value;
+        const desiredCourse = document.getElementById('adm-course').value;
+        const board = document.getElementById('adm-board').value;
+        const medium = document.getElementById('adm-medium').value;
+        const session = document.getElementById('adm-session').value;
+        const school = document.getElementById('adm-school').value.trim();
+        const message = document.getElementById('adm-message').value.trim();
+
+        if (!studentName || !parentName || !phone || !desiredClass || !desiredCourse) {
+          showAlert('Please fill in all required fields indicated with *.');
+          return;
+        }
+
+        const cleanPhone = phone.replace(/\D/g, '');
+        if (cleanPhone.length !== 10) {
+          showAlert('Please enter a valid 10-digit Indian mobile number.');
+          return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.style.opacity = '0.7';
+        spinner.style.display = 'block';
+
+        const payload = {
+          student_name: studentName,
+          parent_name: parentName,
+          contact_number: cleanPhone,
+          email: email,
+          desired_class: desiredClass,
+          desired_course: desiredCourse,
+          board: board,
+          medium: medium,
+          academic_session: session,
+          previous_school: school,
+          message: message
+        };
+
+        try {
+          const endpoint = getApiEndpoint('/api/admissions/apply');
+          const res = await fetch(endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+
+          const data = await res.json();
+
+          if (!res.ok || !data.success) {
+            showAlert(data.message || 'Failed to submit application. Please verify details.');
+            return;
+          }
+
+          successRef.textContent = data.appRefNumber;
+          formCard.style.display = 'none';
+          successCard.style.display = 'block';
+          window.scrollTo({ top: successCard.offsetTop - 80, behavior: 'smooth' });
+
+        } catch (err) {
+          // If server is offline or network fails, provide instant WhatsApp submission fallback
+          const waText = encodeURIComponent(
+            `*AJ KLASSES — ADMISSION ENQUIRY / APPLICATION*\n\n` +
+            `• *Student Name:* ${studentName}\n` +
+            `• *Parent Name:* ${parentName}\n` +
+            `• *Contact:* ${cleanPhone}\n` +
+            (email ? `• *Email:* ${email}\n` : '') +
+            `• *Class:* ${desiredClass}\n` +
+            `• *Course:* ${desiredCourse}\n` +
+            `• *Board:* ${board} (${medium} Medium)\n` +
+            `• *Academic Session:* ${session}\n` +
+            (school ? `• *Previous School:* ${school}\n` : '') +
+            (message ? `• *Message:* ${message}\n` : '')
+          );
+          const waUrl = `https://wa.me/916394043659?text=${waText}`;
+
+          showAlert(
+            'Server connection error: The backend server is not reachable on port 3000.',
+            `<div style="margin-top: 10px;">
+              <p style="margin-bottom: 8px; font-size: 0.85rem; color: #fff;">
+                <strong>To submit directly to our institute team right now:</strong>
+              </p>
+              <a href="${waUrl}" target="_blank" rel="noopener" class="btn btn--primary btn--sm" style="background:#25D366; color:#fff; display:inline-flex; align-items:center; gap:8px; text-decoration:none; font-weight:700;">
+                <span>📲 Submit Instantly via WhatsApp (+91 63940 43659)</span>
+              </a>
+              <div style="margin-top: 8px; font-size: 0.75rem; color: var(--text-dim);">
+                Tip for Administrator: Start the Node backend in your terminal by running <code>npm start</code>.
+              </div>
+            </div>`
+          );
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.style.opacity = '1';
+          spinner.style.display = 'none';
+        }
+      });
+
+      applyAnotherBtn.addEventListener('click', function () {
+        form.reset();
+        successCard.style.display = 'none';
+        formCard.style.display = 'block';
+        hideAlert();
+        window.scrollTo({ top: formCard.offsetTop - 80, behavior: 'smooth' });
+      });
+
+      // Track Status Form
+      const trackForm = document.getElementById('track-status-form');
+      const trackRefInput = document.getElementById('track-ref-input');
+      const trackResultBox = document.getElementById('track-status-result');
+
+      trackForm.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const ref = trackRefInput.value.trim().toUpperCase();
+        if (!ref) return;
+
+        trackResultBox.style.display = 'block';
+        trackResultBox.className = 'alert-message alert-message--info';
+        trackResultBox.textContent = 'Searching application records...';
+
+        try {
+          const endpoint = getApiEndpoint(`/api/admissions/status?ref=${encodeURIComponent(ref)}`);
+          const res = await fetch(endpoint);
+          const data = await res.json();
+
+          if (!res.ok || !data.success) {
+            trackResultBox.className = 'alert-message alert-message--error';
+            trackResultBox.textContent = data.message || 'No record found with this reference number.';
+            return;
+          }
+
+          const d = data.data;
+          let badgeColor = '#FBBF24';
+          if (d.status === 'Approved') badgeColor = '#34D399';
+          if (d.status === 'Rejected') badgeColor = '#F87171';
+
+          trackResultBox.className = 'alert-message alert-message--success';
+
+          if (d.status === 'Approved') {
+            trackResultBox.innerHTML = `
+              <div style="line-height: 1.6;">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+                  <span style="background: #059669; color: #fff; padding: 2px 8px; border-radius: 4px; font-weight: 700; font-size: 0.8rem;">ADMISSION APPROVED</span>
+                </div>
+                <div style="background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.35); border-radius: 8px; padding: 14px; margin: 10px 0;">
+                  <div style="font-size: 0.8rem; color: var(--text-dim);">Allocated Student Roll Number:</div>
+                  <div style="font-size: 1.35rem; font-weight: 900; color: #34D399; letter-spacing: 0.5px;">${d.rollNumber || 'Generating...'}</div>
+                  ${d.verificationHash ? `
+                    <div style="font-size: 0.8rem; color: var(--text-dim); margin-top: 6px;">
+                      Security Verification Hash: <code style="background: rgba(0,0,0,0.4); padding: 2px 6px; border-radius: 4px; color: #FBBF24; font-weight:700;">${d.verificationHash}</code>
+                    </div>
+                  ` : ''}
+                </div>
+                <div><strong>Student Name:</strong> ${d.studentName || 'Student'}</div>
+                <div><strong>Class &amp; Program:</strong> ${d.desiredClass} (${d.course})</div>
+                <div><strong>Academic Session:</strong> ${d.session}</div>
+                <div style="margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap;">
+                  <a href="attendance.html" class="btn btn--outline btn--sm" style="font-size: 0.75rem;">Check Attendance 📅</a>
+                  <a href="results.html" class="btn btn--outline btn--sm" style="font-size: 0.75rem;">View Results 📊</a>
+                  <a href="student-history.html" class="btn btn--outline btn--sm" style="font-size: 0.75rem;">Academic History 📜</a>
+                </div>
+              </div>
+            `;
+          } else {
+            trackResultBox.innerHTML = `
+              <div>
+                <strong>Application Status:</strong> <span style="color: ${badgeColor}; font-weight: 800;">${d.status.toUpperCase()}</span><br>
+                <strong>Class &amp; Program:</strong> ${d.desiredClass} (${d.course})<br>
+                <strong>Academic Session:</strong> ${d.session}<br>
+                <span style="font-size: 0.8rem; color: var(--text-dim);">Your application is currently under review by our counseling desk.</span>
+              </div>
+            `;
+          }
+        } catch (err) {
+          trackResultBox.className = 'alert-message alert-message--error';
+          trackResultBox.textContent = 'Could not verify status at this moment. Please ensure the backend is running or contact +91 63940 43659.';
+        }
+      });
+    });
+  </script>
+</body>
+</html>

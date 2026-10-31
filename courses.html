@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Courses &amp; Batches — AJ Klasses, Orai</title>
+  <meta name="description"
+    content="Explore academic courses, foundational wings, and board batches at AJ Klasses in Orai. Comprehensive programs from LKG to Class 12 (CBSE & UP Board), Mathematics, Science, and Olympiad Preparation.">
+  <link rel="icon" type="image/png" href="assets/logo.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- ════════════════════════════════════════════════════════
+       HEADER & NAVIGATION
+       ════════════════════════════════════════════════════════ -->
+  <header class="site-header" role="banner">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="AJ Klasses Home">
+        <div class="brand-logo-wrap" aria-hidden="true">
+          <img src="assets/logo.png" alt="AJ Klasses Logo" class="brand-logo-img">
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">AJ Klasses</span>
+          <span class="brand-sub">Orai • Jalaun District</span>
+        </div>
+      </a>
+
+      <nav aria-label="Primary Navigation">
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="courses.html" aria-current="page">Courses</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li class="nav-dropdown">
+            <button type="button" class="kebab-btn" id="kebab-menu-btn" aria-haspopup="true" aria-expanded="false"
+              aria-label="Student Portals & Services" title="Student Portals & Services">
+              <span class="kebab-dots" aria-hidden="true">
+                <span></span>
+                <span></span>
+                <span></span>
+              </span>
+              <span class="kebab-label">Portals</span>
+              <svg class="kebab-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2.5">
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </button>
+            <div class="nav-dropdown-menu" id="portals-menu" role="menu">
+              <div class="dropdown-section-title">Student Portals</div>
+              <div class="dropdown-list">
+                <a href="admission.html" class="dropdown-item" role="menuitem">
+                  <span class="dropdown-item-icon"
+                    style="background: rgba(245, 158, 11, 0.15); color: #F59E0B;">⚡</span>
+                  <div class="dropdown-item-text">
+                    <span class="dropdown-item-title">Admissions Portal</span>
+                    <span class="dropdown-item-desc">Apply online &amp; track status</span>
+                  </div>
+                </a>
+                <a href="results.html" class="dropdown-item" role="menuitem">
+                  <span class="dropdown-item-icon"
+                    style="background: rgba(59, 130, 246, 0.15); color: #60A5FA;">📊</span>
+                  <div class="dropdown-item-text">
+                    <span class="dropdown-item-title">Results Portal</span>
+                    <span class="dropdown-item-desc">Marksheet &amp; PDF download</span>
+                  </div>
+                </a>
+                <a href="attendance.html" class="dropdown-item" role="menuitem">
+                  <span class="dropdown-item-icon"
+                    style="background: rgba(16, 185, 129, 0.15); color: #34D399;">📅</span>
+                  <div class="dropdown-item-text">
+                    <span class="dropdown-item-title">Attendance Portal</span>
+                    <span class="dropdown-item-desc">Live records &amp; attendance rate</span>
+                  </div>
+                </a>
+                <a href="student-history.html" class="dropdown-item" role="menuitem">
+                  <span class="dropdown-item-icon"
+                    style="background: rgba(168, 85, 247, 0.15); color: #C084FC;">📜</span>
+                  <div class="dropdown-item-text">
+                    <span class="dropdown-item-title">Academic History</span>
+                    <span class="dropdown-item-desc">Cumulative student progression</span>
+                  </div>
+                </a>
+                <a href="about-staff.html" class="dropdown-item" role="menuitem">
+                  <span class="dropdown-item-icon"
+                    style="background: rgba(59, 130, 246, 0.15); color: #60A5FA;">👨‍🏫</span>
+                  <div class="dropdown-item-text">
+                    <span class="dropdown-item-title">About Staff Portal</span>
+                    <span class="dropdown-item-desc">Faculty directory &amp; mentor profiles</span>
+                  </div>
+                </a>
+                <a href="gallery.html" class="dropdown-item" role="menuitem">
+                  <span class="dropdown-item-icon"
+                    style="background: rgba(245, 158, 11, 0.15); color: #F59E0B;">🖼️</span>
+                  <div class="dropdown-item-text">
+                    <span class="dropdown-item-title">Events Gallery</span>
+                    <span class="dropdown-item-desc">Campus events, functions &amp; 5GB vault</span>
+                  </div>
+                </a>
+              </div>
+              <div class="dropdown-divider"></div>
+              <div class="dropdown-section-title">Administration</div>
+              <a href="admin/login.html" class="dropdown-item dropdown-item--admin" role="menuitem">
+                <span class="dropdown-item-icon" style="background: rgba(239, 68, 68, 0.15); color: #F87171;">🔐</span>
+                <div class="dropdown-item-text">
+                  <span class="dropdown-item-title">Admin &amp; Staff Login</span>
+                  <span class="dropdown-item-desc">Control panel for institute staff</span>
+                </div>
+              </a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <a href="tel:+916394043659" class="btn btn--outline btn--sm" aria-label="Call AJ Klasses">
+          📞 +91 63940 43659
+        </a>
+        <a href="results.html" class="btn btn--secondary btn--sm"
+          style="border: 1px solid var(--border-glow); color: var(--primary-light);">
+          Check Result 📊
+        </a>
+        <a href="admission.html" class="btn btn--primary btn--sm">
+          Apply Now ⚡
+        </a>
+        <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="mobile-nav"
+          aria-label="Toggle navigation menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile Navigation">
+      <ul>
+        <li><a href="index.html">🏠 Home</a></li>
+        <li><a href="courses.html" aria-current="page">📚 Courses &amp; Batches</a></li>
+        <li><a href="about.html">🎓 About Institute</a></li>
+        <li><a href="contact.html">📍 Contact &amp; Centre</a></li>
+        <li style="border-top: 1px solid var(--border-subtle); margin-block: 6px; padding-top: 6px;">
+          <span
+            style="font-size: 0.7rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.08em; padding-left: 12px; display: block; margin-bottom: 6px;">Student
+            Portals &amp; Staff</span>
+        </li>
+        <li><a href="about-staff.html">👨‍🏫 About Staff Portal</a></li>
+        <li><a href="admission.html">⚡ Apply for Admission</a></li>
+        <li><a href="results.html">📊 Student Results</a></li>
+        <li><a href="attendance.html">📅 Student Attendance</a></li>
+        <li><a href="student-history.html">📜 Academic History</a></li>
+        <li><a href="gallery.html">🖼️ Events Gallery (5 GB)</a></li>
+        <li><a href="admin/login.html" style="color: #F87171;">🔐 Staff Login</a></li>
+      </ul>
+      <div class="mobile-nav-cta">
+        <a href="https://wa.me/916394043659?text=Hello%20AJ%20Klasses%2C%20I%20want%20to%20enquire%20about%20admission."
+          class="btn btn--whatsapp" target="_blank" rel="noopener">
+          💬 Chat on WhatsApp
+        </a>
+        <a href="tel:+916394043659" class="btn btn--primary">
+          📞 Call Now: +91 63940 43659
+        </a>
+      </div>
+    </nav>
+  </header>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       PAGE BANNER
+       ════════════════════════════════════════════════════════ -->
+  <section class="page-banner" aria-labelledby="page-title">
+    <div class="container reveal-on-scroll">
+      <span class="section-pill">Academic Programs 2024–25</span>
+      <h1 id="page-title">Explore Our <span class="text-gradient-gold">Courses &amp; Batches</span></h1>
+      <p>Structured, result-oriented coaching programs from LKG to Class 12 mapped strictly to UP Board, CBSE, and
+        foundational excellence.</p>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       INTERACTIVE COURSES SECTION WITH TABS
+       ════════════════════════════════════════════════════════ -->
+  <section class="section" aria-labelledby="course-list-heading">
+    <div class="container">
+
+      <div class="section-header reveal-on-scroll">
+        <h2 id="course-list-heading">Choose Your <span class="text-gradient-gold">Academic Track</span></h2>
+        <p>Filter by grade level or explore all our specialized subject batches from LKG to Class 12.</p>
+      </div>
+
+      <!-- Filter Tabs -->
+      <div class="filter-tabs reveal-on-scroll" role="tablist" aria-label="Course Category Filters">
+        <button class="filter-tab-btn active" data-filter="all" role="tab" aria-selected="true">All Batches</button>
+        <button class="filter-tab-btn" data-filter="preprimary" role="tab" aria-selected="false">LKG &amp; UKG</button>
+        <button class="filter-tab-btn" data-filter="primary" role="tab" aria-selected="false">Primary (Class
+          1–5)</button>
+        <button class="filter-tab-btn" data-filter="foundation" role="tab" aria-selected="false">Middle School
+          (6–8)</button>
+        <button class="filter-tab-btn" data-filter="secondary" role="tab" aria-selected="false">Class 9 &amp; 10
+          (Board)</button>
+        <button class="filter-tab-btn" data-filter="senior" role="tab" aria-selected="false">Class 11 &amp; 12
+          (Science)</button>
+        <button class="filter-tab-btn" data-filter="competitive" role="tab" aria-selected="false">Competitive &amp;
+          Olympiad</button>
+      </div>
+
+      <!-- Course Grid -->
+      <div class="course-grid">
+
+        <!-- Course: LKG & UKG Pre-Primary -->
+        <article class="course-card reveal-on-scroll" data-category="preprimary">
+          <div class="course-card-top">
+            <div class="course-icon-badge">🎨</div>
+            <span class="course-level-tag">LKG &amp; UKG (Pre-Primary)</span>
+          </div>
+          <div class="course-card-content">
+            <h3>Early Sparks &amp; Phonics Foundation</h3>
+            <p>Joyful, interactive foundational learning focusing on alphabet phonics, basic numbers, speech
+              development, pencil grip, and creative engagement.</p>
+            <ul class="course-features-list">
+              <li><svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"></path>
+                </svg> Phonics Sounds &amp; English Vocabulary</li>
+              <li><svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"></path>
+                </svg> Counting, Number Sense &amp; Shapes</li>
+              <li><svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"></path>
+                </svg> Neat Handwriting &amp; Motor Skills</li>
+            </ul>
+          </div>
+          <div class="course-card-footer">
+            <div class="course-batch-time">
+              <span>Batch: 3:30 PM – 5:00 PM</span>
+              <strong>Loving &amp; Caring Mentorship</strong>
+            </div>
+            <a href="contact.html" class="btn btn--primary btn--sm">Book Demo</a>
+          </div>
+        </article>
+
+        <!-- Course: Primary Classes 1 to 3 -->
+        <article class="course-card reveal-on-scroll" data-category="primary">
+          <div class="course-card-top">
+            <div class="course-icon-badge">✏️</div>
+            <span class="course-level-tag">Classes 1, 2 &amp; 3 (Primary)</span>
+          </div>
+          <div class="course-card-content">
+            <h3>Junior Primary Numeracy &amp; Reading Mastery</h3>
+            <p>Solidifying early mental math, addition, subtraction, multiplication tables, sentence construction,
+              cursive writing, and basic Environmental Studies (EVS).</p>
+            <ul class="course-features-list">
+              <li><svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"></path>
+                </svg> Fast Mental Math &amp; Tables Drill (2–20)</li>
+              <li><svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"></path>
+                </svg> Daily Hindi &amp; English Reading Sessions</li>
+              <li><svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"></path>
+                </svg> Homework Support &amp; Concept Building</li>
+            </ul>
+          </div>
+          <div class="course-card-footer">
+            <div class="course-batch-time">
+              <span>Evening Batch: 4:00 PM – 5:30 PM</span>
+              <strong>Max 15 Students per Batch</strong>
+            </div>
+            <a href="contact.html" class="btn btn--primary btn--sm">Book Demo</a>
+          </div>
+        </article>
+
+        <!-- Course: Primary Classes 4 & 5 -->
+        <article class="course-card reveal-on-scroll" data-category="primary">
+          <div class="course-card-top">
+            <div class="course-icon-badge">📘</div>
+            <span class="course-level-tag">Classes 4 &amp; 5 (Upper Primary)</span>
+          </div>
+          <div class="course-card-content">
+            <h3>Upper Primary Concept &amp; Analytical Builder</h3>
+            <p>Bridging primary learning into analytical math (fractions, decimals, word problems), foundational general
+              science experiments, and formal English grammar.</p>
+            <ul class="course-features-list">
+              <li><svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"></path>
+                </svg> Multi-step Math Word Problems &amp; Geometry</li>
+              <li><svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"></path>
+                </svg> General Science Inquiry &amp; Practical Models</li>
+              <li><svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"></path>
+                </svg> English Composition, Essays &amp; Grammar</li>
+            </ul>
+          </div>
+          <div class="course-card-footer">
+            <div class="course-batch-time">
+              <span>Evening Batch: 4:30 PM – 6:15 PM</span>
+              <strong>Diagnostic Testing Included</strong>
+            </div>
+            <a href="contact.html" class="btn btn--primary btn--sm">Book Demo</a>
+          </div>
+        </article>
+
+        <!-- Course 1: Class 10 Board -->
+        <article class="course-card reveal-on-scroll" data-category="secondary">
+          <div class="course-card-top">
+            <div class="course-icon-badge">📐</div>
+            <span class="course-level-tag">Class 10 Board Mastery</span>
+          </div>
+          <div class="course-card-content">
+            <h3>Mathematics &amp; Science Board Accelerator</h3>
+            <p>Complete conceptual coverage of NCERT Mathematics and Science (Physics, Chemistry, Biology) with special
+              emphasis on UP Board &amp; CBSE board exams.</p>
+            <ul class="course-features-list">
+              <li><svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"></path>
+                </svg> Complete 10-Year Question Paper Drills</li>
+              <li><svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"></path>
+                </svg> Weekly Model Board Tests with Marking</li>
+              <li><svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"></path>
+                </svg> Step-by-Step Board Answer Presentation</li>
+            </ul>
+          </div>
+          <div class="course-mentor-banner" style="padding: 10px var(--space-lg); display: flex; align-items: center; gap: 12px; background: rgba(245, 158, 11, 0.08); border-top: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle);">
+            <img src="assets/teachers/vk_yadav_sir.jpg" alt="V. K. Yadav Sir" style="width: 42px; height: 42px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary-light); flex-shrink: 0;">
+            <div style="line-height: 1.3;">
+              <span style="font-size: 0.72rem; color: var(--text-muted); display: block; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;">Lead Faculty Mentor</span>
+              <strong style="font-size: 0.95rem; color: var(--text-white);">V. K. Yadav Sir</strong>
+              <span style="font-size: 0.75rem; color: var(--primary-light); display: block;">Board Specialization &amp; Concept Mastery</span>
+            </div>
+          </div>
+          <div class="course-card-footer">
+            <div class="course-batch-time">
+              <span>Morning: 6:30 AM / Evening: 4:00 PM</span>
+              <strong>Target: 95%+ in Board</strong>
+            </div>
+            <a href="contact.html" class="btn btn--primary btn--sm">Book Demo</a>
+          </div>
+        </article>
+
+        <!-- Course 2: Class 9 Foundation -->
+        <article class="course-card reveal-on-scroll" data-category="secondary">
+          <div class="course-card-top">
+            <div class="course-icon-badge">🔬</div>
+            <span class="course-level-tag">Class 9 Foundation</span>
+          </div>
+          <div class="course-card-content">
+            <h3>Class 9 Core Concepts (Maths + Science)</h3>
+            <p>Building ironclad foundational knowledge in algebra, geometry, motion, laws of chemistry, and cell
+              biology to prepare students smoothly for Class 10.</p>
+            <ul class="course-features-list">
+              <li><svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"></path>
+                </svg> Daily Practice Problem Sheets (DPP)</li>
+              <li><svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"></path>
+                </svg> Bi-Weekly Progress Assessments</li>
+              <li><svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"></path>
+                </svg> Interactive Doubt Clearance</li>
+            </ul>
+          </div>
+          <div class="course-card-footer">
+            <div class="course-batch-time">
+              <span>Evening Batch: 4:30 PM – 6:30 PM</span>
+              <strong>Small Batch: 20 Students</strong>
+            </div>
+            <a href="contact.html" class="btn btn--primary btn--sm">Book Demo</a>
+          </div>
+        </article>
+
+        <!-- Course 3: Class 12 Physics & Maths (PCM) -->
+        <article class="course-card reveal-on-scroll" data-category="senior">
+          <div class="course-card-top">
+            <div class="course-icon-badge">⚡</div>
+            <span class="course-level-tag">Class 12 Intermediate</span>
+          </div>
+          <div class="course-card-content">
+            <h3>Senior Physics &amp; Mathematics (PCM Track)</h3>
+            <p>Intensive coaching for Class 12 Electrostatics, Optics, Modern Physics, Calculus, Vectors, and Algebra
+              with numerical problem-solving techniques.</p>
+            <ul class="course-features-list">
+              <li><svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"></path>
+                </svg> Detailed Derivations &amp; Formulas Handbook</li>
+              <li><svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"></path>
+                </svg> High-Weightage Numericals Drill</li>
+              <li><svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"></path>
+                </svg> Full Syllabus Board Mock Series</li>
+            </ul>
+          </div>
+          <div class="course-card-footer">
+            <div class="course-batch-time">
+              <span>Morning: 7:00 AM / Evening: 5:00 PM</span>
+              <strong>Board &amp; Entrance Focus</strong>
+            </div>
+            <a href="contact.html" class="btn btn--primary btn--sm">Book Demo</a>
+          </div>
+        </article>
+
+        <!-- Course 4: Class 12 Chemistry & Biology (PCB) -->
+        <article class="course-card reveal-on-scroll" data-category="senior">
+          <div class="course-card-top">
+            <div class="course-icon-badge">🧬</div>
+            <span class="course-level-tag">Class 12 Intermediate</span>
+          </div>
+          <div class="course-card-content">
+            <h3>Chemistry &amp; Biology (Medical / PCB Track)</h3>
+            <p>Complete organic chemistry reaction mechanisms, physical chemistry problems, genetics, physiology, and
+              botany taught with clarity and diagram drills.</p>
+            <ul class="course-features-list">
+              <li><svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"></path>
+                </svg> Organic Named Reactions &amp; Conversions Chart</li>
+              <li><svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"></path>
+                </svg> Biology Diagram &amp; Lab Labeling Workshop</li>
+              <li><svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"></path>
+                </svg> Board Question Bank Practice</li>
+            </ul>
+          </div>
+          <div class="course-card-footer">
+            <div class="course-batch-time">
+              <span>Morning: 8:00 AM / Evening: 6:00 PM</span>
+              <strong>Concept &amp; Numerical Drills</strong>
+            </div>
+            <a href="contact.html" class="btn btn--primary btn--sm">Book Demo</a>
+          </div>
+        </article>
+
+        <!-- Course 5: Middle School Foundation -->
+        <article class="course-card reveal-on-scroll" data-category="foundation">
+          <div class="course-card-top">
+            <div class="course-icon-badge">📚</div>
+            <span class="course-level-tag">Klasses 6, 7 &amp; 8</span>
+          </div>
+          <div class="course-card-content">
+            <h3>Junior Champions Foundation (Class 6–8)</h3>
+            <p>Cultivating genuine love for learning, calculation speed, scientific curiosity, English grammar, and
+              solid foundational math early in schooling.</p>
+            <ul class="course-features-list">
+              <li><svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"></path>
+                </svg> Mental Math &amp; Speed Tricks</li>
+              <li><svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"></path>
+                </svg> Science Experiments &amp; Models</li>
+              <li><svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"></path>
+                </svg> Friendly, Supportive Environment</li>
+            </ul>
+          </div>
+          <div class="course-card-footer">
+            <div class="course-batch-time">
+              <span>After School: 3:30 PM – 5:00 PM</span>
+              <strong>Warm &amp; Encouraging</strong>
+            </div>
+            <a href="contact.html" class="btn btn--primary btn--sm">Book Demo</a>
+          </div>
+        </article>
+
+        <!-- Course 6: Competitive Foundation & NTSE -->
+        <article class="course-card reveal-on-scroll" data-category="competitive">
+          <div class="course-card-top">
+            <div class="course-icon-badge">🏆</div>
+            <span class="course-level-tag">Competitive Excellence</span>
+          </div>
+          <div class="course-card-content">
+            <h3>NTSE &amp; Science Olympiad Accelerator</h3>
+            <p>Advanced analytical problem-solving, MAT (Mental Ability Test) &amp; SAT (Scholastic Aptitude Test) for
+              high-achieving students aiming for national scholarship exams.</p>
+            <ul class="course-features-list">
+              <li><svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"></path>
+                </svg> National Olympiad Question Papers</li>
+              <li><svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"></path>
+                </svg> Timed Speed Tests &amp; All-India Ranking</li>
+              <li><svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"></path>
+                </svg> Advanced Derivations &amp; Logic</li>
+            </ul>
+          </div>
+          <div class="course-card-footer">
+            <div class="course-batch-time">
+              <span>Weekend Intensive: Sat &amp; Sun</span>
+              <strong>Selective Admission</strong>
+            </div>
+            <a href="contact.html" class="btn btn--primary btn--sm">Book Demo</a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       LEARNING ROADMAP / METHODOLOGY
+       ════════════════════════════════════════════════════════ -->
+  <section class="section section--alt" aria-labelledby="method-heading">
+    <div class="container">
+      <div class="section-header reveal-on-scroll">
+        <span class="section-pill">Our Method</span>
+        <h2 id="method-heading">The AJ Klasses <span class="text-gradient-gold">5-Step Success Cycle</span></h2>
+        <p>A proven system that ensures no student lags behind and every concept is permanently mastered.</p>
+      </div>
+
+      <div class="bento-grid">
+        <div class="bento-card bento-col-4 reveal-on-scroll">
+          <div class="bento-icon-box">1️⃣</div>
+          <h3>Concept Lectures</h3>
+          <p>Clear, engaging classroom explanations breaking complex theories into intuitive models using visual
+            examples.</p>
+        </div>
+
+        <div class="bento-card bento-col-4 reveal-on-scroll">
+          <div class="bento-icon-box bento-icon-box--blue">2️⃣</div>
+          <h3>Daily Practice Sheet</h3>
+          <p>Handout of 10–15 curated problems given after each class to reinforce homework discipline and speed.</p>
+        </div>
+
+        <div class="bento-card bento-col-4 reveal-on-scroll">
+          <div class="bento-icon-box bento-icon-box--cyan">3️⃣</div>
+          <h3>Doubt Resolution</h3>
+          <p>Dedicated 45-minute daily slots where students sit 1-on-1 with teachers to resolve tricky numericals.</p>
+        </div>
+
+        <div class="bento-card bento-col-6 reveal-on-scroll">
+          <div class="bento-icon-box bento-icon-box--emerald">4️⃣</div>
+          <h3>Bi-Weekly Chapter Tests</h3>
+          <p>Rigorous examinations simulating actual board marking criteria with step-by-step evaluation.</p>
+        </div>
+
+        <div class="bento-card bento-col-6 reveal-on-scroll">
+          <div class="bento-icon-box">5️⃣</div>
+          <h3>Parent Feedback &amp; Revision</h3>
+          <p>Detailed performance analytics shared with parents, followed by tailored revision for weaker topics.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       COURSE FAQs
+       ════════════════════════════════════════════════════════ -->
+  <section class="section" aria-labelledby="course-faq-heading">
+    <div class="container">
+      <div class="section-header reveal-on-scroll">
+        <span class="section-pill">Batch Queries</span>
+        <h2 id="course-faq-heading">Course &amp; Batch <span class="text-gradient-gold">FAQs</span></h2>
+        <p>Frequently asked questions about syllabus coverage, study materials, and fees.</p>
+      </div>
+
+      <div class="faq-accordion reveal-on-scroll">
+        <div class="faq-item active">
+          <button class="faq-question" aria-expanded="true">
+            <span>Is study material provided with the course?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Yes! Every enrolled student receives chapter-wise printed study modules, Daily Practice Papers (DPP),
+              formula summary sheets, and a dedicated 10-year previous board questions booklet.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>Can a student switch from morning to evening batch if school timings change?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Yes, we coordinate syllabus progression across morning and evening parallel batches, allowing students to
+              smoothly shift batch timings with prior intimation to the admission desk.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>What happens if a student misses a lecture due to sickness?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>We arrange a dedicated backup doubt session and provide complete class notes so the student catches up
+              without losing track of the curriculum.</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: var(--space-2xl);" class="reveal-on-scroll">
+        <a href="contact.html" class="btn btn--primary btn--lg">Enquire for Batch Admission ⚡</a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       SITE FOOTER
+       ════════════════════════════════════════════════════════ -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-top">
+
+        <div class="footer-brand-col">
+          <a href="index.html" class="brand">
+            <div class="brand-logo-wrap" aria-hidden="true">
+              <img src="assets/logo.png" alt="AJ Klasses Logo" class="brand-logo-img">
+            </div>
+            <div class="brand-text">
+              <span class="brand-name">AJ Klasses</span>
+              <span class="brand-sub">Orai, Jalaun District</span>
+            </div>
+          </a>
+          <p>
+            Orai's premier academic coaching institute, dedicated to fostering concept clarity, discipline, and top
+            ranks for students from LKG to Class 12.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="courses.html">Our Courses</a></li>
+            <li><a href="about.html">About Institute</a></li>
+            <li><a href="admission.html">Admissions Portal</a></li>
+            <li><a href="results.html">Student Results</a></li>
+            <li><a href="attendance.html">Attendance Portal</a></li>
+            <li><a href="student-history.html">Academic History</a></li>
+            <li><a href="about-staff.html">Faculty &amp; Staff</a></li>
+            <li><a href="gallery.html">Events Gallery (5 GB)</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Key Batches</h4>
+          <ul class="footer-links">
+            <li><a href="courses.html">Class 10 Board Prep</a></li>
+            <li><a href="courses.html">Class 12 PCM / PCB</a></li>
+            <li><a href="courses.html">Foundation 6–8</a></li>
+            <li><a href="courses.html">Competitive Entrance</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Get in Touch</h4>
+          <div class="footer-contact-item">
+            <span>📍</span>
+            <a href="https://maps.google.com/?q=XFP4%2B4F7,+Teli+Vali+Street,+Tulsi+Nagar,+New+Ram+Nagar,+Niyamatpur,+Orai,+Uttar+Pradesh+285001"
+              target="_blank" rel="noopener" style="color: var(--text-body); transition: var(--transition);"
+              title="Open in Google Maps">
+              Teli Vali Street, Tulsi Nagar, Orai (Plus Code: <strong
+                style="color: var(--primary-light);">XFP4+4F7</strong>)
+            </a>
+          </div>
+          <div class="footer-contact-item">
+            <span>📞</span>
+            <a href="tel:+916394043659" style="color: var(--primary-light);">+91 63940 43659</a>
+          </div>
+          <div class="footer-contact-item">
+            <span>✉️</span>
+            <a href="mailto:pariharrishi777@gmail.com"
+              style="color: var(--primary-light);">pariharrishi777@gmail.com</a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2024–2026 AJ Klasses. All rights reserved. &nbsp;|&nbsp; <a href="privacy-policy.html" style="color:inherit;opacity:.75;text-decoration:underline;">Privacy Policy</a></div>
+        <div>Dedicated to academic excellence in Orai, Uttar Pradesh.</div>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       FLOATING ACTION HUB
+       ════════════════════════════════════════════════════════ -->
+  <div class="floating-action-hub">
+    <a href="https://wa.me/916394043659?text=Hello%20AJ%20Klasses%2C%20I%20have%20an%20enquiry%20regarding%20courses."
+      target="_blank" rel="noopener" class="float-btn float-btn--whatsapp" aria-label="Chat on WhatsApp">
+      <span class="float-pulse" aria-hidden="true"></span>
+      <span style="font-size: 1.25rem;">💬</span>
+      <span>Chat on WhatsApp</span>
+    </a>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events &amp; Photo Gallery — AJ Klasses, Orai</title>
+  <meta name="description" content="Explore campus memories, annual award ceremonies, science fairs, workshops, and classroom life at AJ Klasses, Orai. High-resolution cloud media archive up to 5 GB storage.">
+  <link rel="icon" type="image/png" href="assets/logo.png">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ============================================================
+       EVENTS GALLERY SPECIFIC STYLES
+       ============================================================ */
+    .storage-banner {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.08) 0%, rgba(15, 23, 42, 0.95) 100%);
+      border: 1px solid var(--border-glow);
+      border-radius: var(--radius-xl);
+      padding: var(--space-xl);
+      margin-bottom: var(--space-2xl);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+    .storage-banner::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 280px;
+      height: 280px;
+      background: radial-gradient(circle, rgba(245, 158, 11, 0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .storage-grid {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: var(--space-lg);
+      align-items: center;
+    }
+    @media (max-width: 768px) {
+      .storage-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .storage-progress-wrap {
+      margin-top: 12px;
+    }
+    .storage-progress-bar {
+      height: 10px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-full);
+      overflow: hidden;
+      border: 1px solid var(--border-subtle);
+    }
+    .storage-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #F59E0B 0%, #10B981 100%);
+      border-radius: var(--radius-full);
+      transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      width: 0.1%;
+    }
+    .storage-meta-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: var(--fs-xs);
+      color: var(--text-muted);
+      margin-top: 6px;
+      font-weight: 600;
+    }
+    .gallery-filter-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: var(--space-2xl);
+    }
+    .gallery-tab-btn {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      padding: 8px 18px;
+      border-radius: var(--radius-full);
+      font-size: var(--fs-sm);
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .gallery-tab-btn:hover,
+    .gallery-tab-btn.active {
+      background: var(--primary);
+      color: #070B14;
+      border-color: var(--primary);
+      font-weight: 700;
+      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: var(--space-xl);
+    }
+    .gallery-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .gallery-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--border-glow);
+      box-shadow: 0 16px 35px rgba(0, 0, 0, 0.5), 0 0 20px rgba(245, 158, 11, 0.15);
+    }
+    .gallery-img-wrap {
+      position: relative;
+      width: 100%;
+      height: 220px;
+      overflow: hidden;
+      background: #0B1120;
+      cursor: pointer;
+    }
+    .gallery-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .gallery-card:hover .gallery-img {
+      transform: scale(1.08);
+    }
+    .gallery-img-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .gallery-card:hover .gallery-img-overlay {
+      opacity: 1;
+    }
+    .zoom-btn {
+      background: rgba(245, 158, 11, 0.9);
+      color: #000;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      border: none;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      transform: scale(0.8);
+      transition: transform 0.2s ease;
+    }
+    .gallery-card:hover .zoom-btn {
+      transform: scale(1);
+    }
+    .gallery-cat-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: rgba(7, 11, 20, 0.85);
+      border: 1px solid var(--border-glow);
+      color: var(--primary-light);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      backdrop-filter: blur(4px);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .gallery-card-body {
+      padding: var(--space-lg);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .gallery-date-row {
+      font-size: var(--fs-xs);
+      color: var(--text-dim);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .gallery-title {
+      font-family: var(--ff-heading);
+      font-size: var(--fs-base);
+      font-weight: 800;
+      color: var(--text-white);
+      margin-bottom: 8px;
+      line-height: 1.35;
+    }
+    .gallery-desc {
+      font-size: var(--fs-xs);
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: var(--space-md);
+      flex: 1;
+    }
+    .gallery-footer {
+      border-top: 1px solid var(--border-subtle);
+      padding-top: var(--space-sm);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.72rem;
+      color: var(--text-dim);
+    }
+    .gallery-size-pill {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border-subtle);
+    }
+
+    /* Lightbox Modal */
+    .lightbox-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.92);
+      backdrop-filter: blur(10px);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-lg);
+    }
+    .lightbox-modal.is-active {
+      display: flex;
+    }
+    .lightbox-content {
+      max-width: 950px;
+      width: 100%;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-glow);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+      animation: modalFadeIn 0.25s ease-out;
+    }
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .lightbox-img-box {
+      width: 100%;
+      max-height: 60vh;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .lightbox-img {
+      max-width: 100%;
+      max-height: 60vh;
+      object-fit: contain;
+    }
+    .lightbox-info {
+      padding: var(--space-xl);
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #FFF;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      font-size: 1.3rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      z-index: 10;
+    }
+    .lightbox-close:hover {
+      background: var(--primary);
+      color: #000;
+    }
+    .lightbox-nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #FFF;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      z-index: 10;
+    }
+    .lightbox-nav-btn:hover {
+      background: var(--primary);
+      color: #000;
+    }
+    .lightbox-prev { left: 16px; }
+    .lightbox-next { right: 16px; }
+  </style>
+</head>
+<body>
+
+  <!-- ════════════════════════════════════════════════════════
+       HEADER & NAVIGATION
+       ════════════════════════════════════════════════════════ -->
+  <header class="site-header" role="banner">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="AJ Klasses Home">
+        <div class="brand-logo-wrap" aria-hidden="true">
+          <img src="assets/logo.png" alt="AJ Klasses Logo" class="brand-logo-img">
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">AJ Klasses</span>
+          <span class="brand-sub">Orai • Jalaun District</span>
+        </div>
+      </a>
+
+      <nav aria-label="Primary Navigation">
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="courses.html">Courses</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li class="nav-dropdown">
+            <button type="button" class="kebab-btn" id="kebab-menu-btn" aria-haspopup="true" aria-expanded="false" aria-label="Student Portals & Services" title="Student Portals & Services" style="border-color: rgba(245, 158, 11, 0.4); color: var(--primary-light);">
+              <span class="kebab-dots" aria-hidden="true">
+                <span></span>
+                <span></span>
+                <span></span>
+              </span>
+              <span class="kebab-label">Gallery ▾</span>
+            </button>
+            <div class="nav-dropdown-menu" id="portals-menu" role="menu">
+              <div class="dropdown-section-title">Student &amp; Media Services</div>
+              <div class="dropdown-list">
+                <a href="gallery.html" class="dropdown-item active-item" role="menuitem" aria-current="page">
+                  <span class="dropdown-item-icon" style="background: rgba(245, 158, 11, 0.25); color: #F59E0B;">🖼️</span>
+                  <div class="dropdown-item-text">
+                    <span class="dropdown-item-title">Events Gallery</span>
+                    <span class="dropdown-item-desc">Memories, ceremonies &amp; 5GB vault (Active)</span>
+                  </div>
+                </a>
+                <a href="about-staff.html" class="dropdown-item" role="menuitem">
+                  <span class="dropdown-item-icon" style="background: rgba(59, 130, 246, 0.15); color: #60A5FA;">👨‍🏫</span>
+                  <div class="dropdown-item-text">
+                    <span class="dropdown-item-title">About Staff Portal</span>
+                    <span class="dropdown-item-desc">Faculty directory &amp; mentor profiles</span>
+                  </div>
+                </a>
+                <a href="admission.html" class="dropdown-item" role="menuitem">
+                  <span class="dropdown-item-icon" style="background: rgba(245, 158, 11, 0.15); color: #F59E0B;">⚡</span>
+                  <div class="dropdown-item-text">
+                    <span class="dropdown-item-title">Admissions Portal</span>
+                    <span class="dropdown-item-desc">Apply online &amp; track status</span>
+                  </div>
+                </a>
+                <a href="results.html" class="dropdown-item" role="menuitem">
+                  <span class="dropdown-item-icon" style="background: rgba(59, 130, 246, 0.15); color: #60A5FA;">📊</span>
+                  <div class="dropdown-item-text">
+                    <span class="dropdown-item-title">Results Portal</span>
+                    <span class="dropdown-item-desc">Marksheet &amp; PDF download</span>
+                  </div>
+                </a>
+                <a href="attendance.html" class="dropdown-item" role="menuitem">
+                  <span class="dropdown-item-icon" style="background: rgba(16, 185, 129, 0.15); color: #34D399;">📅</span>
+                  <div class="dropdown-item-text">
+                    <span class="dropdown-item-title">Attendance Portal</span>
+                    <span class="dropdown-item-desc">Live records &amp; attendance rate</span>
+                  </div>
+                </a>
+                <a href="student-history.html" class="dropdown-item" role="menuitem">
+                  <span class="dropdown-item-icon" style="background: rgba(168, 85, 247, 0.15); color: #C084FC;">📜</span>
+                  <div class="dropdown-item-text">
+                    <span class="dropdown-item-title">Academic History</span>
+                    <span class="dropdown-item-desc">Cumulative student progression</span>
+                  </div>
+                </a>
+              </div>
+              <div class="dropdown-divider"></div>
+              <div class="dropdown-section-title">Administration</div>
+              <a href="admin/login.html" class="dropdown-item dropdown-item--admin" role="menuitem">
+                <span class="dropdown-item-icon" style="background: rgba(239, 68, 68, 0.15); color: #F87171;">🔐</span>
+                <div class="dropdown-item-text">
+                  <span class="dropdown-item-title">Admin &amp; Staff Login</span>
+                  <span class="dropdown-item-desc">Upload photos &amp; manage 5GB gallery</span>
+                </div>
+              </a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <a href="tel:+916394043659" class="btn btn--outline btn--sm" aria-label="Call AJ Klasses">
+          📞 +91 63940 43659
+        </a>
+        <a href="results.html" class="btn btn--secondary btn--sm" style="border: 1px solid var(--border-glow); color: var(--primary-light);">
+          Check Result 📊
+        </a>
+        <a href="admission.html" class="btn btn--primary btn--sm">
+          Apply Now ⚡
+        </a>
+        <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="Toggle navigation menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile Navigation">
+      <ul>
+        <li><a href="index.html">🏠 Home</a></li>
+        <li><a href="courses.html">📚 Courses &amp; Batches</a></li>
+        <li><a href="about.html">🎓 About Institute</a></li>
+        <li><a href="contact.html">📍 Contact &amp; Centre</a></li>
+        <li style="border-top: 1px solid var(--border-subtle); margin-block: 6px; padding-top: 6px;">
+          <span style="font-size: 0.7rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.08em; padding-left: 12px; display: block; margin-bottom: 6px;">Portals &amp; Media</span>
+        </li>
+        <li><a href="gallery.html" aria-current="page" style="color: var(--primary);">🖼️ Events Gallery (5 GB)</a></li>
+        <li><a href="about-staff.html">👨‍🏫 Faculty &amp; Staff</a></li>
+        <li><a href="admission.html">⚡ Apply for Admission</a></li>
+        <li><a href="results.html">📊 Student Results</a></li>
+        <li><a href="attendance.html">📅 Student Attendance</a></li>
+        <li><a href="student-history.html">📜 Academic History</a></li>
+        <li><a href="admin/login.html" style="color: #F87171;">🔐 Staff Login</a></li>
+      </ul>
+      <div class="mobile-nav-cta">
+        <a href="https://wa.me/916394043659?text=Hello%20AJ%20Klasses%2C%20I%20want%20to%20enquire%20about%20recent%20events." class="btn btn--whatsapp" target="_blank" rel="noopener">
+          💬 Chat on WhatsApp
+        </a>
+        <a href="tel:+916394043659" class="btn btn--primary">
+          📞 Call Now: +91 63940 43659
+        </a>
+      </div>
+    </nav>
+  </header>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       PAGE BANNER
+       ════════════════════════════════════════════════════════ -->
+  <section class="page-banner" aria-labelledby="gallery-page-title">
+    <div class="container reveal-on-scroll">
+      <span class="section-pill">Campus Life &amp; Milestones</span>
+      <h1 id="gallery-page-title">Events &amp; <span class="text-gradient-gold">Photo Gallery</span></h1>
+      <p>Celebrating academic excellence, annual functions, science exhibitions, workshops, and vibrant student moments at AJ Klasses, Orai.</p>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       MAIN GALLERY CONTENT & 5 GB CLOUD STORAGE STATUS
+       ════════════════════════════════════════════════════════ -->
+  <main class="section">
+    <div class="container">
+
+      <!-- 5 GB Cloud Storage Status Banner -->
+      <div class="storage-banner reveal-on-scroll">
+        <div class="storage-grid">
+          <div>
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+              <span style="font-size: 1.4rem;">☁️</span>
+              <h2 style="font-family: var(--ff-heading); font-size: var(--fs-lg); font-weight: 800; color: #FFFFFF; margin: 0;">
+                AJ Klasses Dedicated Cloud Media Vault
+              </h2>
+              <span style="background: rgba(16, 185, 129, 0.15); color: #34D399; border: 1px solid rgba(16, 185, 129, 0.35); font-size: 0.7rem; font-weight: 700; padding: 2px 8px; border-radius: var(--radius-full);">
+                ● 5 GB Storage Quota Active
+              </span>
+            </div>
+            <p style="font-size: var(--fs-xs); color: var(--text-muted); margin: 0; max-width: 680px;">
+              High-resolution photo and event storage capacity up to 5 GB allocated for capturing annual functions, merit awards, parent orientations, and student achievements.
+            </p>
+
+            <div class="storage-progress-wrap">
+              <div class="storage-progress-bar">
+                <div class="storage-progress-fill" id="storage-fill" style="width: 1%;"></div>
+              </div>
+              <div class="storage-meta-row">
+                <span>Used: <strong id="storage-used" style="color: #FFFFFF;">Calculating...</strong></span>
+                <span>Capacity: <strong style="color: var(--primary-light);">5.00 GB Total</strong></span>
+                <span>Remaining: <strong id="storage-free" style="color: #34D399;">5.00 GB Free</strong></span>
+              </div>
+            </div>
+          </div>
+
+          <div style="text-align: right; min-width: 180px;">
+            <div style="font-size: var(--fs-2xl); font-family: var(--ff-heading); font-weight: 900; color: var(--primary-light);" id="event-count-badge">
+              6 Events
+            </div>
+            <div style="font-size: var(--fs-xs); color: var(--text-muted); margin-bottom: 10px;">
+              Archived Memories
+            </div>
+            <a href="admin/login.html" class="btn btn--outline btn--sm" style="font-size: 0.72rem; padding: 5px 12px; border-color: var(--border-glow); color: var(--primary-light);">
+              Upload Photos (Admin) ↗
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Search & Category Filters -->
+      <div style="max-width: 580px; margin: 0 auto var(--space-xl) auto; position: relative;">
+        <span style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); opacity: 0.6;">🔍</span>
+        <input 
+          type="text" 
+          id="gallery-search" 
+          class="staff-search-input" 
+          placeholder="Search events by title, keyword, or celebration..." 
+          style="width: 100%; padding-left: 44px;"
+          aria-label="Search events"
+        >
+      </div>
+
+      <div class="gallery-filter-tabs reveal-on-scroll" role="tablist">
+        <button type="button" class="gallery-tab-btn active" data-filter="all">All Events</button>
+        <button type="button" class="gallery-tab-btn" data-filter="Toppers &amp; Awards">Toppers &amp; Awards</button>
+        <button type="button" class="gallery-tab-btn" data-filter="Classroom &amp; Campus">Classroom &amp; Campus</button>
+        <button type="button" class="gallery-tab-btn" data-filter="Science &amp; Exhibitions">Science &amp; Exhibitions</button>
+        <button type="button" class="gallery-tab-btn" data-filter="Workshops &amp; Counseling">Workshops &amp; Seminars</button>
+        <button type="button" class="gallery-tab-btn" data-filter="Annual Functions">Annual Functions</button>
+      </div>
+
+      <!-- Dynamic Gallery Grid -->
+      <div class="gallery-grid" id="gallery-grid">
+        <!-- Rendered via JavaScript -->
+      </div>
+
+      <!-- Empty State -->
+      <div id="no-events-found" style="display: none; text-align: center; padding: var(--space-3xl) var(--space-md);">
+        <div style="font-size: 3rem; margin-bottom: var(--space-sm);">🖼️</div>
+        <h3 style="color: var(--text-white); margin-bottom: 8px;">No Events Found</h3>
+        <p style="color: var(--text-muted);">Try selecting another category or typing different keywords.</p>
+      </div>
+
+    </div>
+  </main>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       FULLSCREEN INTERACTIVE LIGHTBOX MODAL
+       ════════════════════════════════════════════════════════ -->
+  <div class="lightbox-modal" id="lightbox-modal" role="dialog" aria-modal="true" aria-label="Event Photo Lightbox">
+    <button class="lightbox-close" id="lightbox-close-btn" aria-label="Close Lightbox">&times;</button>
+    <button class="lightbox-nav-btn lightbox-prev" id="lightbox-prev-btn" aria-label="Previous Photo">&#10094;</button>
+    <button class="lightbox-nav-btn lightbox-next" id="lightbox-next-btn" aria-label="Next Photo">&#10095;</button>
+
+    <div class="lightbox-content">
+      <div class="lightbox-img-box">
+        <img src="" alt="" class="lightbox-img" id="lightbox-target-img">
+      </div>
+      <div class="lightbox-info">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 8px;">
+          <span class="gallery-cat-badge" style="position: static;" id="lightbox-category">Category</span>
+          <span style="font-size: var(--fs-xs); color: var(--text-dim);" id="lightbox-date">Date</span>
+        </div>
+        <h3 style="font-family: var(--ff-heading); font-size: var(--fs-lg); color: #FFFFFF; font-weight: 800; margin-bottom: 8px;" id="lightbox-title">
+          Event Title
+        </h3>
+        <p style="font-size: var(--fs-sm); color: var(--text-muted); line-height: 1.6; margin: 0;" id="lightbox-desc">
+          Event Description
+        </p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       FOOTER
+       ════════════════════════════════════════════════════════ -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="index.html" class="brand" style="margin-bottom: var(--space-sm);">
+            <div class="brand-logo-wrap">
+              <img src="assets/logo.png" alt="AJ Klasses Logo" class="brand-logo-img">
+            </div>
+            <div class="brand-text">
+              <span class="brand-name">AJ Klasses</span>
+              <span class="brand-sub">Orai, Jalaun District</span>
+            </div>
+          </a>
+          <p>
+            Orai's premier coaching institute. Preserving inspiring student memories, topper felicitations, and academic milestones in our 5 GB digital gallery.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="courses.html">Our Courses</a></li>
+            <li><a href="about.html">About Institute</a></li>
+            <li><a href="about-staff.html">Faculty &amp; Staff</a></li>
+            <li><a href="gallery.html">Events Gallery (5 GB)</a></li>
+            <li><a href="admission.html">Admissions Portal</a></li>
+            <li><a href="results.html">Student Results</a></li>
+            <li><a href="attendance.html">Attendance Portal</a></li>
+            <li><a href="student-history.html">Academic History</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Key Programs</h4>
+          <ul class="footer-links">
+            <li><a href="courses.html">Class 10 Board Prep</a></li>
+            <li><a href="courses.html">Class 12 PCM / PCB</a></li>
+            <li><a href="courses.html">Foundation 6–8</a></li>
+            <li><a href="courses.html">Olympiad &amp; NTSE Mentorship</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Get in Touch</h4>
+          <div class="footer-contact-item">
+            <span>📍</span>
+            <a href="https://maps.google.com/?q=XFP4%2B4F7,+Teli+Vali+Street,+Tulsi+Nagar,+New+Ram+Nagar,+Niyamatpur,+Orai,+Uttar+Pradesh+285001" target="_blank" rel="noopener" style="color: var(--text-body); transition: var(--transition);">
+              Teli Vali Street, Tulsi Nagar, Orai (Plus Code: <strong style="color: var(--primary-light);">XFP4+4F7</strong>)
+            </a>
+          </div>
+          <div class="footer-contact-item">
+            <span>📞</span>
+            <a href="tel:+916394043659" style="color: var(--primary-light);">+91 63940 43659</a>
+          </div>
+          <div class="footer-contact-item">
+            <span>✉️</span>
+            <a href="mailto:pariharrishi777@gmail.com" style="color: var(--primary-light);">pariharrishi777@gmail.com</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 AJ Klasses, Orai. All Rights Reserved. 5 GB Digital Media Vault. &nbsp;|&nbsp; <a href="privacy-policy.html" style="color:inherit;opacity:.75;text-decoration:underline;">Privacy Policy</a></p>
+        <div class="footer-legal">
+          <a href="contact.html">Privacy &amp; Terms</a>
+          <a href="gallery.html">Events Gallery</a>
+          <a href="admin/login.html">Staff Console</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       GALLERY JAVASCRIPT CONTROLLER & LIGHTBOX ENGINE
+       ════════════════════════════════════════════════════════ -->
+  <script>
+    let eventsData = [
+      {
+        id: "ev-1",
+        title: "Annual Academic Toppers Felicitation Ceremony",
+        description: "Honoring our district rank holders, CBSE/UP Board toppers, and Olympiad medalists with medals, scholarships, and merit certificates.",
+        category: "Toppers & Awards",
+        event_date: "2025-01-26",
+        image_url: "assets/toppers-achievement.jpg",
+        file_size_bytes: 904799
+      },
+      {
+        title: "State-of-the-Art Classroom Lecture & Concept Sessions",
+        description: "Interactive classroom pedagogy with visual boards, concept-first explanations, and disciplined learning environment.",
+        category: "Classroom & Campus",
+        event_date: "2025-02-10",
+        image_url: "assets/hero-classroom.jpg",
+        file_size_bytes: 853174
+      },
+      {
+        title: "Personalized 1-on-1 Mentor Doubt Resolution Clinic",
+        description: "Daily dedicated mentor clinic where teachers resolve student queries individually, review tests, and guide study schedules.",
+        category: "Workshops & Counseling",
+        event_date: "2025-02-18",
+        image_url: "assets/mentor-session.jpg",
+        file_size_bytes: 824994
+      },
+      {
+        title: "National Science Day Working Models Exhibition",
+        description: "Students of Classes 8–12 presenting physics mechanics, working electric motors, chemistry reactions, and robotics prototypes.",
+        category: "Science & Exhibitions",
+        event_date: "2025-02-28",
+        image_url: "assets/toppers-achievement.jpg",
+        file_size_bytes: 780000
+      },
+      {
+        title: "Board Exam Stress Management & Mind Mapping Workshop",
+        description: "Psychological guidance session lead by Dr. Ajay Sir and Sona Ma'am on stress management, cognitive relaxation, and memory retention.",
+        category: "Workshops & Counseling",
+        event_date: "2025-03-05",
+        image_url: "assets/mentor-session.jpg",
+        file_size_bytes: 750000
+      },
+      {
+        title: "Republic Day Cultural Celebrations & Speech Competition",
+        description: "Patriotic speeches, quiz tournaments, and cultural performances celebrating national spirit and academic dedication.",
+        category: "Annual Functions",
+        event_date: "2025-01-26",
+        image_url: "assets/hero-classroom.jpg",
+        file_size_bytes: 810000
+      }
+    ];
+
+    let currentFilter = 'all';
+    let currentQuery = '';
+    let activeLightboxIndex = 0;
+    let currentlyVisibleList = [];
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const grid = document.getElementById('gallery-grid');
+      const searchInput = document.getElementById('gallery-search');
+      const filterBtns = document.querySelectorAll('.gallery-tab-btn');
+      const emptyState = document.getElementById('no-events-found');
+      const countBadge = document.getElementById('event-count-badge');
+
+      const storageFill = document.getElementById('storage-fill');
+      const storageUsed = document.getElementById('storage-used');
+      const storageFree = document.getElementById('storage-free');
+
+      function getApiEndpoint(path) {
+        if (window.location.protocol === 'file:') return 'http://localhost:3000' + path;
+        if (window.location.port && window.location.port !== '3000' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
+          return `http://${window.location.hostname}:3000` + path;
+        }
+        return path;
+      }
+
+      // Fetch live events and storage metrics from API
+      fetch(getApiEndpoint('/api/gallery'))
+        .then(res => res.json())
+        .then(data => {
+          if (data.success && Array.isArray(data.data) && data.data.length > 0) {
+            eventsData = data.data;
+          }
+          if (data.storage) {
+            updateStorageDisplay(data.storage);
+          } else {
+            calculateStaticStorage();
+          }
+          renderGallery();
+        })
+        .catch(() => {
+          calculateStaticStorage();
+          renderGallery();
+        });
+
+      function updateStorageDisplay(storage) {
+        if (!storage) return;
+        const pct = Math.max(0.5, storage.percentage || 0.1);
+        storageFill.style.width = `${pct}%`;
+        storageUsed.textContent = `${storage.usedFormatted} (${pct}% Used)`;
+        storageFree.textContent = `${storage.remainingFormatted} Available`;
+        countBadge.textContent = `${eventsData.length} Events`;
+      }
+
+      function calculateStaticStorage() {
+        const totalUsedBytes = eventsData.reduce((acc, cur) => acc + (cur.file_size_bytes || 800000), 0);
+        const quotaBytes = 5 * 1024 * 1024 * 1024;
+        const pct = ((totalUsedBytes / quotaBytes) * 100).toFixed(2);
+        const usedMB = (totalUsedBytes / (1024 * 1024)).toFixed(2);
+        const freeGB = ((quotaBytes - totalUsedBytes) / (1024 * 1024 * 1024)).toFixed(2);
+
+        storageFill.style.width = `${Math.max(0.5, pct)}%`;
+        storageUsed.textContent = `${usedMB} MB (${pct}% of 5GB)`;
+        storageFree.textContent = `${freeGB} GB Available`;
+        countBadge.textContent = `${eventsData.length} Events`;
+      }
+
+      function renderGallery() {
+        currentlyVisibleList = eventsData.filter(item => {
+          const cat = (item.category || '').toLowerCase();
+          const matchesFilter = (currentFilter === 'all') || cat.includes(currentFilter.toLowerCase());
+
+          const q = currentQuery.toLowerCase().trim();
+          const matchesQuery = !q || 
+                               (item.title || '').toLowerCase().includes(q) ||
+                               (item.description || '').toLowerCase().includes(q) ||
+                               (item.event_date || '').includes(q) ||
+                               cat.includes(q);
+
+          return matchesFilter && matchesQuery;
+        });
+
+        grid.innerHTML = '';
+
+        if (currentlyVisibleList.length === 0) {
+          emptyState.style.display = 'block';
+        } else {
+          emptyState.style.display = 'none';
+
+          currentlyVisibleList.forEach((item, idx) => {
+            const card = document.createElement('div');
+            card.className = 'gallery-card reveal-on-scroll is-visible';
+
+            const sizeFormatted = item.file_size_bytes ? 
+              (item.file_size_bytes / (1024 * 1024) > 1 ? 
+                `${(item.file_size_bytes / (1024 * 1024)).toFixed(1)} MB` : 
+                `${Math.round(item.file_size_bytes / 1024)} KB`) : '850 KB';
+
+            let formattedDate = item.event_date;
+            try {
+              const d = new Date(item.event_date + 'T00:00:00');
+              formattedDate = d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+            } catch(e) {}
+
+            card.innerHTML = `
+              <div class="gallery-img-wrap" data-idx="${idx}">
+                <img src="${item.image_url}" alt="${item.title}" class="gallery-img" loading="lazy">
+                <span class="gallery-cat-badge">${item.category}</span>
+                <div class="gallery-img-overlay">
+                  <button class="zoom-btn" title="View Fullscreen Photo">🔍</button>
+                </div>
+              </div>
+              <div class="gallery-card-body">
+                <div class="gallery-date-row">
+                  <span>📅</span>
+                  <span>${formattedDate}</span>
+                </div>
+                <h3 class="gallery-title">${item.title}</h3>
+                <p class="gallery-desc">${item.description || 'AJ Klasses institute milestone.'}</p>
+                <div class="gallery-footer">
+                  <span class="gallery-size-pill">📦 ${sizeFormatted}</span>
+                  <span style="color: var(--primary-light); cursor: pointer;" onclick="openLightbox(${idx})">Expand ↗</span>
+                </div>
+              </div>
+            `;
+
+            card.querySelector('.gallery-img-wrap').addEventListener('click', () => {
+              openLightbox(idx);
+            });
+
+            grid.appendChild(card);
+          });
+        }
+      }
+
+      // Filter clicks
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentFilter = btn.getAttribute('data-filter');
+          renderGallery();
+        });
+      });
+
+      // Search input
+      searchInput.addEventListener('input', (e) => {
+        currentQuery = e.target.value;
+        renderGallery();
+      });
+
+      // Lightbox Elements
+      const lightboxModal = document.getElementById('lightbox-modal');
+      const closeBtn = document.getElementById('lightbox-close-btn');
+      const prevBtn = document.getElementById('lightbox-prev-btn');
+      const nextBtn = document.getElementById('lightbox-next-btn');
+
+      window.openLightbox = function(idx) {
+        if (!currentlyVisibleList[idx]) return;
+        activeLightboxIndex = idx;
+        updateLightboxView();
+        lightboxModal.classList.add('is-active');
+        document.body.style.overflow = 'hidden';
+      };
+
+      function closeLightbox() {
+        lightboxModal.classList.remove('is-active');
+        document.body.style.overflow = '';
+      }
+
+      function updateLightboxView() {
+        const item = currentlyVisibleList[activeLightboxIndex];
+        if (!item) return;
+
+        document.getElementById('lightbox-target-img').src = item.image_url;
+        document.getElementById('lightbox-category').textContent = item.category;
+        document.getElementById('lightbox-title').textContent = item.title;
+        document.getElementById('lightbox-desc').textContent = item.description || '';
+        document.getElementById('lightbox-date').textContent = `📅 ${item.event_date}`;
+      }
+
+      closeBtn.addEventListener('click', closeLightbox);
+      lightboxModal.addEventListener('click', (e) => {
+        if (e.target === lightboxModal) closeLightbox();
+      });
+
+      prevBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (activeLightboxIndex > 0) {
+          activeLightboxIndex--;
+        } else {
+          activeLightboxIndex = currentlyVisibleList.length - 1;
+        }
+        updateLightboxView();
+      });
+
+      nextBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (activeLightboxIndex < currentlyVisibleList.length - 1) {
+          activeLightboxIndex++;
+        } else {
+          activeLightboxIndex = 0;
+        }
+        updateLightboxView();
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (!lightboxModal.classList.contains('is-active')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') prevBtn.click();
+        if (e.key === 'ArrowRight') nextBtn.click();
+      });
+
+    });
+  </script>
+  <script src="script.js"></script>
+</body>
+</html>

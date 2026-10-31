@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us — AJ Klasses, Orai</title>
+  <meta name="description" content="Discover the story, mission, and distinguished faculty behind AJ Klasses in Orai, led by Dr. Ajay Rathour and Abhishek Rathour. Committed to student success since 2012.">
+  <link rel="icon" type="image/png" href="assets/logo.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ════════════════════════════════════════════════════════
+       HEADER & NAVIGATION
+       ════════════════════════════════════════════════════════ -->
+  <header class="site-header" role="banner">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="AJ Klasses Home">
+        <div class="brand-logo-wrap" aria-hidden="true">
+          <img src="assets/logo.png" alt="AJ Klasses Logo" class="brand-logo-img">
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">AJ Klasses</span>
+          <span class="brand-sub">Orai • Jalaun District</span>
+        </div>
+      </a>
+
+      <nav aria-label="Primary Navigation">
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="courses.html">Courses</a></li>
+          <li><a href="about.html" aria-current="page">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li class="nav-dropdown">
+            <button type="button" class="kebab-btn" id="kebab-menu-btn" aria-haspopup="true" aria-expanded="false" aria-label="Student Portals & Services" title="Student Portals & Services">
+              <span class="kebab-dots" aria-hidden="true">
+                <span></span>
+                <span></span>
+                <span></span>
+              </span>
+              <span class="kebab-label">Portals</span>
+              <svg class="kebab-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="nav-dropdown-menu" id="portals-menu" role="menu">
+              <div class="dropdown-section-title">Student Portals</div>
+              <div class="dropdown-list">
+                <a href="admission.html" class="dropdown-item" role="menuitem">
+                  <span class="dropdown-item-icon" style="background: rgba(245, 158, 11, 0.15); color: #F59E0B;">⚡</span>
+                  <div class="dropdown-item-text">
+                    <span class="dropdown-item-title">Admissions Portal</span>
+                    <span class="dropdown-item-desc">Apply online &amp; track status</span>
+                  </div>
+                </a>
+                <a href="results.html" class="dropdown-item" role="menuitem">
+                  <span class="dropdown-item-icon" style="background: rgba(59, 130, 246, 0.15); color: #60A5FA;">📊</span>
+                  <div class="dropdown-item-text">
+                    <span class="dropdown-item-title">Results Portal</span>
+                    <span class="dropdown-item-desc">Marksheet &amp; PDF download</span>
+                  </div>
+                </a>
+                <a href="attendance.html" class="dropdown-item" role="menuitem">
+                  <span class="dropdown-item-icon" style="background: rgba(16, 185, 129, 0.15); color: #34D399;">📅</span>
+                  <div class="dropdown-item-text">
+                    <span class="dropdown-item-title">Attendance Portal</span>
+                    <span class="dropdown-item-desc">Live records &amp; attendance rate</span>
+                  </div>
+                </a>
+                <a href="student-history.html" class="dropdown-item" role="menuitem">
+                  <span class="dropdown-item-icon" style="background: rgba(168, 85, 247, 0.15); color: #C084FC;">📜</span>
+                  <div class="dropdown-item-text">
+                    <span class="dropdown-item-title">Academic History</span>
+                    <span class="dropdown-item-desc">Cumulative student progression</span>
+                  </div>
+                </a>
+                <a href="about-staff.html" class="dropdown-item" role="menuitem">
+                  <span class="dropdown-item-icon" style="background: rgba(59, 130, 246, 0.15); color: #60A5FA;">👨‍🏫</span>
+                  <div class="dropdown-item-text">
+                    <span class="dropdown-item-title">About Staff Portal</span>
+                    <span class="dropdown-item-desc">Faculty directory &amp; mentor profiles</span>
+                  </div>
+                </a>
+                <a href="gallery.html" class="dropdown-item" role="menuitem">
+                  <span class="dropdown-item-icon" style="background: rgba(245, 158, 11, 0.15); color: #F59E0B;">🖼️</span>
+                  <div class="dropdown-item-text">
+                    <span class="dropdown-item-title">Events Gallery</span>
+                    <span class="dropdown-item-desc">Campus events, functions &amp; 5GB vault</span>
+                  </div>
+                </a>
+              </div>
+              <div class="dropdown-divider"></div>
+              <div class="dropdown-section-title">Administration</div>
+              <a href="admin/login.html" class="dropdown-item dropdown-item--admin" role="menuitem">
+                <span class="dropdown-item-icon" style="background: rgba(239, 68, 68, 0.15); color: #F87171;">🔐</span>
+                <div class="dropdown-item-text">
+                  <span class="dropdown-item-title">Admin &amp; Staff Login</span>
+                  <span class="dropdown-item-desc">Control panel for institute staff</span>
+                </div>
+              </a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <a href="tel:+916394043659" class="btn btn--outline btn--sm" aria-label="Call AJ Klasses">
+          📞 +91 63940 43659
+        </a>
+        <a href="results.html" class="btn btn--secondary btn--sm" style="border: 1px solid var(--border-glow); color: var(--primary-light);">
+          Check Result 📊
+        </a>
+        <a href="admission.html" class="btn btn--primary btn--sm">
+          Apply Now ⚡
+        </a>
+        <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="Toggle navigation menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile Navigation">
+      <ul>
+        <li><a href="index.html">🏠 Home</a></li>
+        <li><a href="courses.html">📚 Courses &amp; Batches</a></li>
+        <li><a href="about.html" aria-current="page">🎓 About Institute</a></li>
+        <li><a href="contact.html">📍 Contact &amp; Centre</a></li>
+        <li style="border-top: 1px solid var(--border-subtle); margin-block: 6px; padding-top: 6px;">
+          <span style="font-size: 0.7rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.08em; padding-left: 12px; display: block; margin-bottom: 6px;">Student Portals &amp; Staff</span>
+        </li>
+        <li><a href="about-staff.html">👨‍🏫 About Staff Portal</a></li>
+        <li><a href="admission.html">⚡ Apply for Admission</a></li>
+        <li><a href="results.html">📊 Student Results</a></li>
+        <li><a href="attendance.html">📅 Student Attendance</a></li>
+        <li><a href="student-history.html">📜 Academic History</a></li>
+        <li><a href="gallery.html">🖼️ Events Gallery (5 GB)</a></li>
+        <li><a href="admin/login.html" style="color: #F87171;">🔐 Staff Login</a></li>
+      </ul>
+      <div class="mobile-nav-cta">
+        <a href="https://wa.me/916394043659?text=Hello%20AJ%20Klasses%2C%20I%20want%20to%20enquire%20about%20admission." class="btn btn--whatsapp" target="_blank" rel="noopener">
+          💬 Chat on WhatsApp
+        </a>
+        <a href="tel:+916394043659" class="btn btn--primary">
+          📞 Call Now: +91 63940 43659
+        </a>
+      </div>
+    </nav>
+  </header>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       PAGE BANNER
+       ════════════════════════════════════════════════════════ -->
+  <section class="page-banner" aria-labelledby="page-title">
+    <div class="container reveal-on-scroll">
+      <span class="section-pill">Our Heritage &amp; Vision</span>
+      <h1 id="page-title">Dedicated to <span class="text-gradient-gold">Academic Excellence</span></h1>
+      <p>Empowering students of Orai and Jalaun District with the discipline, concept clarity, and mentorship needed to conquer board exams and competitive milestones.</p>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       OUR STORY & MENTORSHIP SHOWCASE
+       ════════════════════════════════════════════════════════ -->
+  <section class="section" aria-labelledby="story-heading">
+    <div class="container">
+      <div class="hero-grid">
+        
+        <!-- Story Content -->
+        <div class="reveal-on-scroll">
+          <span class="section-pill">Our Journey</span>
+          <h2 id="story-heading" class="hero-title" style="font-size: var(--fs-3xl); margin-bottom: var(--space-md);">
+            Bringing Metro-Quality Coaching to <span class="text-gradient-gold">Orai</span>
+          </h2>
+          
+          <p class="hero-desc" style="margin-bottom: var(--space-md);">
+            AJ Klasses was founded with a clear, singular belief: <strong>talent is everywhere, but opportunity and quality mentorship should never be limited to metropolitan cities.</strong>
+          </p>
+
+          <p class="hero-desc" style="margin-bottom: var(--space-md);">
+            What began as a focused study circle has evolved into Orai’s benchmark coaching institute. Over the last decade, we have mentored thousands of students across UP Board and CBSE streams, consistently producing school and district toppers in Class 10 and Class 12.
+          </p>
+
+          <p class="hero-desc" style="margin-bottom: var(--space-lg);">
+            We maintain strict limits on class sizes, cultivate a culture where no question is considered "too silly", and treat each student’s academic ambition as our personal responsibility.
+          </p>
+
+          <div style="display: flex; gap: var(--space-md); flex-wrap: wrap;">
+            <a href="courses.html" class="btn btn--primary">Explore Our Batches ⚡</a>
+            <a href="contact.html" class="btn btn--outline">Visit Our Centre 📍</a>
+          </div>
+        </div>
+
+        <!-- Mentorship Visual -->
+        <div class="hero-visual-wrapper reveal-on-scroll">
+          <div class="hero-visual-frame">
+            <img src="assets/mentor-session.jpg" alt="Mentorship and doubt clearing session at AJ Klasses" width="600" height="480">
+            <div class="hero-visual-overlay" aria-hidden="true"></div>
+          </div>
+          
+          <!-- Floating Badge -->
+          <div class="floating-chip floating-chip--bottom-right" aria-hidden="true">
+            <div class="chip-icon">🤝</div>
+            <div class="chip-text">
+              <strong>1-on-1 Mentorship</strong>
+              <span>Every Student Matters</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       OUR FOUR PILLARS
+       ════════════════════════════════════════════════════════ -->
+  <section class="section section--alt" aria-labelledby="pillars-heading">
+    <div class="container">
+      <div class="section-header reveal-on-scroll">
+        <span class="section-pill">The Foundation</span>
+        <h2 id="pillars-heading">Four Pillars of <span class="text-gradient-gold">AJ Klasses</span></h2>
+        <p>The academic principles that have consistently guided our students to the top percentiles.</p>
+      </div>
+
+      <div class="bento-grid">
+        
+        <div class="bento-card bento-col-6 reveal-on-scroll">
+          <div class="bento-icon-box">🔍</div>
+          <h3>1. Uncompromising Concept Depth</h3>
+          <p>We do not rush through chapters for the sake of completion. Every derivation, reaction, and mathematical formula is taught with deep underlying reasons so students retain concepts permanently.</p>
+        </div>
+
+        <div class="bento-card bento-col-6 reveal-on-scroll">
+          <div class="bento-icon-box bento-icon-box--blue">⏱️</div>
+          <h3>2. Relentless Practice &amp; Speed Drills</h3>
+          <p>Scoring 95%+ requires both knowledge and time management. Our Daily Practice Papers (DPP) train students to solve questions accurately under exam timer constraints.</p>
+        </div>
+
+        <div class="bento-card bento-col-6 reveal-on-scroll">
+          <div class="bento-icon-box bento-icon-box--cyan">💡</div>
+          <h3>3. Zero-Backlog Doubt Culture</h3>
+          <p>Doubts left unresolved compound into exam fear. Our daily open-door doubt clinic ensures every student gets personal attention from senior faculty whenever needed.</p>
+        </div>
+
+        <div class="bento-card bento-col-6 reveal-on-scroll">
+          <div class="bento-icon-box bento-icon-box--emerald">📈</div>
+          <h3>4. Continuous Parent Transparency</h3>
+          <p>Education is a collaborative partnership between parents and mentors. We share regular progress analytics and host constructive monthly meetings to keep students motivated.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       FACULTY LEADERSHIP SPOTLIGHT
+       ════════════════════════════════════════════════════════ -->
+  <section class="section" aria-labelledby="faculty-heading">
+    <div class="container">
+      <div class="section-header reveal-on-scroll">
+        <span class="section-pill">Expert Educators</span>
+        <h2 id="faculty-heading">Meet Our <span class="text-gradient-gold">Distinguished Faculty</span></h2>
+        <p>Experienced subject specialists passionate about teaching and student achievement.</p>
+      </div>
+
+      <div class="faculty-grid">
+        
+        <!-- Faculty 1: Dr. Ajay Rathour -->
+        <article class="faculty-card reveal-on-scroll">
+          <div class="faculty-card-header">
+            <div class="faculty-avatar-seal" aria-hidden="true">AR</div>
+            <div class="faculty-name-block">
+              <h3>Dr. Ajay Rathour</h3>
+              <span class="faculty-role-title">Director &amp; Head of Sciences</span>
+            </div>
+          </div>
+          <div class="faculty-card-body">
+            <p class="faculty-bio-text">
+              With over 15 years of dedicated teaching experience in Orai, Dr. Ajay Rathour is known for his mastery over Chemistry and Biology. He specializes in simplifying complex organic mechanisms and physiology diagrams, inspiring hundreds of students to achieve state-level distinction.
+            </p>
+            <div class="faculty-meta-pills">
+              <div class="faculty-pill">
+                <span class="faculty-pill-label">Experience</span>
+                <span class="faculty-pill-value">15+ Years</span>
+              </div>
+              <div class="faculty-pill">
+                <span class="faculty-pill-label">Subjects</span>
+                <span class="faculty-pill-value">Chemistry &amp; Bio</span>
+              </div>
+              <div class="faculty-pill">
+                <span class="faculty-pill-label">Qualification</span>
+                <span class="faculty-pill-value">M.Sc., Ph.D.</span>
+              </div>
+              <div class="faculty-pill">
+                <span class="faculty-pill-label">Students Taught</span>
+                <span class="faculty-pill-value">2,500+</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Faculty 2: Abhishek Rathour -->
+        <article class="faculty-card reveal-on-scroll">
+          <div class="faculty-card-header">
+            <div class="faculty-avatar-seal" style="border-color: var(--accent-blue);" aria-hidden="true">AR</div>
+            <div class="faculty-name-block">
+              <h3>Abhishek Rathour</h3>
+              <span class="faculty-role-title">Co-Director &amp; Head of Mathematics</span>
+            </div>
+          </div>
+          <div class="faculty-card-body">
+            <p class="faculty-bio-text">
+              A passionate mathematician and mentor, Abhishek Rathour specializes in Senior Mathematics, Calculus, and Coordinate Geometry. His structured problem-solving blueprints remove math anxiety and train students to score 100/100 in board examinations.
+            </p>
+            <div class="faculty-meta-pills">
+              <div class="faculty-pill">
+                <span class="faculty-pill-label">Experience</span>
+                <span class="faculty-pill-value">11+ Years</span>
+              </div>
+              <div class="faculty-pill">
+                <span class="faculty-pill-label">Subjects</span>
+                <span class="faculty-pill-value">Mathematics &amp; Physics</span>
+              </div>
+              <div class="faculty-pill">
+                <span class="faculty-pill-label">Qualification</span>
+                <span class="faculty-pill-value">M.Sc. (Maths), B.Ed.</span>
+              </div>
+              <div class="faculty-pill">
+                <span class="faculty-pill-label">Students Taught</span>
+                <span class="faculty-pill-value">2,000+</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       CAMPUS & LEARNING ENVIRONMENT
+       ════════════════════════════════════════════════════════ -->
+  <section class="section section--alt" aria-labelledby="campus-heading">
+    <div class="container">
+      <div class="section-header reveal-on-scroll">
+        <span class="section-pill">Our Facility</span>
+        <h2 id="campus-heading">Modern Learning <span class="text-gradient-gold">Infrastructure</span></h2>
+        <p>A focused, disciplined, and comfortable academic space in the heart of Orai.</p>
+      </div>
+
+      <div class="bento-grid">
+        <div class="bento-card bento-col-4 reveal-on-scroll">
+          <div class="bento-icon-box">🖥️</div>
+          <h3>Smart Digital Classrooms</h3>
+          <p>Equipped with high-definition digital whiteboards for interactive geometry, molecular modeling, and visual physics animations.</p>
+        </div>
+
+        <div class="bento-card bento-col-4 reveal-on-scroll">
+          <div class="bento-icon-box bento-icon-box--blue">📖</div>
+          <h3>Dedicated Reference Library</h3>
+          <p>Well-stocked collection of NCERT Exemplars, RD Sharma, RS Aggarwal, HC Verma, and 15 years of board archive papers.</p>
+        </div>
+
+        <div class="bento-card bento-col-4 reveal-on-scroll">
+          <div class="bento-icon-box bento-icon-box--cyan">❄️</div>
+          <h3>Comfortable, Safe Environment</h3>
+          <p>Well-ventilated, air-conditioned lecture halls with ergonomic seating designed for extended study hours and optimal focus.</p>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: var(--space-2xl);" class="reveal-on-scroll">
+        <a href="contact.html" class="btn btn--primary btn--lg">Visit Our Centre in Orai 📍</a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       SITE FOOTER
+       ════════════════════════════════════════════════════════ -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-top">
+        
+        <div class="footer-brand-col">
+          <a href="index.html" class="brand">
+            <div class="brand-logo-wrap" aria-hidden="true">
+          <img src="assets/logo.png" alt="AJ Klasses Logo" class="brand-logo-img">
+        </div>
+            <div class="brand-text">
+              <span class="brand-name">AJ Klasses</span>
+              <span class="brand-sub">Orai, Jalaun District</span>
+            </div>
+          </a>
+          <p>
+            Orai's premier academic coaching institute, dedicated to fostering concept clarity, discipline, and top ranks for students from LKG to Class 12.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="courses.html">Our Courses</a></li>
+            <li><a href="about.html">About Institute</a></li>
+            <li><a href="admission.html">Admissions Portal</a></li>
+            <li><a href="results.html">Student Results</a></li>
+            <li><a href="attendance.html">Attendance Portal</a></li>
+            <li><a href="student-history.html">Academic History</a></li>
+            <li><a href="about-staff.html">Faculty &amp; Staff</a></li>
+            <li><a href="gallery.html">Events Gallery (5 GB)</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Key Batches</h4>
+          <ul class="footer-links">
+            <li><a href="courses.html">Class 10 Board Prep</a></li>
+            <li><a href="courses.html">Class 12 PCM / PCB</a></li>
+            <li><a href="courses.html">Foundation 6–8</a></li>
+            <li><a href="courses.html">Competitive Entrance</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Get in Touch</h4>
+          <div class="footer-contact-item">
+            <span>📍</span>
+            <a href="https://maps.google.com/?q=XFP4%2B4F7,+Teli+Vali+Street,+Tulsi+Nagar,+New+Ram+Nagar,+Niyamatpur,+Orai,+Uttar+Pradesh+285001" target="_blank" rel="noopener" style="color: var(--text-body); transition: var(--transition);" title="Open in Google Maps">
+              Teli Vali Street, Tulsi Nagar, Orai (Plus Code: <strong style="color: var(--primary-light);">XFP4+4F7</strong>)
+            </a>
+          </div>
+          <div class="footer-contact-item">
+            <span>📞</span>
+            <a href="tel:+916394043659" style="color: var(--primary-light);">+91 63940 43659</a>
+          </div>
+          <div class="footer-contact-item">
+            <span>✉️</span>
+            <a href="mailto:pariharrishi777@gmail.com" style="color: var(--primary-light);">pariharrishi777@gmail.com</a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2024–2026 AJ Klasses. All rights reserved. &nbsp;|&nbsp; <a href="privacy-policy.html" style="color:inherit;opacity:.75;text-decoration:underline;">Privacy Policy</a></div>
+        <div>Fostering future leaders in Orai, Uttar Pradesh.</div>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       FLOATING ACTION HUB
+       ════════════════════════════════════════════════════════ -->
+  <div class="floating-action-hub">
+    <a href="https://wa.me/916394043659?text=Hello%20AJ%20Klasses%2C%20I%20have%20an%20enquiry%20regarding%20admissions." target="_blank" rel="noopener" class="float-btn float-btn--whatsapp" aria-label="Chat on WhatsApp">
+      <span class="float-pulse" aria-hidden="true"></span>
+      <span style="font-size: 1.25rem;">💬</span>
+      <span>Chat on WhatsApp</span>
+    </a>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

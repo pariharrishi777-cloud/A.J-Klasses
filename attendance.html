@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Attendance Portal — AJ Klasses, Orai</title>
+  <meta name="description" content="View and track student attendance records, monthly attendance percentages, and daily lecture participation at AJ Klasses, Orai.">
+  <link rel="icon" type="image/png" href="assets/logo.png">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Specific Attendance Portal Enhancements */
+    .metric-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      font-size: var(--fs-xs);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .status-badge--present {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34D399;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+    }
+    .status-badge--absent {
+      background: rgba(239, 68, 68, 0.15);
+      color: #F87171;
+      border: 1px solid rgba(239, 68, 68, 0.4);
+    }
+    .status-badge--late {
+      background: rgba(245, 158, 11, 0.15);
+      color: #FBBF24;
+      border: 1px solid rgba(245, 158, 11, 0.4);
+    }
+    .status-badge--leave {
+      background: rgba(59, 130, 246, 0.15);
+      color: #60A5FA;
+      border: 1px solid rgba(59, 130, 246, 0.4);
+    }
+    .stat-card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: var(--space-md);
+      margin-top: var(--space-md);
+      margin-bottom: var(--space-xl);
+    }
+    .stat-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 14px 12px;
+      text-align: center;
+    }
+    .stat-card-val {
+      font-family: var(--ff-heading);
+      font-size: var(--fs-2xl);
+      font-weight: 800;
+      color: #FFFFFF;
+      line-height: 1.1;
+    }
+    .stat-card-lbl {
+      font-size: var(--fs-xs);
+      color: var(--text-muted);
+      margin-top: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: var(--space-md);
+    }
+    .filter-btn {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      font-size: var(--fs-xs);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--primary);
+      color: #000000;
+      border-color: var(--primary);
+    }
+    @media print {
+      body {
+        background: #FFFFFF !important;
+        color: #000000 !important;
+      }
+      .site-header, .site-footer, .result-instruction-banner, .filter-bar, .no-print, #search-box-wrap, .page-banner {
+        display: none !important;
+      }
+      #attendance-display-wrap {
+        display: block !important;
+        max-width: 100% !important;
+        box-shadow: none !important;
+        border: 1px solid #CCCCCC !important;
+        background: #FFFFFF !important;
+        color: #000000 !important;
+      }
+      .stat-card {
+        border: 1px solid #CCCCCC !important;
+        background: #F9FAFB !important;
+      }
+      .stat-card-val {
+        color: #000000 !important;
+      }
+      .attendance-table th, .attendance-table td {
+        color: #000000 !important;
+        border-color: #E5E7EB !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ════════════════════════════════════════════════════════
+       HEADER & NAVIGATION
+       ════════════════════════════════════════════════════════ -->
+  <header class="site-header" role="banner">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="AJ Klasses Home">
+        <div class="brand-logo-wrap" aria-hidden="true">
+          <img src="assets/logo.png" alt="AJ Klasses Logo" class="brand-logo-img">
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">AJ Klasses</span>
+          <span class="brand-sub">Orai • Jalaun District</span>
+        </div>
+      </a>
+
+      <nav aria-label="Primary Navigation">
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="courses.html">Courses</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li class="nav-dropdown">
+            <button type="button" class="kebab-btn" id="kebab-menu-btn" aria-haspopup="true" aria-expanded="false" aria-label="Student Portals & Services" title="Student Portals & Services" style="border-color: rgba(16, 185, 129, 0.4); color: #34D399;">
+              <span class="kebab-dots" aria-hidden="true">
+                <span></span>
+                <span></span>
+                <span></span>
+              </span>
+              <span class="kebab-label">Attendance ▾</span>
+            </button>
+            <div class="nav-dropdown-menu" id="portals-menu" role="menu">
+              <div class="dropdown-section-title">Student Portals</div>
+              <div class="dropdown-list">
+                <a href="admission.html" class="dropdown-item" role="menuitem">
+                  <span class="dropdown-item-icon" style="background: rgba(245, 158, 11, 0.15); color: #F59E0B;">⚡</span>
+                  <div class="dropdown-item-text">
+                    <span class="dropdown-item-title">Admissions Portal</span>
+                    <span class="dropdown-item-desc">Apply online &amp; track status</span>
+                  </div>
+                </a>
+                <a href="results.html" class="dropdown-item" role="menuitem">
+                  <span class="dropdown-item-icon" style="background: rgba(59, 130, 246, 0.15); color: #60A5FA;">📊</span>
+                  <div class="dropdown-item-text">
+                    <span class="dropdown-item-title">Results Portal</span>
+                    <span class="dropdown-item-desc">Marksheet &amp; PDF download</span>
+                  </div>
+                </a>
+                <a href="attendance.html" class="dropdown-item active-item" role="menuitem" aria-current="page">
+                  <span class="dropdown-item-icon" style="background: rgba(16, 185, 129, 0.25); color: #34D399;">📅</span>
+                  <div class="dropdown-item-text">
+                    <span class="dropdown-item-title">Attendance Portal</span>
+                    <span class="dropdown-item-desc">Live records &amp; attendance rate (Active)</span>
+                  </div>
+                </a>
+                <a href="student-history.html" class="dropdown-item" role="menuitem">
+                  <span class="dropdown-item-icon" style="background: rgba(168, 85, 247, 0.15); color: #C084FC;">📜</span>
+                  <div class="dropdown-item-text">
+                    <span class="dropdown-item-title">Academic History</span>
+                    <span class="dropdown-item-desc">Cumulative student progression</span>
+                  </div>
+                </a>
+                <a href="about-staff.html" class="dropdown-item" role="menuitem">
+                  <span class="dropdown-item-icon" style="background: rgba(59, 130, 246, 0.15); color: #60A5FA;">👨‍🏫</span>
+                  <div class="dropdown-item-text">
+                    <span class="dropdown-item-title">About Staff Portal</span>
+                    <span class="dropdown-item-desc">Faculty directory &amp; mentor profiles</span>
+                  </div>
+                </a>
+                <a href="gallery.html" class="dropdown-item" role="menuitem">
+                  <span class="dropdown-item-icon" style="background: rgba(245, 158, 11, 0.15); color: #F59E0B;">🖼️</span>
+                  <div class="dropdown-item-text">
+                    <span class="dropdown-item-title">Events Gallery</span>
+                    <span class="dropdown-item-desc">Campus events, functions &amp; 5GB vault</span>
+                  </div>
+                </a>
+              </div>
+              <div class="dropdown-divider"></div>
+              <div class="dropdown-section-title">Administration</div>
+              <a href="admin/login.html" class="dropdown-item dropdown-item--admin" role="menuitem">
+                <span class="dropdown-item-icon" style="background: rgba(239, 68, 68, 0.15); color: #F87171;">🔐</span>
+                <div class="dropdown-item-text">
+                  <span class="dropdown-item-title">Admin &amp; Staff Login</span>
+                  <span class="dropdown-item-desc">Control panel for institute staff</span>
+                </div>
+              </a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <a href="tel:+916394043659" class="btn btn--outline btn--sm" aria-label="Call AJ Klasses">
+          📞 +91 63940 43659
+        </a>
+        <a href="results.html" class="btn btn--secondary btn--sm" style="border: 1px solid var(--border-glow); color: var(--primary-light);">
+          Check Result 📊
+        </a>
+        <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="Toggle navigation menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile Navigation">
+      <ul>
+        <li><a href="index.html">🏠 Home</a></li>
+        <li><a href="courses.html">📚 Courses &amp; Batches</a></li>
+        <li><a href="about.html">🎓 About Institute</a></li>
+        <li><a href="contact.html">📍 Contact &amp; Centre</a></li>
+        <li style="border-top: 1px solid var(--border-subtle); margin-block: 6px; padding-top: 6px;">
+          <span style="font-size: 0.7rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.08em; padding-left: 12px; display: block; margin-bottom: 6px;">Student Portals &amp; Staff</span>
+        </li>
+        <li><a href="about-staff.html">👨‍🏫 About Staff Portal</a></li>
+        <li><a href="admission.html">⚡ Apply for Admission</a></li>
+        <li><a href="results.html">📊 Student Results</a></li>
+        <li><a href="attendance.html" aria-current="page">📅 Student Attendance</a></li>
+        <li><a href="student-history.html">📜 Academic History</a></li>
+        <li><a href="gallery.html">🖼️ Events Gallery (5 GB)</a></li>
+        <li><a href="admin/login.html" style="color: #F87171;">🔐 Staff Login</a></li>
+      </ul>
+      <div class="mobile-nav-cta">
+        <a href="https://wa.me/916394043659?text=Hello%20AJ%20Klasses%2C%20I%20want%20to%20enquire%20about%20attendance." class="btn btn--whatsapp" target="_blank" rel="noopener">
+          💬 Chat on WhatsApp
+        </a>
+        <a href="tel:+916394043659" class="btn btn--primary">
+          📞 Call Now: +91 63940 43659
+        </a>
+      </div>
+    </nav>
+  </header>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       PAGE BANNER
+       ════════════════════════════════════════════════════════ -->
+  <section class="page-banner" aria-labelledby="page-title">
+    <div class="container reveal-on-scroll">
+      <span class="section-pill">Real-Time Class Record</span>
+      <h1 id="page-title">Student <span class="text-gradient-gold">Attendance Portal</span></h1>
+      <p>View daily lecture participation, verify monthly attendance percentages, and monitor academic consistency.</p>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       ATTENDANCE LOOKUP SECTION
+       ════════════════════════════════════════════════════════ -->
+  <section class="result-portal-section" aria-labelledby="portal-heading">
+    <div class="container">
+      <h2 id="portal-heading" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0);">Attendance Verification</h2>
+
+      <!-- SEARCH FORM CONTAINER -->
+      <div id="search-box-wrap" class="result-search-box reveal-on-scroll is-visible" style="max-width: 640px; margin-inline: auto;">
+        <div class="result-instruction-banner">
+          <span style="font-size: 1.25rem;">ℹ️</span>
+          <div>
+            <strong>How to check attendance:</strong> Enter your institute <strong>Roll Number</strong> and <strong>Student Name</strong> exactly as registered during admission.
+          </div>
+        </div>
+
+        <!-- Accessible Alert Box -->
+        <div id="attendance-alert" class="alert-message alert-message--error" style="display: none;" role="alert">
+          <span id="alert-icon">⚠️</span>
+          <span id="alert-text">Error message will appear here.</span>
+        </div>
+
+        <form id="attendance-lookup-form" novalidate>
+          <div class="form-group" style="margin-bottom: var(--space-md);">
+            <label for="student-roll">Institute Roll Number *</label>
+            <input 
+              type="text" 
+              id="student-roll" 
+              name="rollNumber" 
+              placeholder="e.g. AJ-2025-101" 
+              required 
+              maxlength="50"
+              autocomplete="off"
+              style="text-transform: uppercase;"
+            >
+            <span style="font-size: var(--fs-xs); color: var(--text-dim); margin-top: 4px; display: block;">
+              Assigned during admission approval (e.g. AJ-2025-101).
+            </span>
+          </div>
+
+          <div class="form-group" style="margin-bottom: var(--space-xl);">
+            <label for="student-name">Student Full Name *</label>
+            <input 
+              type="text" 
+              id="student-name" 
+              name="studentName" 
+              placeholder="e.g. Rahul Sharma" 
+              required 
+              maxlength="150"
+              autocomplete="name"
+            >
+            <span style="font-size: var(--fs-xs); color: var(--text-dim); margin-top: 4px; display: block;">
+              Enter your name as spelled in institute enrollment records.
+            </span>
+          </div>
+
+          <button type="submit" id="check-attendance-btn" class="btn btn--primary" style="width: 100%; justify-content: center; font-size: var(--fs-base);">
+            <span id="btn-text">Check Attendance 📅</span>
+          </button>
+        </form>
+
+        <!-- Loading Spinner -->
+        <div id="loading-spinner" class="loading-spinner-wrap" aria-live="polite">
+          <div class="loading-spinner"></div>
+          <div style="font-size: var(--fs-sm); color: var(--text-muted); font-weight: 600;">
+            Verifying student enrollment and fetching attendance records...
+          </div>
+        </div>
+
+        <div style="margin-top: var(--space-lg); text-align: center; font-size: var(--fs-xs); color: var(--text-dim);">
+          🔒 Only verified enrolled students can access individual attendance track records.
+        </div>
+      </div>
+
+      <!-- ATTENDANCE DISPLAY CONTAINER (Initially hidden) -->
+      <div id="attendance-display-wrap" style="display: none; max-width: 900px; margin-inline: auto; margin-top: var(--space-xl);">
+        
+        <!-- Action Toolbar (Back / Print) -->
+        <div class="no-print" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-md); flex-wrap: wrap; gap: 10px;">
+          <button id="lookup-another-btn" class="btn btn--outline btn--sm" style="display: inline-flex; align-items: center; gap: 6px;">
+            ← Search Another Student
+          </button>
+          <div style="display: flex; gap: 8px;">
+            <a href="results.html" class="btn btn--secondary btn--sm" style="font-size: var(--fs-xs);">
+              View Results 📊
+            </a>
+            <a href="student-history.html" class="btn btn--secondary btn--sm" style="font-size: var(--fs-xs);">
+              Full Academic History 📜
+            </a>
+            <button onclick="window.print()" class="btn btn--primary btn--sm" style="display: inline-flex; align-items: center; gap: 6px;">
+              🖨️ Print Report
+            </button>
+          </div>
+        </div>
+
+        <!-- Attendance Card Container -->
+        <div class="result-search-box" style="padding: 28px; border-color: rgba(245, 158, 11, 0.3);">
+          
+          <!-- Header Profile Row -->
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 20px; margin-bottom: 20px;">
+            <div>
+              <span class="section-pill" style="margin-bottom: 8px;">Enrolled Student</span>
+              <h2 id="disp-student-name" style="font-family: var(--ff-heading); font-size: var(--fs-2xl); color: #FFFFFF; font-weight: 800; margin-bottom: 4px;">
+                Rahul Sharma
+              </h2>
+              <div style="font-size: var(--fs-sm); color: var(--text-muted); display: flex; flex-wrap: wrap; gap: 12px;">
+                <span>Roll No: <strong id="disp-roll" style="color: var(--primary-light);">AJ-2025-101</strong></span>
+                <span>•</span>
+                <span>Class: <strong id="disp-class" style="color: #FFFFFF;">Class 10 (Section A)</strong></span>
+                <span>•</span>
+                <span>Session: <strong id="disp-session" style="color: #FFFFFF;">2024–25</strong></span>
+              </div>
+            </div>
+
+            <!-- Percentage Pill -->
+            <div style="text-align: right; min-width: 150px;">
+              <div style="font-size: var(--fs-xs); color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px;">
+                Overall Attendance
+              </div>
+              <div id="disp-percentage-badge" style="font-family: var(--ff-heading); font-size: var(--fs-3xl); font-weight: 900; color: #10B981; line-height: 1;">
+                100%
+              </div>
+              <div id="disp-percentage-status" style="font-size: var(--fs-xs); font-weight: 600; color: #34D399; margin-top: 4px;">
+                Excellent Consistency
+              </div>
+            </div>
+          </div>
+
+          <!-- Formula Explanation Banner -->
+          <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 10px 14px; font-size: var(--fs-xs); color: var(--text-dim); margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+            <span>ℹ️</span>
+            <span id="disp-formula">
+              Attendance Percentage is calculated as: (Present + 0.5 × Late + 0.5 × Approved Leave) ÷ Total Sessions × 100. Cancelled sessions are not marked as absences.
+            </span>
+          </div>
+
+          <!-- Metrics Cards Grid -->
+          <div class="stat-card-grid">
+            <div class="stat-card">
+              <div id="disp-total-sessions" class="stat-card-val">0</div>
+              <div class="stat-card-lbl">Total Sessions</div>
+            </div>
+            <div class="stat-card" style="border-color: rgba(16, 185, 129, 0.25);">
+              <div id="disp-present-count" class="stat-card-val" style="color: #34D399;">0</div>
+              <div class="stat-card-lbl">Present</div>
+            </div>
+            <div class="stat-card" style="border-color: rgba(239, 68, 68, 0.25);">
+              <div id="disp-absent-count" class="stat-card-val" style="color: #F87171;">0</div>
+              <div class="stat-card-lbl">Absent</div>
+            </div>
+            <div class="stat-card" style="border-color: rgba(245, 158, 11, 0.25);">
+              <div id="disp-late-count" class="stat-card-val" style="color: #FBBF24;">0</div>
+              <div class="stat-card-lbl">Late Arrivals</div>
+            </div>
+            <div class="stat-card" style="border-color: rgba(59, 130, 246, 0.25);">
+              <div id="disp-leave-count" class="stat-card-val" style="color: #60A5FA;">0</div>
+              <div class="stat-card-lbl">Approved Leave</div>
+            </div>
+          </div>
+
+          <!-- Detailed Session History -->
+          <div style="margin-top: var(--space-xl);">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 14px;">
+              <h3 style="font-family: var(--ff-heading); font-size: var(--fs-lg); color: #FFFFFF; font-weight: 700;">
+                Date-Wise Lecture Logs
+              </h3>
+
+              <!-- Monthly Filter Bar -->
+              <div id="month-filter-bar" class="filter-bar no-print">
+                <button class="filter-btn active" data-month="all">All Sessions</button>
+                <!-- Populated dynamically via JS -->
+              </div>
+            </div>
+
+            <!-- Table Responsive Wrap -->
+            <div class="table-responsive" style="overflow-x: auto; border: 1px solid var(--border-subtle); border-radius: var(--radius-md);">
+              <table class="marksheet-table attendance-table" style="width: 100%; border-collapse: collapse; text-align: left;">
+                <thead>
+                  <tr style="background: rgba(255, 255, 255, 0.04);">
+                    <th style="padding: 12px 16px; font-size: var(--fs-xs); text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted);">Date</th>
+                    <th style="padding: 12px 16px; font-size: var(--fs-xs); text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted);">Lecture / Session</th>
+                    <th style="padding: 12px 16px; font-size: var(--fs-xs); text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); text-align: center;">Status</th>
+                    <th style="padding: 12px 16px; font-size: var(--fs-xs); text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted);">Teacher Remarks</th>
+                  </tr>
+                </thead>
+                <tbody id="attendance-tbody">
+                  <!-- Injected via JavaScript -->
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Empty State Container -->
+            <div id="attendance-empty-state" style="display: none; padding: 40px 20px; text-align: center; background: rgba(255, 255, 255, 0.02); border-radius: var(--radius-md); border: 1px dashed var(--border-subtle); margin-top: 14px;">
+              <div style="font-size: 2.2rem; margin-bottom: 10px;">📋</div>
+              <h4 style="color: #FFFFFF; font-weight: 700; margin-bottom: 6px;">No Attendance Records Found</h4>
+              <p style="color: var(--text-muted); font-size: var(--fs-sm); max-width: 480px; margin-inline: auto;">
+                No attendance sessions have been logged yet for this student or for the selected month filter.
+              </p>
+            </div>
+          </div>
+
+          <!-- Institute Stamp & Footer in Print View -->
+          <div style="margin-top: 28px; padding-top: 18px; border-top: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: flex-end; font-size: var(--fs-xs); color: var(--text-dim); flex-wrap: wrap; gap: 14px;">
+            <div>
+              <strong>AJ Klasses Coaching Institute</strong><br>
+              Tulsi Nagar, Behind Diamond Hotel, Orai, Uttar Pradesh — 285001<br>
+              Director: Dr. Ajay Rathour | Head Faculty: Abhishek Rathour
+            </div>
+            <div style="text-align: right;">
+              Verified Institute Attendance Record<br>
+              Helpline: +91 63940 43659
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- ════════════════════════════════════════════════════════
+           PORTAL CROSS-LINKING & ASSISTANCE
+           ════════════════════════════════════════════════════════ -->
+      <div style="max-width: 900px; margin-inline: auto; margin-top: var(--space-3xl);" class="no-print">
+        <h3 style="font-family: var(--ff-heading); font-size: var(--fs-lg); color: #FFFFFF; font-weight: 700; text-align: center; margin-bottom: var(--space-lg);">
+          Integrated Student Services
+        </h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-md);">
+          
+          <a href="admission.html" class="result-search-box" style="text-decoration: none; padding: 18px; border-color: rgba(245, 158, 11, 0.2); transition: all 0.2s ease;">
+            <div style="font-size: 1.5rem; margin-bottom: 6px;">⚡</div>
+            <h4 style="color: #FFFFFF; font-size: var(--fs-base); font-weight: 700; margin-bottom: 4px;">Admissions 2024–25</h4>
+            <p style="font-size: var(--fs-xs); color: var(--text-muted); margin: 0;">New student application form &amp; enrollment tracking.</p>
+          </a>
+
+          <a href="results.html" class="result-search-box" style="text-decoration: none; padding: 18px; border-color: rgba(59, 130, 246, 0.2); transition: all 0.2s ease;">
+            <div style="font-size: 1.5rem; margin-bottom: 6px;">📊</div>
+            <h4 style="color: #FFFFFF; font-size: var(--fs-base); font-weight: 700; margin-bottom: 4px;">Student Results</h4>
+            <p style="font-size: var(--fs-xs); color: var(--text-muted); margin: 0;">Published examination marksheets &amp; assessments.</p>
+          </a>
+
+          <a href="student-history.html" class="result-search-box" style="text-decoration: none; padding: 18px; border-color: rgba(16, 185, 129, 0.2); transition: all 0.2s ease;">
+            <div style="font-size: 1.5rem; margin-bottom: 6px;">📜</div>
+            <h4 style="color: #FFFFFF; font-size: var(--fs-base); font-weight: 700; margin-bottom: 4px;">Academic History</h4>
+            <p style="font-size: var(--fs-xs); color: var(--text-muted); margin: 0;">Longitudinal performance, results &amp; enrollment journey.</p>
+          </a>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       SITE FOOTER
+       ════════════════════════════════════════════════════════ -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <div class="brand-text" style="margin-bottom: var(--space-sm);">
+          <span class="brand-name" style="font-size: 1.4rem;">AJ Klasses</span>
+          <span class="brand-sub">Coaching Institute • Orai</span>
+        </div>
+        <p style="font-size: var(--fs-sm); color: var(--text-muted); line-height: 1.6; margin-bottom: var(--space-md);">
+          <a href="https://maps.google.com/?q=XFP4%2B4F7,+Teli+Vali+Street,+Tulsi+Nagar,+New+Ram+Nagar,+Niyamatpur,+Orai,+Uttar+Pradesh+285001" target="_blank" rel="noopener" style="color: var(--text-body);" title="Open in Google Maps">
+            📍 Teli Vali Street, Tulsi Nagar, Behind Diamond Hotel, Orai, U.P. — 285001 (Plus Code: <strong style="color: var(--primary-light);">XFP4+4F7</strong>)
+          </a>. Mentoring students from LKG to Class 12 (CBSE &amp; UP Board).
+        </p>
+        <div style="font-size: var(--fs-sm); color: var(--text-muted);">
+          📞 <a href="tel:+916394043659" style="color: var(--primary-light);">+91 63940 43659</a><br>
+          ✉️ <a href="mailto:pariharrishi777@gmail.com" style="color: var(--text-muted);">pariharrishi777@gmail.com</a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-title">Quick Portals</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="courses.html">Courses &amp; Batches</a></li>
+          <li><a href="admission.html">Admission Portal</a></li>
+          <li><a href="results.html">Result Portal</a></li>
+          <li><a href="attendance.html">Attendance Portal</a></li>
+          <li><a href="student-history.html">Student Academic History</a></li>
+          <li><a href="about-staff.html">Faculty &amp; Staff</a></li>
+          <li><a href="gallery.html">Events Gallery (5 GB)</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-title">Academic Programs</h4>
+        <ul class="footer-links">
+          <li><a href="courses.html">Class 10 Board Excellence</a></li>
+          <li><a href="courses.html">Class 12 Board &amp; Entrance</a></li>
+          <li><a href="courses.html">Junior Foundation (6–8)</a></li>
+          <li><a href="courses.html">Secondary Foundation (9–10)</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-title">Administration</h4>
+        <ul class="footer-links">
+          <li><a href="admin/dashboard.html">Admin Login 🔒</a></li>
+          <li><a href="contact.html">Campus Location</a></li>
+          <li><a href="https://wa.me/916394043659" target="_blank" rel="noopener">WhatsApp Support</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <div>&copy; 2025 AJ Klasses, Orai. All rights reserved. &nbsp;|&nbsp; <a href="privacy-policy.html" style="color:inherit;opacity:.75;text-decoration:underline;">Privacy Policy</a></div>
+        <div>Designed for Academic Excellence &amp; Transparent Student Tracking.</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ════════════════════════════════════════════════════════
+       CLIENT LOGIC SCRIPT
+       ════════════════════════════════════════════════════════ -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Mobile Navigation Toggle
+      const menuToggle = document.getElementById('menu-toggle');
+      const mobileNav = document.getElementById('mobile-nav');
+      if (menuToggle && mobileNav) {
+        menuToggle.addEventListener('click', () => {
+          const isOpen = mobileNav.classList.toggle('is-open');
+          menuToggle.setAttribute('aria-expanded', isOpen);
+          menuToggle.classList.toggle('active', isOpen);
+        });
+      }
+
+      // Attendance Lookup Elements
+      const lookupForm = document.getElementById('attendance-lookup-form');
+      const rollInput = document.getElementById('student-roll');
+      const nameInput = document.getElementById('student-name');
+      const checkBtn = document.getElementById('check-attendance-btn');
+      const spinner = document.getElementById('loading-spinner');
+      const alertBox = document.getElementById('attendance-alert');
+      const alertText = document.getElementById('alert-text');
+      const searchBoxWrap = document.getElementById('search-box-wrap');
+      const displayWrap = document.getElementById('attendance-display-wrap');
+      const lookupAnotherBtn = document.getElementById('lookup-another-btn');
+      const tbody = document.getElementById('attendance-tbody');
+      const emptyState = document.getElementById('attendance-empty-state');
+      const monthFilterBar = document.getElementById('month-filter-bar');
+
+      let currentRecords = [];
+
+      function showAlert(msg) {
+        alertText.textContent = msg;
+        alertBox.style.display = 'flex';
+        alertBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+
+      function hideAlert() {
+        alertBox.style.display = 'none';
+      }
+
+      function setLoading(isLoading) {
+        if (isLoading) {
+          checkBtn.disabled = true;
+          spinner.classList.add('is-active');
+          hideAlert();
+        } else {
+          checkBtn.disabled = false;
+          spinner.classList.remove('is-active');
+        }
+      }
+
+      // Check URL parameters for pre-filling (e.g. from Results or History page)
+      const urlParams = new URLSearchParams(window.location.search);
+      const paramRoll = urlParams.get('roll');
+      const paramName = urlParams.get('name');
+      if (paramRoll && paramName) {
+        rollInput.value = paramRoll;
+        nameInput.value = paramName;
+        executeLookup(paramRoll, paramName);
+      }
+
+      lookupForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        hideAlert();
+
+        const rollNumber = rollInput.value.trim().toUpperCase();
+        const studentName = nameInput.value.trim();
+
+        if (!rollNumber) {
+          showAlert('Please enter your Institute Roll Number.');
+          rollInput.focus();
+          return;
+        }
+
+        if (!studentName) {
+          showAlert('Please enter your Student Full Name.');
+          nameInput.focus();
+          return;
+        }
+
+        executeLookup(rollNumber, studentName);
+      });
+
+      async function executeLookup(rollNumber, studentName) {
+        function getApiEndpoint(path) {
+          if (window.location.protocol === 'file:') return 'http://localhost:3000' + path;
+          if (window.location.port && window.location.port !== '3000' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
+            return `http://${window.location.hostname}:3000` + path;
+          }
+          return path;
+        }
+
+        try {
+          const endpoint = getApiEndpoint('/api/attendance/lookup');
+          const res = await fetch(endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ rollNumber, studentName })
+          });
+
+          const data = await res.json();
+
+          if (!res.ok || !data.success) {
+            showAlert(data.message || "We couldn't verify these details or attendance records are not currently available. Please check the information or contact the institute desk.");
+            setLoading(false);
+            return;
+          }
+
+          renderAttendance(data.data);
+          setLoading(false);
+        } catch (err) {
+          showAlert('Network or connection error. Please ensure the backend is running (port 3000) or try again shortly.');
+          setLoading(false);
+        }
+      }
+
+      function renderAttendance(data) {
+        const { student, summary, records } = data;
+        currentRecords = records || [];
+
+        // Fill Student Profile
+        document.getElementById('disp-student-name').textContent = student.student_name;
+        document.getElementById('disp-roll').textContent = student.roll_number;
+        document.getElementById('disp-class').textContent = `${student.class_name} (Section ${student.section || 'A'})`;
+        document.getElementById('disp-session').textContent = student.academic_year;
+
+        // Fill Metrics
+        const pctBadge = document.getElementById('disp-percentage-badge');
+        const pctStatus = document.getElementById('disp-percentage-status');
+        const pctVal = summary.attendance_percentage || 0;
+        pctBadge.textContent = `${pctVal}%`;
+
+        if (pctVal >= 85) {
+          pctBadge.style.color = '#10B981';
+          pctStatus.textContent = 'Excellent Consistency';
+          pctStatus.style.color = '#34D399';
+        } else if (pctVal >= 75) {
+          pctBadge.style.color = '#3B82F6';
+          pctStatus.textContent = 'Good Standing (Eligible)';
+          pctStatus.style.color = '#60A5FA';
+        } else if (pctVal >= 60) {
+          pctBadge.style.color = '#F59E0B';
+          pctStatus.textContent = 'Needs Improvement';
+          pctStatus.style.color = '#FBBF24';
+        } else {
+          pctBadge.style.color = '#EF4444';
+          pctStatus.textContent = 'Critical Shortage';
+          pctStatus.style.color = '#F87171';
+        }
+
+        document.getElementById('disp-total-sessions').textContent = summary.total_sessions || 0;
+        document.getElementById('disp-present-count').textContent = summary.present_count || 0;
+        document.getElementById('disp-absent-count').textContent = summary.absent_count || 0;
+        document.getElementById('disp-late-count').textContent = summary.late_count || 0;
+        document.getElementById('disp-leave-count').textContent = summary.leave_count || 0;
+
+        if (summary.formula_explanation) {
+          document.getElementById('disp-formula').textContent = summary.formula_explanation;
+        }
+
+        // Build Month Filters dynamically
+        buildMonthFilters(currentRecords);
+
+        // Render Table Records
+        renderTableRows(currentRecords);
+
+        // Switch Views
+        searchBoxWrap.style.display = 'none';
+        displayWrap.style.display = 'block';
+        displayWrap.scrollIntoView({ behavior: 'smooth' });
+      }
+
+      function buildMonthFilters(records) {
+        monthFilterBar.innerHTML = '<button class="filter-btn active" data-month="all">All Sessions</button>';
+        const monthsSet = new Set();
+
+        records.forEach(r => {
+          if (r.date) {
+            const parts = r.date.split('-');
+            if (parts.length >= 2) {
+              const yearMonth = `${parts[0]}-${parts[1]}`;
+              monthsSet.add(yearMonth);
+            }
+          }
+        });
+
+        const sortedMonths = Array.from(monthsSet).sort().reverse();
+        sortedMonths.forEach(ym => {
+          const [year, month] = ym.split('-');
+          const monthName = new Date(year, parseInt(month) - 1, 1).toLocaleString('en-US', { month: 'short', year: 'numeric' });
+          const btn = document.createElement('button');
+          btn.className = 'filter-btn';
+          btn.dataset.month = ym;
+          btn.textContent = monthName;
+          btn.addEventListener('click', () => {
+            document.querySelectorAll('#month-filter-bar .filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            filterByMonth(ym);
+          });
+          monthFilterBar.appendChild(btn);
+        });
+
+        // Add click listener to "All Sessions" button
+        monthFilterBar.querySelector('[data-month="all"]').addEventListener('click', (e) => {
+          document.querySelectorAll('#month-filter-bar .filter-btn').forEach(b => b.classList.remove('active'));
+          e.target.classList.add('active');
+          renderTableRows(currentRecords);
+        });
+      }
+
+      function filterByMonth(yearMonth) {
+        const filtered = currentRecords.filter(r => r.date && r.date.startsWith(yearMonth));
+        renderTableRows(filtered);
+      }
+
+      function renderTableRows(records) {
+        tbody.innerHTML = '';
+        if (!records || records.length === 0) {
+          emptyState.style.display = 'block';
+          tbody.parentElement.style.display = 'none';
+          return;
+        }
+
+        emptyState.style.display = 'none';
+        tbody.parentElement.style.display = 'table';
+
+        records.forEach(r => {
+          const tr = document.createElement('tr');
+          tr.style.borderBottom = '1px solid var(--border-subtle)';
+
+          let statusBadgeClass = 'status-badge--present';
+          let statusLabel = 'Present';
+          if (r.status === 'Absent') {
+            statusBadgeClass = 'status-badge--absent';
+            statusLabel = 'Absent';
+          } else if (r.status === 'Late') {
+            statusBadgeClass = 'status-badge--late';
+            statusLabel = 'Late';
+          } else if (r.status === 'Leave') {
+            statusBadgeClass = 'status-badge--leave';
+            statusLabel = 'Approved Leave';
+          }
+
+          // Format Date nicely
+          let formattedDate = r.date;
+          try {
+            const d = new Date(r.date + 'T00:00:00');
+            formattedDate = d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric', weekday: 'short' });
+          } catch(e) {}
+
+          tr.innerHTML = `
+            <td style="padding: 12px 16px; font-size: var(--fs-sm); color: #FFFFFF; font-weight: 600; white-space: nowrap;">
+              ${formattedDate}
+            </td>
+            <td style="padding: 12px 16px; font-size: var(--fs-sm); color: var(--text-body);">
+              ${r.subject || 'Regular Lecture Session'}
+            </td>
+            <td style="padding: 12px 16px; text-align: center;">
+              <span class="metric-badge ${statusBadgeClass}">
+                ${statusLabel}
+              </span>
+            </td>
+            <td style="padding: 12px 16px; font-size: var(--fs-sm); color: var(--text-muted);">
+              ${r.remarks ? r.remarks : '—'}
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+
+      lookupAnotherBtn.addEventListener('click', () => {
+        displayWrap.style.display = 'none';
+        searchBoxWrap.style.display = 'block';
+        searchBoxWrap.scrollIntoView({ behavior: 'smooth' });
+        rollInput.focus();
+      });
+
+    });
+  </script>
+  <script src="script.js"></script>
+</body>
+</html>
+

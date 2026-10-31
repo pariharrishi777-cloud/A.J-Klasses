@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AJ Klasses — Premier Coaching Institute in Orai, Jalaun</title>
+  <meta name="description" content="AJ Klasses is Orai's leading coaching institute from LKG to Class 12 (CBSE & UP Board), Foundational Wings, Board Mastery, and Olympiads. Learn from expert faculty.">
+  <link rel="icon" type="image/png" href="assets/logo.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ════════════════════════════════════════════════════════
+       HEADER & NAVIGATION
+       ════════════════════════════════════════════════════════ -->
+  <header class="site-header" role="banner">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="AJ Klasses Home">
+        <div class="brand-logo-wrap" aria-hidden="true">
+          <img src="assets/logo.png" alt="AJ Klasses Logo" class="brand-logo-img">
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">AJ Klasses</span>
+          <span class="brand-sub">Orai • Jalaun District</span>
+        </div>
+      </a>
+
+      <nav aria-label="Primary Navigation">
+        <ul class="nav-links">
+          <li><a href="index.html" aria-current="page">Home</a></li>
+          <li><a href="courses.html">Courses</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li class="nav-dropdown">
+            <button type="button" class="kebab-btn" id="kebab-menu-btn" aria-haspopup="true" aria-expanded="false" aria-label="Student Portals & Services" title="Student Portals & Services">
+              <span class="kebab-dots" aria-hidden="true">
+                <span></span>
+                <span></span>
+                <span></span>
+              </span>
+              <span class="kebab-label">Portals</span>
+              <svg class="kebab-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="nav-dropdown-menu" id="portals-menu" role="menu">
+              <div class="dropdown-section-title">Student Portals</div>
+              <div class="dropdown-list">
+                <a href="admission.html" class="dropdown-item" role="menuitem">
+                  <span class="dropdown-item-icon" style="background: rgba(245, 158, 11, 0.15); color: #F59E0B;">⚡</span>
+                  <div class="dropdown-item-text">
+                    <span class="dropdown-item-title">Admissions Portal</span>
+                    <span class="dropdown-item-desc">Apply online &amp; track status</span>
+                  </div>
+                </a>
+                <a href="results.html" class="dropdown-item" role="menuitem">
+                  <span class="dropdown-item-icon" style="background: rgba(59, 130, 246, 0.15); color: #60A5FA;">📊</span>
+                  <div class="dropdown-item-text">
+                    <span class="dropdown-item-title">Results Portal</span>
+                    <span class="dropdown-item-desc">Marksheet &amp; PDF download</span>
+                  </div>
+                </a>
+                <a href="attendance.html" class="dropdown-item" role="menuitem">
+                  <span class="dropdown-item-icon" style="background: rgba(16, 185, 129, 0.15); color: #34D399;">📅</span>
+                  <div class="dropdown-item-text">
+                    <span class="dropdown-item-title">Attendance Portal</span>
+                    <span class="dropdown-item-desc">Live records &amp; attendance rate</span>
+                  </div>
+                </a>
+                <a href="student-history.html" class="dropdown-item" role="menuitem">
+                  <span class="dropdown-item-icon" style="background: rgba(168, 85, 247, 0.15); color: #C084FC;">📜</span>
+                  <div class="dropdown-item-text">
+                    <span class="dropdown-item-title">Academic History</span>
+                    <span class="dropdown-item-desc">Cumulative student progression</span>
+                  </div>
+                </a>
+                <a href="about-staff.html" class="dropdown-item" role="menuitem">
+                  <span class="dropdown-item-icon" style="background: rgba(59, 130, 246, 0.15); color: #60A5FA;">👨‍🏫</span>
+                  <div class="dropdown-item-text">
+                    <span class="dropdown-item-title">About Staff Portal</span>
+                    <span class="dropdown-item-desc">Faculty directory &amp; mentor profiles</span>
+                  </div>
+                </a>
+                <a href="gallery.html" class="dropdown-item" role="menuitem">
+                  <span class="dropdown-item-icon" style="background: rgba(245, 158, 11, 0.15); color: #F59E0B;">🖼️</span>
+                  <div class="dropdown-item-text">
+                    <span class="dropdown-item-title">Events Gallery</span>
+                    <span class="dropdown-item-desc">Campus events, functions &amp; 5GB vault</span>
+                  </div>
+                </a>
+              </div>
+              <div class="dropdown-divider"></div>
+              <div class="dropdown-section-title">Administration</div>
+              <a href="admin/login.html" class="dropdown-item dropdown-item--admin" role="menuitem">
+                <span class="dropdown-item-icon" style="background: rgba(239, 68, 68, 0.15); color: #F87171;">🔐</span>
+                <div class="dropdown-item-text">
+                  <span class="dropdown-item-title">Admin &amp; Staff Login</span>
+                  <span class="dropdown-item-desc">Control panel for institute staff</span>
+                </div>
+              </a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <a href="tel:+916394043659" class="btn btn--outline btn--sm" aria-label="Call AJ Klasses">
+          📞 +91 63940 43659
+        </a>
+        <a href="results.html" class="btn btn--secondary btn--sm" style="border: 1px solid var(--border-glow); color: var(--primary-light);">
+          Check Result 📊
+        </a>
+        <a href="admission.html" class="btn btn--primary btn--sm">
+          Apply Now ⚡
+        </a>
+        <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="Toggle navigation menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile Navigation">
+      <ul>
+        <li><a href="index.html" aria-current="page">🏠 Home</a></li>
+        <li><a href="courses.html">📚 Courses &amp; Batches</a></li>
+        <li><a href="about.html">🎓 About Institute</a></li>
+        <li><a href="contact.html">📍 Contact &amp; Centre</a></li>
+        <li style="border-top: 1px solid var(--border-subtle); margin-block: 6px; padding-top: 6px;">
+          <span style="font-size: 0.7rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.08em; padding-left: 12px; display: block; margin-bottom: 6px;">Student Portals &amp; Staff</span>
+        </li>
+        <li><a href="about-staff.html">👨‍🏫 About Staff Portal</a></li>
+        <li><a href="admission.html">⚡ Apply for Admission</a></li>
+        <li><a href="results.html">📊 Student Results</a></li>
+        <li><a href="attendance.html">📅 Student Attendance</a></li>
+        <li><a href="student-history.html">📜 Academic History</a></li>
+        <li><a href="gallery.html">🖼️ Events Gallery (5 GB)</a></li>
+        <li><a href="admin/login.html" style="color: #F87171;">🔐 Staff Login</a></li>
+      </ul>
+      <div class="mobile-nav-cta">
+        <a href="https://wa.me/916394043659?text=Hello%20AJ%20Klasses%2C%20I%20want%20to%20enquire%20about%20admission." class="btn btn--whatsapp" target="_blank" rel="noopener">
+          💬 Chat on WhatsApp
+        </a>
+        <a href="tel:+916394043659" class="btn btn--primary">
+          📞 Call Now: +91 63940 43659
+        </a>
+      </div>
+    </nav>
+  </header>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       HERO SECTION
+       ════════════════════════════════════════════════════════ -->
+  <section class="hero" aria-labelledby="hero-heading">
+    <div class="container hero-grid">
+      
+      <!-- Hero Left: Content -->
+      <div class="hero-content reveal-on-scroll">
+        <div class="hero-badge">
+          <span class="pulse-dot" aria-hidden="true"></span>
+          <span>Admissions Open 2024–25 • Limited Batch Size</span>
+        </div>
+
+        <h1 id="hero-heading" class="hero-title">
+          Where Ambition Meets <span class="text-gradient-gold">Academic Excellence</span>
+        </h1>
+
+        <p class="hero-desc">
+          Orai’s trusted coaching institute from LKG to Class 12 (CBSE &amp; UP Board) and competitive foundations. We combine rigorous concept clarity, early habit-building, and individual mentorship to turn student potential into top ranks.
+        </p>
+
+        <div class="hero-cta-group">
+          <a href="admission.html" class="btn btn--primary btn--lg">
+            Apply for Admission ⚡
+          </a>
+          <a href="courses.html" class="btn btn--outline btn--lg">
+            Explore Courses 📖
+          </a>
+          <a href="https://wa.me/916394043659?text=Hello%20AJ%20Klasses%2C%20I%20am%20interested%20in%20batch%20details." target="_blank" rel="noopener" class="btn btn--whatsapp btn--lg" aria-label="Chat on WhatsApp">
+            WhatsApp
+          </a>
+        </div>
+
+        <div class="hero-trust-bar">
+          <div class="trust-stars" aria-hidden="true">★★★★★</div>
+          <div class="trust-text">
+            <strong>4.9 / 5 Rated</strong> by students &amp; parents across Orai &amp; Jalaun District
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero Right: Visual with Floating Badges -->
+      <div class="hero-visual-wrapper reveal-on-scroll">
+        <div class="hero-visual-frame">
+          <img src="assets/hero-classroom.jpg" alt="Modern coaching classroom at AJ Klasses with attentive students and digital board" width="600" height="450" loading="eager">
+          <div class="hero-visual-overlay" aria-hidden="true"></div>
+        </div>
+
+        <!-- Floating Badge Top Left -->
+        <div class="floating-chip floating-chip--top-left" aria-hidden="true">
+          <div class="chip-icon">🏆</div>
+          <div class="chip-text">
+            <strong>98.4% Top Score</strong>
+            <span>Board Exam Toppers</span>
+          </div>
+        </div>
+
+        <!-- Floating Badge Bottom Right -->
+        <div class="floating-chip floating-chip--bottom-right" aria-hidden="true">
+          <div class="chip-icon chip-icon--blue">👥</div>
+          <div class="chip-text">
+            <strong>1:20 Batch Ratio</strong>
+            <span>Personal Mentor Attention</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       STATS COUNTERS STRIP
+       ════════════════════════════════════════════════════════ -->
+  <section class="section section--alt" aria-labelledby="stats-heading">
+    <div class="container">
+      <h2 id="stats-heading" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0);">Institute Achievements</h2>
+      
+      <div class="stats-strip">
+        <div class="stat-card reveal-on-scroll">
+          <div class="stat-number">12+</div>
+          <div class="stat-label">Years of Excellence</div>
+          <div class="stat-sub">Proven teaching heritage in Orai</div>
+        </div>
+
+        <div class="stat-card reveal-on-scroll">
+          <div class="stat-number">3,500+</div>
+          <div class="stat-label">Students Mentored</div>
+          <div class="stat-sub">Across Board &amp; Competitive batches</div>
+        </div>
+
+        <div class="stat-card reveal-on-scroll">
+          <div class="stat-number">99.2%</div>
+          <div class="stat-label">Board Pass Rate</div>
+          <div class="stat-sub">UP Board &amp; CBSE examinations</div>
+        </div>
+
+        <div class="stat-card reveal-on-scroll">
+          <div class="stat-number">150+</div>
+          <div class="stat-label">Top Selections</div>
+          <div class="stat-sub">Olympiads, NTSE &amp; Entrances</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       WHY CHOOSE AJ KLASSES (BENTO GRID)
+       ════════════════════════════════════════════════════════ -->
+  <section class="section" aria-labelledby="why-heading">
+    <div class="container">
+      <div class="section-header reveal-on-scroll">
+        <span class="section-pill">Why AJ Klasses</span>
+        <h2 id="why-heading">Engineered for <span class="text-gradient-gold">Real Results</span></h2>
+        <p>We provide a disciplined, technology-enabled environment that turns student doubts into unshakeable confidence.</p>
+      </div>
+
+      <div class="bento-grid">
+        
+        <!-- Bento 1 (Large) -->
+        <div class="bento-card bento-col-8 reveal-on-scroll">
+          <div>
+            <div class="bento-icon-box">🧠</div>
+            <h3>Concept-First Pedagogy with Modern Teaching Tools</h3>
+            <p>
+              Instead of rote memorization, our teachers break down complex Mathematics, Physics, Chemistry, and Biology principles into visual, intuitive models. Interactive boards and practical real-world problem sets help students internalize core syllabus fundamentals.
+            </p>
+          </div>
+          <div class="bento-badge-list">
+            <span class="badge-tag">NCERT Deep-Dive</span>
+            <span class="badge-tag">Interactive Diagrams</span>
+            <span class="badge-tag">Formulas &amp; Derivations Mastery</span>
+          </div>
+        </div>
+
+        <!-- Bento 2 -->
+        <div class="bento-card bento-col-4 reveal-on-scroll">
+          <div>
+            <div class="bento-icon-box bento-icon-box--blue">🎯</div>
+            <h3>Dedicated 1-on-1 Doubt Cell</h3>
+            <p>
+              No student leaves the institute with an unresolved question. Daily 45-minute doubt sessions ensure every student catches up immediately.
+            </p>
+          </div>
+          <div class="bento-badge-list">
+            <span class="badge-tag">Daily Doubt Clearance</span>
+            <span class="badge-tag">Personal Study Plans</span>
+          </div>
+        </div>
+
+        <!-- Bento 3 -->
+        <div class="bento-card bento-col-4 reveal-on-scroll">
+          <div>
+            <div class="bento-icon-box bento-icon-box--cyan">📝</div>
+            <h3>Daily Practice Papers (DPP)</h3>
+            <p>
+              Structured chapter-wise practice sheets distributed after every lecture to build speed, accuracy, and rigorous exam habits.
+            </p>
+          </div>
+          <div class="bento-badge-list">
+            <span class="badge-tag">Previous Year Papers</span>
+            <span class="badge-tag">Speed Tests</span>
+          </div>
+        </div>
+
+        <!-- Bento 4 -->
+        <div class="bento-card bento-col-4 reveal-on-scroll">
+          <div>
+            <div class="bento-icon-box bento-icon-box--emerald">📊</div>
+            <h3>Bi-Weekly Test Series &amp; Rank Analytics</h3>
+            <p>
+              Regular examinations simulating actual board exam patterns, followed by detailed feedback reports shared with parents.
+            </p>
+          </div>
+          <div class="bento-badge-list">
+            <span class="badge-tag">Board Pattern Tests</span>
+            <span class="badge-tag">Progress Analytics</span>
+          </div>
+        </div>
+
+        <!-- Bento 5 -->
+        <div class="bento-card bento-col-4 reveal-on-scroll">
+          <div>
+            <div class="bento-icon-box">👨‍👩‍👦</div>
+            <h3>Active Parent-Teacher Partnership</h3>
+            <p>
+              Monthly reviews and instant attendance alerts via SMS/WhatsApp keep parents fully in sync with their child's academic journey.
+            </p>
+          </div>
+          <div class="bento-badge-list">
+            <span class="badge-tag">Monthly PTM</span>
+            <span class="badge-tag">Attendance Tracking</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       COURSES PREVIEW
+       ════════════════════════════════════════════════════════ -->
+  <section class="section section--alt" aria-labelledby="courses-preview-heading">
+    <div class="container">
+      <div class="section-header reveal-on-scroll">
+        <span class="section-pill">Our Academic Programs</span>
+        <h2 id="courses-preview-heading">Comprehensive Programs for <span class="text-gradient-gold">Every Class</span></h2>
+        <p>Curriculums aligned to UP Board and CBSE standards with focused competitive foundation.</p>
+      </div>
+
+      <div class="course-grid">
+        
+        <!-- Course 0: Pre-Primary & Junior Foundation (LKG to 8th) -->
+        <article class="course-card reveal-on-scroll">
+          <div class="course-card-top">
+            <div class="course-icon-badge">🌱</div>
+            <span class="course-level-tag">LKG to Class 8</span>
+          </div>
+          <div class="course-card-content">
+            <h3>Pre-Primary &amp; Junior Foundation</h3>
+            <p>Joyful phonics, mental math, neat handwriting, reading fluency, and core science curiosity. Small batches with warm, loving personal mentorship.</p>
+            <ul class="course-features-list">
+              <li><svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg> Phonics, Reading &amp; Cursive Handwriting</li>
+              <li><svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg> Mental Math &amp; Calculation Speed Tricks</li>
+              <li><svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg> Activity-Based Science &amp; English Grammar</li>
+            </ul>
+          </div>
+          <div class="course-card-footer">
+            <div class="course-batch-time">
+              <span>Afternoon &amp; Evening Batches</span>
+              <strong>Small Batches (Max 15)</strong>
+            </div>
+            <a href="courses.html?filter=preprimary" class="btn btn--primary btn--sm">Explore Wing</a>
+          </div>
+        </article>
+
+        <!-- Course 1 -->
+        <article class="course-card reveal-on-scroll">
+          <div class="course-card-top">
+            <div class="course-icon-badge">📐</div>
+            <span class="course-level-tag">Klasses 9 &amp; 10</span>
+          </div>
+          <div class="course-card-content">
+            <h3>Class 10 Board Mastery</h3>
+            <p>Full syllabus mastery of Mathematics &amp; Science. Rigorous sample paper drills, formula revision, and board answer-writing techniques.</p>
+            <ul class="course-features-list">
+              <li><svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg> Complete NCERT &amp; Exemplar Solutions</li>
+              <li><svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg> 10 Full-Length Mock Exams</li>
+              <li><svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg> Daily Formula &amp; Theory Sheets</li>
+            </ul>
+          </div>
+          <div class="course-card-footer">
+            <div class="course-batch-time">
+              <span>Morning &amp; Evening Batches</span>
+              <strong>Seats filling fast</strong>
+            </div>
+            <a href="contact.html" class="btn btn--primary btn--sm">Enquire Now</a>
+          </div>
+        </article>
+
+        <!-- Course 2 -->
+        <article class="course-card reveal-on-scroll">
+          <div class="course-card-top">
+            <div class="course-icon-badge">🔬</div>
+            <span class="course-level-tag">Klasses 11 &amp; 12</span>
+          </div>
+          <div class="course-card-content">
+            <h3>Senior Secondary Science (PCM / PCB)</h3>
+            <p>Specialized coaching for Physics, Chemistry, Mathematics &amp; Biology. Intensive preparation for Board exams plus competitive fundamentals.</p>
+            <ul class="course-features-list">
+              <li><svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg> Derivation &amp; Numerical Problem Solving</li>
+              <li><svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg> Chemistry Reaction Mechanisms</li>
+              <li><svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg> Chapter-End Question Banks</li>
+            </ul>
+          </div>
+          <div class="course-card-footer">
+            <div class="course-batch-time">
+              <span>Target 95%+ in Boards</span>
+              <strong>Expert Faculty Led</strong>
+            </div>
+            <a href="contact.html" class="btn btn--primary btn--sm">Enquire Now</a>
+          </div>
+        </article>
+
+        <!-- Course 3 -->
+        <article class="course-card reveal-on-scroll">
+          <div class="course-card-top">
+            <div class="course-icon-badge">🏆</div>
+            <span class="course-level-tag">Foundation &amp; Competitive</span>
+          </div>
+          <div class="course-card-content">
+            <h3>Foundation &amp; Olympiad Batch</h3>
+            <p>Designed for ambitious students in Klasses 7–10 aiming for NTSE, Science Olympiads, and strong early analytical aptitude.</p>
+            <ul class="course-features-list">
+              <li><svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg> Logical Reasoning &amp; Mental Ability</li>
+              <li><svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg> Advanced Mathematics &amp; Science</li>
+              <li><svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg> Competitive Mock Test Series</li>
+            </ul>
+          </div>
+          <div class="course-card-footer">
+            <div class="course-batch-time">
+              <span>Weekend &amp; Regular Batches</span>
+              <strong>Limited 20 Seats</strong>
+            </div>
+            <a href="contact.html" class="btn btn--primary btn--sm">Enquire Now</a>
+          </div>
+        </article>
+
+      </div>
+
+      <div style="text-align: center; margin-top: var(--space-2xl);" class="reveal-on-scroll">
+        <a href="courses.html" class="btn btn--outline btn--lg">
+          View All Courses &amp; Subjects →
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       RESULTS & TOPPERS SHOWCASE
+       ════════════════════════════════════════════════════════ -->
+  <section class="section" aria-labelledby="results-heading">
+    <div class="container">
+      <div class="section-header reveal-on-scroll">
+        <span class="section-pill">Hall of Fame</span>
+        <h2 id="results-heading">Consistent Top Scores, <span class="text-gradient-gold">Year After Year</span></h2>
+        <p>Our students consistently secure top percentages in Orai and Jalaun District board examinations.</p>
+      </div>
+
+      <!-- Banner Image -->
+      <div style="margin-bottom: var(--space-2xl); border-radius: var(--radius-xl); overflow: hidden; border: 1px solid var(--border-card);" class="reveal-on-scroll">
+        <img src="assets/toppers-achievement.jpg" alt="Students of AJ Klasses celebrating their exam success" width="1200" height="500" style="width: 100%; height: 380px; object-fit: cover;">
+      </div>
+
+      <!-- Toppers Grid -->
+      <div class="toppers-grid">
+        
+        <div class="topper-card reveal-on-scroll">
+          <div class="topper-score-badge">98.4%</div>
+          <div class="topper-name">Rahul Sharma</div>
+          <div class="topper-class">Class 10 Board Exam</div>
+          <p class="topper-quote">"The regular test series and concept notes at AJ Klasses made complex Maths and Science questions extremely easy in the finals."</p>
+        </div>
+
+        <div class="topper-card reveal-on-scroll">
+          <div class="topper-score-badge">97.2%</div>
+          <div class="topper-name">Pooja Verma</div>
+          <div class="topper-class">Class 12 Science (PCM)</div>
+          <p class="topper-quote">"Ajay Sir and Abhishek Sir provided individual guidance on numericals that helped me score full marks in Mathematics."</p>
+        </div>
+
+        <div class="topper-card reveal-on-scroll">
+          <div class="topper-score-badge">96.8%</div>
+          <div class="topper-name">Aman Dwivedi</div>
+          <div class="topper-class">Class 10 Board Exam</div>
+          <p class="topper-quote">"Small batch size was the biggest advantage. Whenever I was stuck on a derivation, the teachers were always available."</p>
+        </div>
+
+        <div class="topper-card reveal-on-scroll">
+          <div class="topper-score-badge">95.6%</div>
+          <div class="topper-name">Sneha Rathour</div>
+          <div class="topper-class">Class 12 Science (PCB)</div>
+          <p class="topper-quote">"Detailed biology diagrams and chemistry mechanism revision enabled me to achieve my dream score."</p>
+        </div>
+
+      </div>
+
+      <!-- Testimonials -->
+      <div class="testimonials-grid" style="margin-top: var(--space-xl);">
+        <div class="testimonial-card reveal-on-scroll">
+          <div class="testimonial-stars" aria-hidden="true">★★★★★</div>
+          <p class="testimonial-text">
+            "We were worried about our son's performance in Class 10 Science. After enrolling in AJ Klasses, his understanding and confidence soared. He scored 96% in board exams!"
+          </p>
+          <div class="testimonial-author">
+            <div class="author-avatar" aria-hidden="true">VK</div>
+            <div class="author-info">
+              <strong>Vinod Kumar</strong>
+              <span>Parent, Orai</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card reveal-on-scroll">
+          <div class="testimonial-stars" aria-hidden="true">★★★★★</div>
+          <p class="testimonial-text">
+            "The discipline and regular assessments at AJ Klasses set them apart from any other tuition centre in Orai. Teachers give true personal mentorship."
+          </p>
+          <div class="testimonial-author">
+            <div class="author-avatar" aria-hidden="true">ST</div>
+            <div class="author-info">
+              <strong>Sunita Tiwari</strong>
+              <span>Parent, Jalaun</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       FREQUENTLY ASKED QUESTIONS (ACCORDION)
+       ════════════════════════════════════════════════════════ -->
+  <section class="section section--alt" aria-labelledby="faq-heading">
+    <div class="container">
+      <div class="section-header reveal-on-scroll">
+        <span class="section-pill">Got Questions?</span>
+        <h2 id="faq-heading">Frequently Asked <span class="text-gradient-gold">Questions</span></h2>
+        <p>Everything you need to know about admissions, batches, and teaching methodology.</p>
+      </div>
+
+      <div class="faq-accordion reveal-on-scroll">
+        
+        <div class="faq-item active">
+          <button class="faq-question" aria-expanded="true">
+            <span>What are the batch timings available at AJ Klasses?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>We run separate Morning (6:30 AM – 9:30 AM) and Evening (3:30 PM – 7:30 PM) batches to accommodate school schedules conveniently. Special weekend batches are also available for competitive foundations.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>How many students are enrolled in each batch?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>To ensure personal attention, our batch size is strictly limited to 20–25 students per class. This allows our faculty to monitor every student’s homework and test performance individually.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>Do you offer free demo klasses before admission?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Yes, we offer up to 2 free trial/demo klasses so students can experience our teaching methodology, interactive classroom environment, and study material first-hand.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>Which boards do you cover?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>We provide specialized coaching for both UP Board (English &amp; Hindi medium) and CBSE curricula from LKG through Class 12, with customized study material matching the exact board blueprint.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>How can parents track their child's attendance and test scores?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>We maintain comprehensive attendance and test records. Parents receive periodic WhatsApp/SMS updates and are invited to monthly Parent-Teacher Meetings (PTMs) to review test performance.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       HIGH-CONVERTING CTA BANNER
+       ════════════════════════════════════════════════════════ -->
+  <section class="section" style="text-align: center; padding-block: var(--space-3xl);" aria-labelledby="cta-heading">
+    <div class="container reveal-on-scroll">
+      <div style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(59, 130, 246, 0.15)); border: 1px solid var(--border-glow); border-radius: var(--radius-xl); padding: var(--space-3xl) var(--space-lg); box-shadow: var(--shadow-glow-gold);">
+        <span class="section-pill">Secure Your Spot</span>
+        <h2 id="cta-heading" style="font-family: var(--ff-heading); font-size: var(--fs-3xl); font-weight: 900; color: #FFFFFF; margin-bottom: 12px;">
+          Give Your Child the <span class="text-gradient-gold">Academic Advantage</span>
+        </h2>
+        <p style="font-size: var(--fs-md); color: var(--text-body); max-width: 600px; margin-inline: auto; margin-bottom: var(--space-xl);">
+          New batches for the academic session 2024–25 are starting this week. Connect with our admission counsellor today or visit our centre in Orai.
+        </p>
+        <div style="display: flex; justify-content: center; gap: var(--space-md); flex-wrap: wrap;">
+          <a href="contact.html" class="btn btn--primary btn--lg">Apply for Admission ⚡</a>
+          <a href="https://wa.me/916394043659?text=Hello%2C%20I%20want%20to%20know%20about%20new%20batch%20admissions%20at%20AJ%20Klasses." target="_blank" rel="noopener" class="btn btn--whatsapp btn--lg">
+            Chat on WhatsApp
+          </a>
+          <a href="tel:+916394043659" class="btn btn--outline btn--lg">
+            📞 +91 63940 43659
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       SITE FOOTER
+       ════════════════════════════════════════════════════════ -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-top">
+        
+        <!-- Col 1: Brand -->
+        <div class="footer-brand-col">
+          <a href="index.html" class="brand">
+            <div class="brand-logo-wrap" aria-hidden="true">
+              <img src="assets/logo.png" alt="AJ Klasses Logo" class="brand-logo-img">
+            </div>
+            <div class="brand-text">
+              <span class="brand-name">AJ Klasses</span>
+              <span class="brand-sub">Orai, Jalaun District</span>
+            </div>
+          </a>
+          <p>
+            Orai's premier academic coaching institute, dedicated to fostering concept clarity, discipline, and top ranks for students from LKG to Class 12.
+          </p>
+        </div>
+
+        <!-- Col 2: Quick Links -->
+        <div class="footer-col">
+          <h4>Integrated Portals</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="admission.html">Admission Portal</a></li>
+            <li><a href="results.html">Result Portal</a></li>
+            <li><a href="attendance.html">Attendance Portal</a></li>
+            <li><a href="student-history.html">Academic History</a></li>
+            <li><a href="about-staff.html">Faculty &amp; Staff</a></li>
+            <li><a href="gallery.html">Events Gallery (5 GB)</a></li>
+            <li><a href="courses.html">Our Courses</a></li>
+            <li><a href="contact.html">Contact &amp; Location</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Courses -->
+        <div class="footer-col">
+          <h4>Key Batches</h4>
+          <ul class="footer-links">
+            <li><a href="courses.html">Class 10 Board Prep</a></li>
+            <li><a href="courses.html">Class 12 PCM / PCB</a></li>
+            <li><a href="courses.html">Foundation 6–8</a></li>
+            <li><a href="courses.html">Competitive Entrance</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Contact -->
+        <div class="footer-col">
+          <h4>Get in Touch</h4>
+          <div class="footer-contact-item">
+            <span>📍</span>
+            <a href="https://maps.google.com/?q=XFP4%2B4F7,+Teli+Vali+Street,+Tulsi+Nagar,+New+Ram+Nagar,+Niyamatpur,+Orai,+Uttar+Pradesh+285001" target="_blank" rel="noopener" style="color: var(--text-body); transition: var(--transition);" title="Open in Google Maps">
+              Teli Vali Street, Tulsi Nagar, Orai (Plus Code: <strong style="color: var(--primary-light);">XFP4+4F7</strong>)
+            </a>
+          </div>
+          <div class="footer-contact-item">
+            <span>📞</span>
+            <a href="tel:+916394043659" style="color: var(--primary-light);">+91 63940 43659</a>
+          </div>
+          <div class="footer-contact-item">
+            <span>✉️</span>
+            <a href="mailto:pariharrishi777@gmail.com" style="color: var(--primary-light);">pariharrishi777@gmail.com</a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2024–2026 AJ Klasses. All rights reserved. &nbsp;|&nbsp; <a href="privacy-policy.html" style="color:inherit;opacity:.75;text-decoration:underline;">Privacy Policy</a></div>
+        <div>Designed with modern excellence for the leaders of tomorrow.</div>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       FLOATING ACTION HUB (WHATSAPP QUICK CONNECT)
+       ════════════════════════════════════════════════════════ -->
+  <div class="floating-action-hub">
+    <a href="https://wa.me/916394043659?text=Hello%20AJ%20Klasses%2C%20I%20have%20an%20enquiry%20regarding%20admissions." target="_blank" rel="noopener" class="float-btn float-btn--whatsapp" aria-label="Chat with AJ Klasses counsellor on WhatsApp">
+      <span class="float-pulse" aria-hidden="true"></span>
+      <span style="font-size: 1.25rem;">💬</span>
+      <span>Chat on WhatsApp</span>
+    </a>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

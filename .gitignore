@@ -1,0 +1,40 @@
+# ============================================================
+# AJ KLASSES — GITIGNORE CONFIGURATION
+# Optimized for GitHub repository upload & deployment
+# ============================================================
+
+# 1. Dependency Directory (MUST NEVER BE UPLOADED TO GITHUB)
+node_modules/
+
+# 2. SQLite Runtime Locks & Temporary WAL Journal Files
+data/*.db-wal
+data/*.db-shm
+data/*.db-journal
+data/backups/*
+!data/backups/.gitkeep
+
+# 3. Dynamic User Uploads (Keeps directory structure clean)
+uploads/gallery/*
+!uploads/gallery/.gitkeep
+uploads/notes/*
+!uploads/notes/.gitkeep
+
+# 4. Environment & Secrets
+.env
+.env.local
+.env.*.local
+
+# 5. Logs & Debug outputs
+*.log
+npm-debug.log*
+yarn-debug.log*
+
+# 6. Operating System Artifacts
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 7. IDE & Code Editors
+.vscode/
+.idea/
+*.sublime-workspace

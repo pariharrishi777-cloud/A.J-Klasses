@@ -1,0 +1,30 @@
+{
+  "name": "aj-klasses-portal",
+  "version": "1.0.0",
+  "description": "Official Web Portal & Integrated Student Management System for AJ Klasses, Orai",
+  "main": "server.js",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "node verify_all_security.js"
+  },
+  "keywords": [
+    "education",
+    "coaching-institute",
+    "student-management",
+    "express",
+    "sqlite",
+    "orai"
+  ],
+  "author": "Rishi Parihar",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.3.0",
+    "helmet": "^8.3.0",
+    "multer": "^2.4.0"
+  }
+}
